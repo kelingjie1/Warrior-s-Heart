@@ -64,6 +64,8 @@ public class BattleField : MonoBehaviour
             attacker.name = "attacker" + i;
             AttackerList.Add(attacker);
         }
+        AttackerList[0].TestMelee();
+        AttackerList[1].TestRemote();
         for (int i = 0; i < AttackerList.Count; i++)
         {
             for (int j = i + 1; j < AttackerList.Count; j++)
@@ -80,6 +82,8 @@ public class BattleField : MonoBehaviour
             defender.name = "defender" + i;
             DefenderList.Add(defender);
         }
+        DefenderList[0].TestMelee();
+        DefenderList[1].TestRemote();
         for (int i = 0; i < DefenderList.Count; i++)
         {
             for (int j = i + 1; j < DefenderList.Count; j++)

@@ -10,6 +10,7 @@ public class DidHitHandler_Base : BattleEventHandler
         {
             return null;
         }
+        Debug.Log("hit");
         KnockEventMessage knockmsg = new KnockEventMessage();
         knockmsg.KnockStrength = 0;
         foreach (Warrior item in sponsors)
