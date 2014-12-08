@@ -146,4 +146,9 @@ public class BattleField : MonoBehaviour
 
     }
 
+    void OnClick()
+    {
+        Debug.Log("aa");
+    }
+
 }
