@@ -11,30 +11,30 @@ public class DidHitHandler_Base : BattleEventHandler
             return null;
         }
         Debug.Log("hit");
+        List<Warrior> nextResponders = new List<Warrior>();
         KnockEventMessage knockmsg = new KnockEventMessage();
         knockmsg.KnockStrength = 0;
         foreach (Warrior item in sponsors)
         {
             knockmsg.KnockStrength += item.knockback;
         }
-        BattleField.Instance.SendEvent(BattleEventType.WillKnock, sponsors, responders, knockmsg);
+        float dis = 0;
+        int id = 0;
+        for (int i = 0; i < responders.Count; i++)
+        {
+            float len = Mathf.Abs(responders[i].transform.localPosition.x - sponsors[0].transform.localPosition.x);
+            if (len > dis)
+            {
+                dis = len;
+                id = i;
+            }
+        }
+        nextResponders.Add(responders[id]);
+        BattleField.Instance.SendEvent(BattleEventType.WillKnock, sponsors, nextResponders, knockmsg);
         if (knockmsg.ContinueAction)
         {
-            float dis=0;
-            int id = 0;
-            for (int i = 0; i < responders.Count; i++)
-            {
-                float len = Mathf.Abs(responders[i].transform.localPosition.x - sponsors[0].transform.localPosition.x);
-                if (len>dis)
-                {
-                    dis = len;
-                    id = i;
-                }
-            }
-            BattleField.Instance.SendEvent(BattleEventType.DidKnock, sponsors, responders, knockmsg);
-            responders[id].moveState = MoveState.KnockBack;
-            responders[id].rigidbody.AddForce(new Vector3(-knockmsg.KnockStrength * responders[0].dir, 0, 0), ForceMode.Impulse);
-            //responders[id].rigidbody.velocity = new Vector3(-knockmsg.KnockStrength * responders[0].dir, 0, 0);
+            
+            BattleField.Instance.SendEvent(BattleEventType.DidKnock, sponsors, nextResponders, knockmsg);
         }
         
 

@@ -99,6 +99,8 @@ public class BattleField : MonoBehaviour
         }
         DidHitHandler_Base didhitbase = new DidHitHandler_Base();
         this.RegisterEvent(BattleEventType.DidHit, didhitbase);
+        DidKnockHandler_Base didknockbase = new DidKnockHandler_Base();
+        this.RegisterEvent(BattleEventType.DidKnock, didknockbase);
         /////////////////////////
         this.SendEvent(BattleEventType.DidStartBattle);
     }
