@@ -1,0 +1,5 @@
+root
+-name名字
+-camp阵营 0：中立 1：攻击者(左边) 2：防御者(右边)
+-attribute
+--power

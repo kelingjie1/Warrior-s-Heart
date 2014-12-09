@@ -1,0 +1,34 @@
+基础属性：
+力量 Power
+体力 Strong
+智力 Intelligence
+敏捷 Agility
+
+进阶属性：
+击退 			Knockback
+击退抵抗 		Anti-Knockback
+生命值 			HP
+物理攻击 		PhysicalAttack
+魔法攻击 		MagicAttack
+攻击间隔 		AttackInterval
+攻击范围 		AttackRange
+最高移动速度 	MaxMoveSpeed
+加速度 			Acceleration
+物理防御 		PhysicalDeffence
+魔法防御 		MagicDeffence
+
+其他属性：
+命中延迟		HitDelay
+碰撞盒大小		ColliderSize
+图片大小		ImageSize
+
+成长属性：
+力量成长 PowerGrow
+体力成长 StrongGrow
+智力成长 IntelligenceGrow
+敏捷成长 AgilityGrow
+
+职业：
+战士
+弓箭手
+法师
