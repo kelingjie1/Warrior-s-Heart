@@ -7,7 +7,7 @@
 进阶属性：
 击退 			Knockback
 击退抵抗 		Anti-Knockback
-生命值 			HP
+生命上限 		MaxHP
 物理攻击 		PhysicalAttack
 魔法攻击 		MagicAttack
 攻击间隔 		AttackInterval
@@ -21,12 +21,19 @@
 命中延迟		HitDelay
 碰撞盒大小		ColliderSize
 图片大小		ImageSize
+动画速度		AnimationSpeed
+
+物理属性：
+摩擦
+质量
+推力
+击退冲量
 
 成长属性：
-力量成长 PowerGrow
-体力成长 StrongGrow
-智力成长 IntelligenceGrow
-敏捷成长 AgilityGrow
+力量成长 		PowerGrow
+体力成长 		StrongGrow
+智力成长 		IntelligenceGrow
+敏捷成长 		AgilityGrow
 
 职业：
 战士
