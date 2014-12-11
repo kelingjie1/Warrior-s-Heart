@@ -29,53 +29,59 @@
         private void InitializeComponent()
         {
             this.tabControl = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.mFloorHeight = new System.Windows.Forms.NumericUpDown();
-            this.mWidth = new System.Windows.Forms.NumericUpDown();
+            this.filePath = new System.Windows.Forms.TabPage();
+            this.chooseResourcePath = new System.Windows.Forms.Button();
+            this.resourcePath = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.mapFloorHeight = new System.Windows.Forms.NumericUpDown();
+            this.mapWidth = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.wX = new System.Windows.Forms.NumericUpDown();
+            this.warriorX = new System.Windows.Forms.NumericUpDown();
             this.label12 = new System.Windows.Forms.Label();
-            this.wGuardingDistance = new System.Windows.Forms.NumericUpDown();
+            this.warriorGuardingDistance = new System.Windows.Forms.NumericUpDown();
             this.label10 = new System.Windows.Forms.Label();
-            this.wLevel = new System.Windows.Forms.NumericUpDown();
+            this.warriorLevel = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.wName = new System.Windows.Forms.TextBox();
+            this.warriorName = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.wPath = new System.Windows.Forms.ComboBox();
+            this.warriorPath = new System.Windows.Forms.ComboBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.aHeight = new System.Windows.Forms.NumericUpDown();
-            this.aWidth = new System.Windows.Forms.NumericUpDown();
+            this.adornmentHeight = new System.Windows.Forms.NumericUpDown();
+            this.adornmentWidth = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
-            this.aY = new System.Windows.Forms.NumericUpDown();
-            this.aX = new System.Windows.Forms.NumericUpDown();
+            this.adornmentY = new System.Windows.Forms.NumericUpDown();
+            this.adornmentX = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
-            this.aName = new System.Windows.Forms.TextBox();
+            this.adornmentName = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.chooseImage = new System.Windows.Forms.Button();
-            this.aImage = new System.Windows.Forms.TextBox();
+            this.adornmentImage = new System.Windows.Forms.TextBox();
             this.map = new System.Windows.Forms.Panel();
+            this.floor = new System.Windows.Forms.Label();
             this.addAdornment = new System.Windows.Forms.Button();
             this.addWarrior = new System.Windows.Forms.Button();
             this.Save = new System.Windows.Forms.Button();
-            this.floor = new System.Windows.Forms.Label();
             this.panel = new System.Windows.Forms.Panel();
+            this.label13 = new System.Windows.Forms.Label();
+            this.openFilePath = new System.Windows.Forms.TextBox();
+            this.openFile = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.mFloorHeight)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mWidth)).BeginInit();
+            this.filePath.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mapFloorHeight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mapWidth)).BeginInit();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.wX)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.wGuardingDistance)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.wLevel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.warriorX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.warriorGuardingDistance)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.warriorLevel)).BeginInit();
             this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.aHeight)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.aWidth)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.aY)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.aX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.adornmentHeight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.adornmentWidth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.adornmentY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.adornmentX)).BeginInit();
             this.map.SuspendLayout();
             this.panel.SuspendLayout();
             this.SuspendLayout();
@@ -84,7 +90,7 @@
             // 
             this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl.Controls.Add(this.tabPage1);
+            this.tabControl.Controls.Add(this.filePath);
             this.tabControl.Controls.Add(this.tabPage2);
             this.tabControl.Controls.Add(this.tabPage3);
             this.tabControl.Location = new System.Drawing.Point(815, 58);
@@ -93,55 +99,87 @@
             this.tabControl.Size = new System.Drawing.Size(200, 711);
             this.tabControl.TabIndex = 2;
             // 
-            // tabPage1
+            // filePath
             // 
-            this.tabPage1.Controls.Add(this.mFloorHeight);
-            this.tabPage1.Controls.Add(this.mWidth);
-            this.tabPage1.Controls.Add(this.label8);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(192, 685);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "地图属性";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.filePath.Controls.Add(this.openFilePath);
+            this.filePath.Controls.Add(this.label13);
+            this.filePath.Controls.Add(this.chooseResourcePath);
+            this.filePath.Controls.Add(this.resourcePath);
+            this.filePath.Controls.Add(this.label2);
+            this.filePath.Controls.Add(this.mapFloorHeight);
+            this.filePath.Controls.Add(this.mapWidth);
+            this.filePath.Controls.Add(this.label8);
+            this.filePath.Controls.Add(this.label1);
+            this.filePath.Location = new System.Drawing.Point(4, 22);
+            this.filePath.Name = "filePath";
+            this.filePath.Padding = new System.Windows.Forms.Padding(3);
+            this.filePath.Size = new System.Drawing.Size(192, 685);
+            this.filePath.TabIndex = 0;
+            this.filePath.Text = "地图属性";
+            this.filePath.UseVisualStyleBackColor = true;
             // 
-            // mFloorHeight
+            // chooseResourcePath
             // 
-            this.mFloorHeight.Location = new System.Drawing.Point(83, 39);
-            this.mFloorHeight.Maximum = new decimal(new int[] {
+            this.chooseResourcePath.Location = new System.Drawing.Point(151, 109);
+            this.chooseResourcePath.Name = "chooseResourcePath";
+            this.chooseResourcePath.Size = new System.Drawing.Size(35, 23);
+            this.chooseResourcePath.TabIndex = 5;
+            this.chooseResourcePath.Text = "...";
+            this.chooseResourcePath.UseVisualStyleBackColor = true;
+            this.chooseResourcePath.Click += new System.EventHandler(this.chooseResourcePath_Click);
+            // 
+            // resourcePath
+            // 
+            this.resourcePath.Location = new System.Drawing.Point(10, 112);
+            this.resourcePath.Name = "resourcePath";
+            this.resourcePath.Size = new System.Drawing.Size(135, 21);
+            this.resourcePath.TabIndex = 4;
+            this.resourcePath.TextChanged += new System.EventHandler(this.resourcePath_TextChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(8, 96);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(53, 12);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "资源路径";
+            // 
+            // mapFloorHeight
+            // 
+            this.mapFloorHeight.Location = new System.Drawing.Point(83, 39);
+            this.mapFloorHeight.Maximum = new decimal(new int[] {
             100000,
             0,
             0,
             0});
-            this.mFloorHeight.Name = "mFloorHeight";
-            this.mFloorHeight.Size = new System.Drawing.Size(103, 21);
-            this.mFloorHeight.TabIndex = 2;
-            this.mFloorHeight.Value = new decimal(new int[] {
+            this.mapFloorHeight.Name = "mapFloorHeight";
+            this.mapFloorHeight.Size = new System.Drawing.Size(103, 21);
+            this.mapFloorHeight.TabIndex = 2;
+            this.mapFloorHeight.Value = new decimal(new int[] {
             100,
             0,
             0,
             0});
-            this.mFloorHeight.ValueChanged += new System.EventHandler(this.mFloorHeight_ValueChanged);
+            this.mapFloorHeight.ValueChanged += new System.EventHandler(this.mFloorHeight_ValueChanged);
             // 
-            // mWidth
+            // mapWidth
             // 
-            this.mWidth.Location = new System.Drawing.Point(83, 12);
-            this.mWidth.Maximum = new decimal(new int[] {
+            this.mapWidth.Location = new System.Drawing.Point(83, 12);
+            this.mapWidth.Maximum = new decimal(new int[] {
             100000,
             0,
             0,
             0});
-            this.mWidth.Name = "mWidth";
-            this.mWidth.Size = new System.Drawing.Size(103, 21);
-            this.mWidth.TabIndex = 1;
-            this.mWidth.Value = new decimal(new int[] {
+            this.mapWidth.Name = "mapWidth";
+            this.mapWidth.Size = new System.Drawing.Size(103, 21);
+            this.mapWidth.TabIndex = 1;
+            this.mapWidth.Value = new decimal(new int[] {
             2000,
             0,
             0,
             0});
-            this.mWidth.ValueChanged += new System.EventHandler(this.MapSize_ValueChanged);
+            this.mapWidth.ValueChanged += new System.EventHandler(this.MapSize_ValueChanged);
             // 
             // label8
             // 
@@ -163,40 +201,40 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.wX);
+            this.tabPage2.Controls.Add(this.warriorX);
             this.tabPage2.Controls.Add(this.label12);
-            this.tabPage2.Controls.Add(this.wGuardingDistance);
+            this.tabPage2.Controls.Add(this.warriorGuardingDistance);
             this.tabPage2.Controls.Add(this.label10);
-            this.tabPage2.Controls.Add(this.wLevel);
+            this.tabPage2.Controls.Add(this.warriorLevel);
             this.tabPage2.Controls.Add(this.label9);
             this.tabPage2.Controls.Add(this.label7);
-            this.tabPage2.Controls.Add(this.wName);
+            this.tabPage2.Controls.Add(this.warriorName);
             this.tabPage2.Controls.Add(this.label6);
-            this.tabPage2.Controls.Add(this.wPath);
+            this.tabPage2.Controls.Add(this.warriorPath);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(192, 463);
+            this.tabPage2.Size = new System.Drawing.Size(192, 685);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "战士属性";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // wX
+            // warriorX
             // 
-            this.wX.Location = new System.Drawing.Point(41, 112);
-            this.wX.Maximum = new decimal(new int[] {
+            this.warriorX.Location = new System.Drawing.Point(41, 112);
+            this.warriorX.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.wX.Minimum = new decimal(new int[] {
+            this.warriorX.Minimum = new decimal(new int[] {
             10000,
             0,
             0,
             -2147483648});
-            this.wX.Name = "wX";
-            this.wX.Size = new System.Drawing.Size(65, 21);
-            this.wX.TabIndex = 13;
+            this.warriorX.Name = "warriorX";
+            this.warriorX.Size = new System.Drawing.Size(65, 21);
+            this.warriorX.TabIndex = 13;
             // 
             // label12
             // 
@@ -207,17 +245,17 @@
             this.label12.TabIndex = 12;
             this.label12.Text = "X";
             // 
-            // wGuardingDistance
+            // warriorGuardingDistance
             // 
-            this.wGuardingDistance.Location = new System.Drawing.Point(113, 85);
-            this.wGuardingDistance.Maximum = new decimal(new int[] {
+            this.warriorGuardingDistance.Location = new System.Drawing.Point(113, 85);
+            this.warriorGuardingDistance.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.wGuardingDistance.Name = "wGuardingDistance";
-            this.wGuardingDistance.Size = new System.Drawing.Size(72, 21);
-            this.wGuardingDistance.TabIndex = 11;
+            this.warriorGuardingDistance.Name = "warriorGuardingDistance";
+            this.warriorGuardingDistance.Size = new System.Drawing.Size(72, 21);
+            this.warriorGuardingDistance.TabIndex = 11;
             // 
             // label10
             // 
@@ -228,17 +266,17 @@
             this.label10.TabIndex = 10;
             this.label10.Text = "GuardingDistance";
             // 
-            // wLevel
+            // warriorLevel
             // 
-            this.wLevel.Location = new System.Drawing.Point(41, 61);
-            this.wLevel.Maximum = new decimal(new int[] {
+            this.warriorLevel.Location = new System.Drawing.Point(41, 61);
+            this.warriorLevel.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.wLevel.Name = "wLevel";
-            this.wLevel.Size = new System.Drawing.Size(144, 21);
-            this.wLevel.TabIndex = 9;
+            this.warriorLevel.Name = "warriorLevel";
+            this.warriorLevel.Size = new System.Drawing.Size(144, 21);
+            this.warriorLevel.TabIndex = 9;
             // 
             // label9
             // 
@@ -258,12 +296,12 @@
             this.label7.TabIndex = 7;
             this.label7.Text = "Path";
             // 
-            // wName
+            // warriorName
             // 
-            this.wName.Location = new System.Drawing.Point(41, 7);
-            this.wName.Name = "wName";
-            this.wName.Size = new System.Drawing.Size(144, 21);
-            this.wName.TabIndex = 6;
+            this.warriorName.Location = new System.Drawing.Point(41, 7);
+            this.warriorName.Name = "warriorName";
+            this.warriorName.Size = new System.Drawing.Size(144, 21);
+            this.warriorName.TabIndex = 6;
             // 
             // label6
             // 
@@ -274,59 +312,59 @@
             this.label6.TabIndex = 5;
             this.label6.Text = "Name";
             // 
-            // wPath
+            // warriorPath
             // 
-            this.wPath.FormattingEnabled = true;
-            this.wPath.Location = new System.Drawing.Point(41, 34);
-            this.wPath.Name = "wPath";
-            this.wPath.Size = new System.Drawing.Size(144, 20);
-            this.wPath.TabIndex = 0;
+            this.warriorPath.FormattingEnabled = true;
+            this.warriorPath.Location = new System.Drawing.Point(41, 34);
+            this.warriorPath.Name = "warriorPath";
+            this.warriorPath.Size = new System.Drawing.Size(144, 20);
+            this.warriorPath.TabIndex = 0;
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.aHeight);
-            this.tabPage3.Controls.Add(this.aWidth);
+            this.tabPage3.Controls.Add(this.adornmentHeight);
+            this.tabPage3.Controls.Add(this.adornmentWidth);
             this.tabPage3.Controls.Add(this.label11);
-            this.tabPage3.Controls.Add(this.aY);
-            this.tabPage3.Controls.Add(this.aX);
+            this.tabPage3.Controls.Add(this.adornmentY);
+            this.tabPage3.Controls.Add(this.adornmentX);
             this.tabPage3.Controls.Add(this.label5);
-            this.tabPage3.Controls.Add(this.aName);
+            this.tabPage3.Controls.Add(this.adornmentName);
             this.tabPage3.Controls.Add(this.label4);
             this.tabPage3.Controls.Add(this.label3);
             this.tabPage3.Controls.Add(this.chooseImage);
-            this.tabPage3.Controls.Add(this.aImage);
+            this.tabPage3.Controls.Add(this.adornmentImage);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(192, 463);
+            this.tabPage3.Size = new System.Drawing.Size(192, 685);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "装饰品属性";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // aHeight
+            // adornmentHeight
             // 
-            this.aHeight.Location = new System.Drawing.Point(112, 92);
-            this.aHeight.Maximum = new decimal(new int[] {
-            1000,
+            this.adornmentHeight.Location = new System.Drawing.Point(112, 92);
+            this.adornmentHeight.Maximum = new decimal(new int[] {
+            100000,
             0,
             0,
             0});
-            this.aHeight.Name = "aHeight";
-            this.aHeight.Size = new System.Drawing.Size(65, 21);
-            this.aHeight.TabIndex = 10;
-            this.aHeight.ValueChanged += new System.EventHandler(this.aHeight_ValueChanged);
+            this.adornmentHeight.Name = "adornmentHeight";
+            this.adornmentHeight.Size = new System.Drawing.Size(65, 21);
+            this.adornmentHeight.TabIndex = 10;
+            this.adornmentHeight.ValueChanged += new System.EventHandler(this.aHeight_ValueChanged);
             // 
-            // aWidth
+            // adornmentWidth
             // 
-            this.aWidth.Location = new System.Drawing.Point(41, 92);
-            this.aWidth.Maximum = new decimal(new int[] {
-            1000,
+            this.adornmentWidth.Location = new System.Drawing.Point(41, 92);
+            this.adornmentWidth.Maximum = new decimal(new int[] {
+            100000,
             0,
             0,
             0});
-            this.aWidth.Name = "aWidth";
-            this.aWidth.Size = new System.Drawing.Size(65, 21);
-            this.aWidth.TabIndex = 9;
-            this.aWidth.ValueChanged += new System.EventHandler(this.aWidth_ValueChanged);
+            this.adornmentWidth.Name = "adornmentWidth";
+            this.adornmentWidth.Size = new System.Drawing.Size(65, 21);
+            this.adornmentWidth.TabIndex = 9;
+            this.adornmentWidth.ValueChanged += new System.EventHandler(this.aWidth_ValueChanged);
             // 
             // label11
             // 
@@ -337,41 +375,41 @@
             this.label11.TabIndex = 8;
             this.label11.Text = "Size";
             // 
-            // aY
+            // adornmentY
             // 
-            this.aY.Location = new System.Drawing.Point(112, 65);
-            this.aY.Maximum = new decimal(new int[] {
+            this.adornmentY.Location = new System.Drawing.Point(112, 65);
+            this.adornmentY.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.aY.Minimum = new decimal(new int[] {
+            this.adornmentY.Minimum = new decimal(new int[] {
             10000,
             0,
             0,
             -2147483648});
-            this.aY.Name = "aY";
-            this.aY.Size = new System.Drawing.Size(65, 21);
-            this.aY.TabIndex = 7;
-            this.aY.ValueChanged += new System.EventHandler(this.aY_ValueChanged);
+            this.adornmentY.Name = "adornmentY";
+            this.adornmentY.Size = new System.Drawing.Size(65, 21);
+            this.adornmentY.TabIndex = 7;
+            this.adornmentY.ValueChanged += new System.EventHandler(this.aY_ValueChanged);
             // 
-            // aX
+            // adornmentX
             // 
-            this.aX.Location = new System.Drawing.Point(41, 65);
-            this.aX.Maximum = new decimal(new int[] {
+            this.adornmentX.Location = new System.Drawing.Point(41, 65);
+            this.adornmentX.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.aX.Minimum = new decimal(new int[] {
+            this.adornmentX.Minimum = new decimal(new int[] {
             10000,
             0,
             0,
             -2147483648});
-            this.aX.Name = "aX";
-            this.aX.Size = new System.Drawing.Size(65, 21);
-            this.aX.TabIndex = 6;
-            this.aX.ValueChanged += new System.EventHandler(this.aX_ValueChanged);
+            this.adornmentX.Name = "adornmentX";
+            this.adornmentX.Size = new System.Drawing.Size(65, 21);
+            this.adornmentX.TabIndex = 6;
+            this.adornmentX.ValueChanged += new System.EventHandler(this.aX_ValueChanged);
             // 
             // label5
             // 
@@ -382,13 +420,13 @@
             this.label5.TabIndex = 5;
             this.label5.Text = "Image";
             // 
-            // aName
+            // adornmentName
             // 
-            this.aName.Location = new System.Drawing.Point(41, 10);
-            this.aName.Name = "aName";
-            this.aName.Size = new System.Drawing.Size(148, 21);
-            this.aName.TabIndex = 4;
-            this.aName.TextChanged += new System.EventHandler(this.aName_TextChanged);
+            this.adornmentName.Location = new System.Drawing.Point(41, 10);
+            this.adornmentName.Name = "adornmentName";
+            this.adornmentName.Size = new System.Drawing.Size(148, 21);
+            this.adornmentName.TabIndex = 4;
+            this.adornmentName.TextChanged += new System.EventHandler(this.aName_TextChanged);
             // 
             // label4
             // 
@@ -416,14 +454,15 @@
             this.chooseImage.TabIndex = 1;
             this.chooseImage.Text = "...";
             this.chooseImage.UseVisualStyleBackColor = true;
+            this.chooseImage.Click += new System.EventHandler(this.chooseImage_Click);
             // 
-            // aImage
+            // adornmentImage
             // 
-            this.aImage.Location = new System.Drawing.Point(41, 33);
-            this.aImage.Name = "aImage";
-            this.aImage.Size = new System.Drawing.Size(104, 21);
-            this.aImage.TabIndex = 0;
-            this.aImage.TextChanged += new System.EventHandler(this.aImage_TextChanged);
+            this.adornmentImage.Location = new System.Drawing.Point(41, 33);
+            this.adornmentImage.Name = "adornmentImage";
+            this.adornmentImage.Size = new System.Drawing.Size(104, 21);
+            this.adornmentImage.TabIndex = 0;
+            this.adornmentImage.TextChanged += new System.EventHandler(this.aImage_TextChanged);
             // 
             // map
             // 
@@ -433,6 +472,15 @@
             this.map.Name = "map";
             this.map.Size = new System.Drawing.Size(717, 640);
             this.map.TabIndex = 3;
+            // 
+            // floor
+            // 
+            this.floor.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.floor.Location = new System.Drawing.Point(186, 374);
+            this.floor.Name = "floor";
+            this.floor.Size = new System.Drawing.Size(100, 2);
+            this.floor.TabIndex = 0;
+            this.floor.Text = "label2";
             // 
             // addAdornment
             // 
@@ -465,15 +513,6 @@
             this.Save.UseVisualStyleBackColor = true;
             this.Save.Click += new System.EventHandler(this.Save_Click);
             // 
-            // floor
-            // 
-            this.floor.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.floor.Location = new System.Drawing.Point(186, 374);
-            this.floor.Name = "floor";
-            this.floor.Size = new System.Drawing.Size(100, 2);
-            this.floor.TabIndex = 0;
-            this.floor.Text = "label2";
-            // 
             // panel
             // 
             this.panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -486,11 +525,38 @@
             this.panel.Size = new System.Drawing.Size(798, 697);
             this.panel.TabIndex = 1;
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(8, 146);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(53, 12);
+            this.label13.TabIndex = 6;
+            this.label13.Text = "文件路径";
+            // 
+            // openFilePath
+            // 
+            this.openFilePath.Location = new System.Drawing.Point(10, 161);
+            this.openFilePath.Name = "openFilePath";
+            this.openFilePath.Size = new System.Drawing.Size(135, 21);
+            this.openFilePath.TabIndex = 7;
+            // 
+            // openFile
+            // 
+            this.openFile.Location = new System.Drawing.Point(857, 13);
+            this.openFile.Name = "openFile";
+            this.openFile.Size = new System.Drawing.Size(75, 39);
+            this.openFile.TabIndex = 7;
+            this.openFile.Text = "打开文件";
+            this.openFile.UseVisualStyleBackColor = true;
+            this.openFile.Click += new System.EventHandler(this.openFile_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1027, 781);
+            this.Controls.Add(this.openFile);
             this.Controls.Add(this.panel);
             this.Controls.Add(this.Save);
             this.Controls.Add(this.addWarrior);
@@ -499,21 +565,21 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.tabControl.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.mFloorHeight)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mWidth)).EndInit();
+            this.filePath.ResumeLayout(false);
+            this.filePath.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mapFloorHeight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mapWidth)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.wX)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.wGuardingDistance)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.wLevel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.warriorX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.warriorGuardingDistance)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.warriorLevel)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.aHeight)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.aWidth)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.aY)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.aX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.adornmentHeight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.adornmentWidth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.adornmentY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.adornmentX)).EndInit();
             this.map.ResumeLayout(false);
             this.panel.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -529,40 +595,46 @@
         #endregion
 
         private System.Windows.Forms.TabControl tabControl;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.NumericUpDown mFloorHeight;
-        private System.Windows.Forms.NumericUpDown mWidth;
+        private System.Windows.Forms.TabPage filePath;
+        private System.Windows.Forms.NumericUpDown mapFloorHeight;
+        private System.Windows.Forms.NumericUpDown mapWidth;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Panel map;
         private System.Windows.Forms.Button addAdornment;
-        private System.Windows.Forms.ComboBox wPath;
+        private System.Windows.Forms.ComboBox warriorPath;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Button chooseImage;
-        private System.Windows.Forms.TextBox aImage;
+        private System.Windows.Forms.TextBox adornmentImage;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox wName;
+        private System.Windows.Forms.TextBox warriorName;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.NumericUpDown aY;
-        private System.Windows.Forms.NumericUpDown aX;
+        private System.Windows.Forms.NumericUpDown adornmentY;
+        private System.Windows.Forms.NumericUpDown adornmentX;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox aName;
+        private System.Windows.Forms.TextBox adornmentName;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button addWarrior;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.NumericUpDown wLevel;
+        private System.Windows.Forms.NumericUpDown warriorLevel;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.NumericUpDown wGuardingDistance;
+        private System.Windows.Forms.NumericUpDown warriorGuardingDistance;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.NumericUpDown wX;
+        private System.Windows.Forms.NumericUpDown warriorX;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.NumericUpDown aHeight;
-        private System.Windows.Forms.NumericUpDown aWidth;
+        private System.Windows.Forms.NumericUpDown adornmentHeight;
+        private System.Windows.Forms.NumericUpDown adornmentWidth;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button Save;
         private System.Windows.Forms.Label floor;
         private System.Windows.Forms.Panel panel;
+        private System.Windows.Forms.Button chooseResourcePath;
+        private System.Windows.Forms.TextBox resourcePath;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox openFilePath;
+        private System.Windows.Forms.Button openFile;
     }
 }
 

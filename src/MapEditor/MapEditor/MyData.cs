@@ -33,6 +33,8 @@ namespace MapEditor
         public int height;
         public Adornment()
         {
+            x = 100;
+            y = 100;
             name = "unname";
             width = 100;
             height = 100;
