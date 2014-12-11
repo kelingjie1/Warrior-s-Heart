@@ -1,9 +1,13 @@
-﻿using System;
+﻿using UnityEngine;
+
+using System;
+using System.Collections;
 using System.Collections.Generic;
 
-using UnityEngine;
+using System.Xml.Serialization;
 
 public enum DataType{
+	EnumDataType_Default,	//未知
 	EnumDataType_Soldier,	//战士数据
 
 }
@@ -18,7 +22,7 @@ public enum DataSubType
 	EnumSubDataType_Soldier_Archer,
 }
 
-[Serializable]
+[XmlInclude(typeof(Soldier))]
 public class BagData
 {
 	public string 	id;			//ID
@@ -38,13 +42,18 @@ public class BagData
 	public string introduction;	//简介
 }
 
-[Serializable]
 public class Inventory
 {
-	[NonSerialized]
-	public Dictionary<DataType, Dictionary<DataSubType, List<string> > > bagItemClassify 
-		= new Dictionary<DataType, Dictionary<DataSubType, List<string> > >();
 	public List<BagData> bagItemList = new List<BagData>();
+
+	public void ClassifyData()
+	{
+		foreach (BagData item in bagItemList)
+		{
+			//分类
+			ClassifyData(item);
+		}
+	}
 
 	public BagData FindBagItem(string id)
 	{
@@ -58,24 +67,14 @@ public class Inventory
 		return null;
 	}
 
+
+
 	public void AddBagItem(BagData item)
 	{
 		bagItemList.Add(item);
 
-
-		if (!bagItemClassify.ContainsKey(item.type))
-			bagItemClassify[item.type] = new Dictionary<DataSubType, List<string> >();
-
-		if (!bagItemClassify[item.type].ContainsKey(item.subType))
-			bagItemClassify[item.type][item.subType] = new List<string>();
-
-		if (!bagItemClassify[item.type].ContainsKey(DataSubType.EnumSubDataType_All))
-			bagItemClassify[item.type][DataSubType.EnumSubDataType_All] = new List<string>();
-
-		//子分类
-		bagItemClassify[item.type][item.subType].Add(item.id);
-		//主分类
-		bagItemClassify[item.type][DataSubType.EnumSubDataType_All].Add(item.id);
+		//分类
+		ClassifyData(item);
 	}
 
 	public void RemoveBagItem(string id)
@@ -103,11 +102,47 @@ public class Inventory
 			return null;
 		return bagItemClassify[type][subType];
 	}
+
+	//分类
+	private void ClassifyData(BagData item)
+	{
+		if (!bagItemClassify.ContainsKey(item.type))
+			bagItemClassify[item.type] = new Dictionary<DataSubType, List<string> >();
+		
+		if (!bagItemClassify[item.type].ContainsKey(item.subType))
+			bagItemClassify[item.type][item.subType] = new List<string>();
+		
+		if (!bagItemClassify[item.type].ContainsKey(DataSubType.EnumSubDataType_All))
+			bagItemClassify[item.type][DataSubType.EnumSubDataType_All] = new List<string>();
+		
+		//子分类
+		bagItemClassify[item.type][item.subType].Add(item.id);
+		//主分类
+		bagItemClassify[item.type][DataSubType.EnumSubDataType_All].Add(item.id);
+	}
+
+	[XmlIgnore]
+	public Dictionary<DataType, Dictionary<DataSubType, List<string> > > bagItemClassify 
+		= new Dictionary<DataType, Dictionary<DataSubType, List<string> > >();
 }
 
-[Serializable]
 public class Soldier : BagData
 {
+	public Soldier()
+	{
+		type		= DataType.EnumDataType_Soldier; 		
+		subType 	= (DataSubType)Soldier.RandomHelper.Next(0,4);
+		level 		= Soldier.RandomHelper.Next(1,10);
+		quality 	= Soldier.RandomHelper.Next(1,5);
+		
+		strong 		= 50 + Soldier.RandomHelper.Next(1,20);
+		attack 		= 50 + Soldier.RandomHelper.Next(1,20);
+		celerity 	= 50 + Soldier.RandomHelper.Next(1,20);
+		power 		= 50 + Soldier.RandomHelper.Next(1,20);
+		
+		fighting 	= false;
+	}
+
 	public string TypeIcon
 	{
 		get
@@ -171,21 +206,7 @@ public class Soldier : BagData
 	}
 
 	static System.Random RandomHelper = new System.Random(unchecked((int)DateTime.Now.Ticks));
-
-	public Soldier()
-	{
-		type		= DataType.EnumDataType_Soldier; 		
-		subType 	= (DataSubType)Soldier.RandomHelper.Next(1,5);
-		level 		= Soldier.RandomHelper.Next(1,10);
-		quality 	= Soldier.RandomHelper.Next(1,5);
-
-		strong 		= 50 + Soldier.RandomHelper.Next(1,20);
-		attack 		= 50 + Soldier.RandomHelper.Next(1,20);
-		celerity 	= 50 + Soldier.RandomHelper.Next(1,20);
-		power 		= 50 + Soldier.RandomHelper.Next(1,20);
-
-		fighting 	= false;
-	}
 }
+
 
 

@@ -152,6 +152,8 @@ public class UIBagPage : BasePage {
 
 	void Awake()
 	{
+		//FileLoader.LoadXML("bag_data.xml", typeof(BagDataMrg));
+
 		SetItemListAll();
 
 		ItemListActive = DataSubType.EnumSubDataType_All;
@@ -162,6 +164,8 @@ public class UIBagPage : BasePage {
 		UIEventListener.Get (gameObject.FindChild("LabelArcher")).onClick = OnClickForLabelArcher;
 
 		UIEventListener.Get (gameObject.FindChild("Fire")).onClick = OnClickForButtonFire;
+		
+		//FileLoader.SaveXml("bag_data.xml", BagDataMrg.Instance, typeof(BagDataMrg));
 	}
 
 	void OnClickForItem(GameObject bagItem)
