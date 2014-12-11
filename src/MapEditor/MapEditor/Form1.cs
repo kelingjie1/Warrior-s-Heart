@@ -18,13 +18,18 @@ namespace MapEditor
         public Form1()
         {
             InitializeComponent();
-            map.AutoScrollMinSize = new Size(1000, 0);
+            MapSize_ValueChanged(null, null);
+            mFloorHeight_ValueChanged(null, null);
         }
 
         private void MapSize_ValueChanged(object sender, EventArgs e)
         {
-            
-
+            map.Size = new Size((int)mWidth.Value, 640);
+            floor.Size = new Size((int)mWidth.Value, 1);
+        }
+        private void mFloorHeight_ValueChanged(object sender, EventArgs e)
+        {
+            floor.Location = new Point(0, map.Height - (int)mFloorHeight.Value);
         }
 
         void map_DragDrop(object sender, System.Windows.Forms.DragEventArgs e)
@@ -54,7 +59,7 @@ namespace MapEditor
             {
                 Adornment adornment = label.Tag as Adornment;
                 adornment.x = label.Location.X + map.HorizontalScroll.Value;
-                adornment.y = label.Location.Y;
+                adornment.y = map.Height - label.Location.Y;
             }
             UpdateUI();
         }
@@ -148,7 +153,7 @@ namespace MapEditor
             {
                 Adornment adornment = chooseLabel.Tag as Adornment;
                 adornment.x = (int)aX.Value;
-                chooseLabel.Location = new Point(adornment.x - map.HorizontalScroll.Value, adornment.y);
+                chooseLabel.Location = new Point(adornment.x - map.HorizontalScroll.Value, map.Height - adornment.y);
             }
         }
 
@@ -158,7 +163,7 @@ namespace MapEditor
             {
                 Adornment adornment = chooseLabel.Tag as Adornment;
                 adornment.y = (int)aY.Value;
-                chooseLabel.Location = new Point(adornment.x - map.HorizontalScroll.Value, adornment.y);
+                chooseLabel.Location = new Point(adornment.x - map.HorizontalScroll.Value, map.Height - adornment.y);
             }
         }
 
@@ -194,8 +199,51 @@ namespace MapEditor
             element = doc.CreateElement("FloorHeight");
             element.InnerText = mFloorHeight.Value.ToString();
             root.AppendChild(element);
+            ///////////////////////////////////////////
+            XmlElement warriorNode = doc.CreateElement("Warrior");
+            root.AppendChild(warriorNode);
+            XmlElement adornmentNode = doc.CreateElement("Adornment");
+            root.AppendChild(adornmentNode);
+            foreach(Label label in map.Controls)
+            {
+                if (label.Tag as Warrior!=null)
+                {
+                    
+                }
+                else if (label.Tag as Adornment!=null)
+                {
+                    Adornment adornment = label.Tag as Adornment;
+                    XmlElement node = doc.CreateElement(adornment.name);
+                    adornmentNode.AppendChild(node);
+
+                    XmlAttribute attr;
+                    attr = doc.CreateAttribute("Image");
+                    node.Attributes.Append(attr);
+                    attr.Value = adornment.image;
+
+                    attr = doc.CreateAttribute("X");
+                    node.Attributes.Append(attr);
+                    attr.Value = adornment.x.ToString();
+
+                    attr = doc.CreateAttribute("Y");
+                    node.Attributes.Append(attr);
+                    attr.Value = adornment.y.ToString();
+
+                    attr = doc.CreateAttribute("Width");
+                    node.Attributes.Append(attr);
+                    attr.Value = adornment.x.ToString();
+
+                    attr = doc.CreateAttribute("Height");
+                    node.Attributes.Append(attr);
+                    attr.Value = adornment.x.ToString();
+                }
+            }
+
+
             doc.Save("aa.xml");
         }
+
+
   
     }
 }

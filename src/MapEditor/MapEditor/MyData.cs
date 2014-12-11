@@ -18,7 +18,10 @@ namespace MapEditor
         public string path;
         public int guardingDistance;
         public int level;
-        
+        public Warrior()
+        {
+            name = "unname";
+        }
     }
     public class Adornment
     {
@@ -30,6 +33,7 @@ namespace MapEditor
         public int height;
         public Adornment()
         {
+            name = "unname";
             width = 100;
             height = 100;
         }
