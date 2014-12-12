@@ -1,0 +1,9 @@
+E:\maptools\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
+E:\maptools\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
+E:\maptools\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
+E:\maptools\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
+E:\maptools\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+E:\maptools\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache
+E:\maptools\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
+E:\maptools\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
+E:\maptools\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.rrr.resources
