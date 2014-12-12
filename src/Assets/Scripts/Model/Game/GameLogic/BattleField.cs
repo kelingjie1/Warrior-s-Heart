@@ -64,6 +64,8 @@ public class BattleField : MonoBehaviour
             attacker.name = "attacker" + i;
             AttackerList.Add(attacker);
         }
+        AttackerList[0].TestMelee();
+        AttackerList[1].TestRemote();
         for (int i = 0; i < AttackerList.Count; i++)
         {
             for (int j = i + 1; j < AttackerList.Count; j++)
@@ -80,6 +82,8 @@ public class BattleField : MonoBehaviour
             defender.name = "defender" + i;
             DefenderList.Add(defender);
         }
+        DefenderList[0].TestMelee();
+        DefenderList[1].TestRemote();
         for (int i = 0; i < DefenderList.Count; i++)
         {
             for (int j = i + 1; j < DefenderList.Count; j++)
@@ -95,6 +99,8 @@ public class BattleField : MonoBehaviour
         }
         DidHitHandler_Base didhitbase = new DidHitHandler_Base();
         this.RegisterEvent(BattleEventType.DidHit, didhitbase);
+        DidKnockHandler_Base didknockbase = new DidKnockHandler_Base();
+        this.RegisterEvent(BattleEventType.DidKnock, didknockbase);
         /////////////////////////
         this.SendEvent(BattleEventType.DidStartBattle);
     }
@@ -144,6 +150,11 @@ public class BattleField : MonoBehaviour
     void Update()
     {
 
+    }
+
+    void OnClick()
+    {
+        Debug.Log("aa");
     }
 
 }

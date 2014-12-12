@@ -107,37 +107,41 @@ public class Warrior : MonoBehaviour
         return ResourceManager.Load("Prefab/Game/Warrior").GetComponent<Warrior>();
     }
 
-
-    void Awake()
+    public void TestMelee()
     {
         //近战
-//         knockback = 0.1f;
-//         maxMoveSpeed = 1.0f;
-//         acceleration = 0.2f;
-//         attackDistance = 100;
-//         hitDelay = 0.3f;
-//         attackInterval = 1;
-//         canAttackMove = true;
-//         this.FindHitTargetHandler.Add(new FindHitTargetHandler_Base());
-//         DidFinishAttackHandler_Melee_Base didfinishattack=new DidFinishAttackHandler_Melee_Base();
-//         didfinishattack.owner=this;
-//         BattleField.Instance.RegisterEvent(BattleEventType.DidFinishAttack, didfinishattack);
-        
-
-
-
-        //远程
-        knockback = 0.1f;
+        knockback = 1f;
         maxMoveSpeed = 1.0f;
-        acceleration = 0.2f;
-        attackDistance = 700;
+        acceleration = 1f;
+        attackDistance = 100;
         hitDelay = 0.3f;
         attackInterval = 1;
+        canAttackMove = true;
+        this.FindHitTargetHandler.Add(new FindHitTargetHandler_Base());
+        DidFinishAttackHandler_Melee_Base didfinishattack = new DidFinishAttackHandler_Melee_Base();
+        didfinishattack.owner = this;
+        BattleField.Instance.RegisterEvent(BattleEventType.DidFinishAttack, didfinishattack);
+    }
+    public void TestRemote()
+    {
+        //远程
+        knockback = 1f;
+        maxMoveSpeed = 1.0f;
+        acceleration = 1f;
+        attackDistance = 700;
+        hitDelay = 0.3f;
+        attackInterval = 2;
         canAttackMove = false;
         this.FindHitTargetHandler.Add(new FindHitTargetHandler_Base());
         DidFinishAttackHandler_Remote_Base didfinishattack = new DidFinishAttackHandler_Remote_Base();
         didfinishattack.owner = this;
         BattleField.Instance.RegisterEvent(BattleEventType.DidFinishAttack, didfinishattack);
+    }
+    void Awake()
+    {
+
+        
+
         
     }
 
