@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="abc.abc">
+  <Sections>
+    <Section>
+      <Title>章节 0</Title>
+      <Desc>冰雪之源</Desc>
+      <BackGroundPic>图片1.jpg</BackGroundPic>
+      <Sences>
+        <Sence>
+          <Title>关卡 0</Title>
+          <Desc>冰雪之原 序</Desc>
+          <Type>普通关卡</Type>
+          <BackGroundPic>111.png</BackGroundPic>
+        </Sence>
+        <Sence>
+          <Title>关卡 1</Title>
+          <Desc>冰雪之原 回忆</Desc>
+          <Type>普通关卡</Type>
+          <BackGroundPic>111.png</BackGroundPic>
+        </Sence>
+      </Sences>
+    </Section>
+    <Section>
+      <Title>章节 1</Title>
+      <Desc>蛮荒之地</Desc>
+      <BackGroundPic>section_map1</BackGroundPic>
+      <Sences>
+        <Sence>
+          <Title>关卡 0</Title>
+          <Desc>蛮荒之地 争夺</Desc>
+          <Type>普通关卡</Type>
+          <BackGroundPic>sence_map0</BackGroundPic>
+        </Sence>
+      </Sences>
+    </Section>
+    <Section>
+      <Title>章节 2</Title>
+      <Desc>火焰领域</Desc>
+      <BackGroundPic>section_map2</BackGroundPic>
+    </Section>
+  </Sections>
+</root>
