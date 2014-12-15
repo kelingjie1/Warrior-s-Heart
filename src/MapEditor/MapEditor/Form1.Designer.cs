@@ -30,6 +30,8 @@
         {
             this.tabControl = new System.Windows.Forms.TabControl();
             this.filePath = new System.Windows.Forms.TabPage();
+            this.openFilePath = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.chooseResourcePath = new System.Windows.Forms.Button();
             this.resourcePath = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -66,8 +68,6 @@
             this.addWarrior = new System.Windows.Forms.Button();
             this.Save = new System.Windows.Forms.Button();
             this.panel = new System.Windows.Forms.Panel();
-            this.label13 = new System.Windows.Forms.Label();
-            this.openFilePath = new System.Windows.Forms.TextBox();
             this.openFile = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.filePath.SuspendLayout();
@@ -117,6 +117,22 @@
             this.filePath.TabIndex = 0;
             this.filePath.Text = "地图属性";
             this.filePath.UseVisualStyleBackColor = true;
+            // 
+            // openFilePath
+            // 
+            this.openFilePath.Location = new System.Drawing.Point(10, 161);
+            this.openFilePath.Name = "openFilePath";
+            this.openFilePath.Size = new System.Drawing.Size(135, 21);
+            this.openFilePath.TabIndex = 7;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(8, 146);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(53, 12);
+            this.label13.TabIndex = 6;
+            this.label13.Text = "文件路径";
             // 
             // chooseResourcePath
             // 
@@ -524,22 +540,6 @@
             this.panel.Name = "panel";
             this.panel.Size = new System.Drawing.Size(798, 697);
             this.panel.TabIndex = 1;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(8, 146);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(53, 12);
-            this.label13.TabIndex = 6;
-            this.label13.Text = "文件路径";
-            // 
-            // openFilePath
-            // 
-            this.openFilePath.Location = new System.Drawing.Point(10, 161);
-            this.openFilePath.Name = "openFilePath";
-            this.openFilePath.Size = new System.Drawing.Size(135, 21);
-            this.openFilePath.TabIndex = 7;
             // 
             // openFile
             // 

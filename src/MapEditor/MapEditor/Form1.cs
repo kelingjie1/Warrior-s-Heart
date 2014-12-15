@@ -14,7 +14,7 @@ namespace MapEditor
     public partial class Form1 : Form
     {
         bool mouseDown;
-        PictureBox chooseObj;
+        MyPictureBox chooseObj;
         Point mouseOffset;
         public Form1()
         {
@@ -82,14 +82,14 @@ namespace MapEditor
         }
         void object_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            chooseObj = sender as PictureBox;
+            chooseObj = sender as MyPictureBox;
             mouseOffset = new Point(Cursor.Position.X - chooseObj.Location.X, Cursor.Position.Y - chooseObj.Location.Y);
             mouseDown = true;
             UpdateUI();
         }
         void object_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            PictureBox pic = sender as PictureBox;
+            MyPictureBox pic = sender as MyPictureBox;
             if (mouseDown)
             {
                 pic.Location = new Point(Cursor.Position.X - mouseOffset.X, Cursor.Position.Y - mouseOffset.Y);
@@ -112,17 +112,19 @@ namespace MapEditor
             mouseDown = false;
         }
 
-        PictureBox CreateAdorment()
+
+        MyPictureBox CreateAdorment()
         {
-            PictureBox pic = new PictureBox();
+            MyPictureBox pic = new MyPictureBox();
             Adornment adornment = new Adornment();
             pic.Tag = adornment;
-            pic.SizeMode = PictureBoxSizeMode.StretchImage;
-            pic.BorderStyle = BorderStyle.FixedSingle;
+            //pic.SizeMode = PictureBoxSizeMode.StretchImage;
+            //pic.BorderStyle = BorderStyle.FixedSingle;
             pic.MouseDown += object_MouseDown;
             pic.MouseMove += object_MouseMove;
             pic.MouseUp += object_MouseUp;
             map.Controls.Add(pic);
+            pic.BringToFront();
             AdjustPictureBox(pic, adornment);
             return pic;
         }
@@ -130,17 +132,18 @@ namespace MapEditor
         {
             CreateAdorment();
         }
-        PictureBox CreateWarrior()
+        MyPictureBox CreateWarrior()
         {
-            PictureBox pic = new PictureBox();
+            MyPictureBox pic = new MyPictureBox();
             Warrior warrior = new Warrior();
             pic.Tag = warrior;
             pic.Size = new Size(100, 100);
-            pic.SizeMode = PictureBoxSizeMode.StretchImage;
-            pic.BorderStyle = BorderStyle.FixedSingle;
+            //pic.SizeMode = PictureBoxSizeMode.StretchImage;
+            //pic.BorderStyle = BorderStyle.FixedSingle;
             pic.MouseDown += object_MouseDown;
             pic.MouseMove += object_MouseMove;
             pic.MouseUp += object_MouseUp;
+            pic.BringToFront();
             map.Controls.Add(pic);
             return pic;
         }
@@ -149,11 +152,11 @@ namespace MapEditor
             CreateWarrior();
         }
 
-        void AdjustPictureBox(PictureBox pic, Warrior warrior)
+        void AdjustPictureBox(MyPictureBox pic, Warrior warrior)
         {
 
         }
-        void AdjustPictureBox(PictureBox pic, Adornment adornment=null)
+        void AdjustPictureBox(MyPictureBox pic, Adornment adornment=null)
         {
             if (adornment==null)
             {
@@ -164,10 +167,12 @@ namespace MapEditor
             if (adornment.image == null || adornment.image.Equals(""))
             {
                 pic.Image = null;
+                pic.Invalidate();
             }
             else
             {
                 pic.Image = Image.FromFile(resourcePath.Text + "\\" + adornment.image);
+                pic.Invalidate();
             }
         }
 
@@ -214,10 +219,12 @@ namespace MapEditor
                 if (adornment.image == null || adornment.image.Equals(""))
                 {
                     chooseObj.Image = null;
+                    chooseObj.Invalidate();
                 }
                 else
                 {
                     chooseObj.Image = Image.FromFile(resourcePath.Text + "\\" + adornmentImage.Text);
+                    chooseObj.Invalidate();
                 }
             }
         }
@@ -281,7 +288,7 @@ namespace MapEditor
             root.AppendChild(adornmentNode);
             foreach(Control control in map.Controls)
             {
-                PictureBox pic = control as PictureBox;
+                MyPictureBox pic = control as MyPictureBox;
                 if (pic==null)
                 {
                     continue;
@@ -392,7 +399,7 @@ namespace MapEditor
             XmlElement adornmentNode = root.GetElementsByTagName("Adornment").Item(0) as XmlElement;
             foreach (XmlElement item in adornmentNode.ChildNodes)
             {
-                PictureBox pic = CreateAdorment();
+                MyPictureBox pic = CreateAdorment();
                 Adornment adornment = pic.Tag as Adornment;
                 adornment.name = item.Name;
                 adornment.image = item.GetAttribute("Image");
