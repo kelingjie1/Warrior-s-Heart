@@ -30,6 +30,9 @@
         {
             this.tabControl = new System.Windows.Forms.TabControl();
             this.filePath = new System.Windows.Forms.TabPage();
+            this.chooseWarriorDir = new System.Windows.Forms.Button();
+            this.warriorDir = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.openFilePath = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.chooseResourcePath = new System.Windows.Forms.Button();
@@ -40,6 +43,8 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.chooseWarriorPath = new System.Windows.Forms.Button();
+            this.warriorPath = new System.Windows.Forms.TextBox();
             this.warriorX = new System.Windows.Forms.NumericUpDown();
             this.label12 = new System.Windows.Forms.Label();
             this.warriorGuardingDistance = new System.Windows.Forms.NumericUpDown();
@@ -49,7 +54,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.warriorName = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.warriorPath = new System.Windows.Forms.ComboBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.adornmentHeight = new System.Windows.Forms.NumericUpDown();
             this.adornmentWidth = new System.Windows.Forms.NumericUpDown();
@@ -69,6 +73,7 @@
             this.Save = new System.Windows.Forms.Button();
             this.panel = new System.Windows.Forms.Panel();
             this.openFile = new System.Windows.Forms.Button();
+            this.deleteObject = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.filePath.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mapFloorHeight)).BeginInit();
@@ -101,6 +106,9 @@
             // 
             // filePath
             // 
+            this.filePath.Controls.Add(this.chooseWarriorDir);
+            this.filePath.Controls.Add(this.warriorDir);
+            this.filePath.Controls.Add(this.label14);
             this.filePath.Controls.Add(this.openFilePath);
             this.filePath.Controls.Add(this.label13);
             this.filePath.Controls.Add(this.chooseResourcePath);
@@ -118,9 +126,36 @@
             this.filePath.Text = "地图属性";
             this.filePath.UseVisualStyleBackColor = true;
             // 
+            // chooseWarriorDir
+            // 
+            this.chooseWarriorDir.Location = new System.Drawing.Point(151, 151);
+            this.chooseWarriorDir.Name = "chooseWarriorDir";
+            this.chooseWarriorDir.Size = new System.Drawing.Size(35, 23);
+            this.chooseWarriorDir.TabIndex = 10;
+            this.chooseWarriorDir.Text = "...";
+            this.chooseWarriorDir.UseVisualStyleBackColor = true;
+            this.chooseWarriorDir.Click += new System.EventHandler(this.chooseWarriorDir_Click);
+            // 
+            // warriorDir
+            // 
+            this.warriorDir.Location = new System.Drawing.Point(10, 154);
+            this.warriorDir.Name = "warriorDir";
+            this.warriorDir.Size = new System.Drawing.Size(135, 21);
+            this.warriorDir.TabIndex = 9;
+            this.warriorDir.TextChanged += new System.EventHandler(this.warriorDir_TextChanged);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(8, 138);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(53, 12);
+            this.label14.TabIndex = 8;
+            this.label14.Text = "战士路径";
+            // 
             // openFilePath
             // 
-            this.openFilePath.Location = new System.Drawing.Point(10, 161);
+            this.openFilePath.Location = new System.Drawing.Point(10, 243);
             this.openFilePath.Name = "openFilePath";
             this.openFilePath.Size = new System.Drawing.Size(135, 21);
             this.openFilePath.TabIndex = 7;
@@ -128,7 +163,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(8, 146);
+            this.label13.Location = new System.Drawing.Point(8, 228);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(53, 12);
             this.label13.TabIndex = 6;
@@ -217,6 +252,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.chooseWarriorPath);
+            this.tabPage2.Controls.Add(this.warriorPath);
             this.tabPage2.Controls.Add(this.warriorX);
             this.tabPage2.Controls.Add(this.label12);
             this.tabPage2.Controls.Add(this.warriorGuardingDistance);
@@ -226,7 +263,6 @@
             this.tabPage2.Controls.Add(this.label7);
             this.tabPage2.Controls.Add(this.warriorName);
             this.tabPage2.Controls.Add(this.label6);
-            this.tabPage2.Controls.Add(this.warriorPath);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -234,6 +270,24 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "战士属性";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // chooseWarriorPath
+            // 
+            this.chooseWarriorPath.Location = new System.Drawing.Point(147, 32);
+            this.chooseWarriorPath.Name = "chooseWarriorPath";
+            this.chooseWarriorPath.Size = new System.Drawing.Size(38, 23);
+            this.chooseWarriorPath.TabIndex = 15;
+            this.chooseWarriorPath.Text = "...";
+            this.chooseWarriorPath.UseVisualStyleBackColor = true;
+            this.chooseWarriorPath.Click += new System.EventHandler(this.chooseWarriorPath_Click);
+            // 
+            // warriorPath
+            // 
+            this.warriorPath.Location = new System.Drawing.Point(42, 35);
+            this.warriorPath.Name = "warriorPath";
+            this.warriorPath.Size = new System.Drawing.Size(100, 21);
+            this.warriorPath.TabIndex = 14;
+            this.warriorPath.TextChanged += new System.EventHandler(this.warriorPath_TextChanged);
             // 
             // warriorX
             // 
@@ -272,6 +326,7 @@
             this.warriorGuardingDistance.Name = "warriorGuardingDistance";
             this.warriorGuardingDistance.Size = new System.Drawing.Size(72, 21);
             this.warriorGuardingDistance.TabIndex = 11;
+            this.warriorGuardingDistance.ValueChanged += new System.EventHandler(this.warriorGuardingDistance_ValueChanged);
             // 
             // label10
             // 
@@ -293,6 +348,7 @@
             this.warriorLevel.Name = "warriorLevel";
             this.warriorLevel.Size = new System.Drawing.Size(144, 21);
             this.warriorLevel.TabIndex = 9;
+            this.warriorLevel.ValueChanged += new System.EventHandler(this.warriorLevel_ValueChanged);
             // 
             // label9
             // 
@@ -318,6 +374,7 @@
             this.warriorName.Name = "warriorName";
             this.warriorName.Size = new System.Drawing.Size(144, 21);
             this.warriorName.TabIndex = 6;
+            this.warriorName.TextChanged += new System.EventHandler(this.warriorName_TextChanged);
             // 
             // label6
             // 
@@ -327,14 +384,6 @@
             this.label6.Size = new System.Drawing.Size(29, 12);
             this.label6.TabIndex = 5;
             this.label6.Text = "Name";
-            // 
-            // warriorPath
-            // 
-            this.warriorPath.FormattingEnabled = true;
-            this.warriorPath.Location = new System.Drawing.Point(41, 34);
-            this.warriorPath.Name = "warriorPath";
-            this.warriorPath.Size = new System.Drawing.Size(144, 20);
-            this.warriorPath.TabIndex = 0;
             // 
             // tabPage3
             // 
@@ -551,11 +600,24 @@
             this.openFile.UseVisualStyleBackColor = true;
             this.openFile.Click += new System.EventHandler(this.openFile_Click);
             // 
+            // deleteObject
+            // 
+            this.deleteObject.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.deleteObject.Location = new System.Drawing.Point(627, 13);
+            this.deleteObject.Name = "deleteObject";
+            this.deleteObject.Size = new System.Drawing.Size(105, 50);
+            this.deleteObject.TabIndex = 16;
+            this.deleteObject.Text = "删除";
+            this.deleteObject.UseVisualStyleBackColor = true;
+            this.deleteObject.Click += new System.EventHandler(this.deleteObject_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1027, 781);
+            this.Controls.Add(this.deleteObject);
             this.Controls.Add(this.openFile);
             this.Controls.Add(this.panel);
             this.Controls.Add(this.Save);
@@ -602,7 +664,6 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Panel map;
         private System.Windows.Forms.Button addAdornment;
-        private System.Windows.Forms.ComboBox warriorPath;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Button chooseImage;
         private System.Windows.Forms.TextBox adornmentImage;
@@ -635,6 +696,12 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox openFilePath;
         private System.Windows.Forms.Button openFile;
+        private System.Windows.Forms.Button chooseWarriorDir;
+        private System.Windows.Forms.TextBox warriorDir;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Button chooseWarriorPath;
+        private System.Windows.Forms.TextBox warriorPath;
+        private System.Windows.Forms.Button deleteObject;
     }
 }
 

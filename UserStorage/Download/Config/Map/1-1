@@ -1,0 +1,11 @@
+<Root>
+  <Width>2000</Width>
+  <FloorHeight>100</FloorHeight>
+  <Adornment>
+    <unname Image="Texture\background\battlebackground.jpg" X="0" Y="640" Width="2000" Height="640" />
+  </Adornment>
+  <Warrior>
+    <unname WarriorTemplate="德玛西亚" X="610" Level="0" GuardingDistance="0" PowerPoint="0" StrongPoint="0" IntelligencePoint="0" AgilityPoint="0" />
+    <unname WarriorTemplate="德玛西亚" X="290" Level="0" GuardingDistance="0" PowerPoint="0" StrongPoint="0" IntelligencePoint="0" AgilityPoint="0" />
+  </Warrior>
+</Root>

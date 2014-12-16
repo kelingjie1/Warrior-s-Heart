@@ -64,6 +64,8 @@ namespace MapEditor
             XmlElement root = doc.DocumentElement;
             XmlElement resourcePathNode = (XmlElement)root.GetElementsByTagName("ResourcePath").Item(0);
             resourcePath.Text = resourcePathNode.InnerText;
+            XmlElement warriorPathNode = (XmlElement)root.GetElementsByTagName("WarriorPath").Item(0);
+            warriorDir.Text = warriorPathNode.InnerText;
         }
 
         private void MapSize_ValueChanged(object sender, EventArgs e)
@@ -97,6 +99,8 @@ namespace MapEditor
             if (pic.Tag as Warrior != null)
             {
                 Warrior warrior = pic.Tag as Warrior;
+                warrior.x = pic.Location.X + map.HorizontalScroll.Value + pic.Width/2;
+                
                 
             }
             else if (pic.Tag as Adornment != null)
@@ -110,6 +114,12 @@ namespace MapEditor
         void object_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             mouseDown = false;
+            if (chooseObj!=null&&chooseObj.Tag as Warrior != null)
+            {
+                chooseObj.Location = new Point(chooseObj.Location.X, map.Height - (int)mapFloorHeight.Value - chooseObj.Height);
+                chooseObj.Invalidate();
+            }
+            
         }
 
 
@@ -118,19 +128,21 @@ namespace MapEditor
             MyPictureBox pic = new MyPictureBox();
             Adornment adornment = new Adornment();
             pic.Tag = adornment;
-            //pic.SizeMode = PictureBoxSizeMode.StretchImage;
-            //pic.BorderStyle = BorderStyle.FixedSingle;
+            pic.SizeMode = PictureBoxSizeMode.StretchImage;
+            pic.BorderStyle = BorderStyle.FixedSingle;
             pic.MouseDown += object_MouseDown;
             pic.MouseMove += object_MouseMove;
             pic.MouseUp += object_MouseUp;
             map.Controls.Add(pic);
             pic.BringToFront();
+            floor.BringToFront();
             AdjustPictureBox(pic, adornment);
             return pic;
         }
         private void addAdornment_Click(object sender, EventArgs e)
         {
-            CreateAdorment();
+            chooseObj = CreateAdorment();
+            UpdateUI();
         }
         MyPictureBox CreateWarrior()
         {
@@ -138,30 +150,45 @@ namespace MapEditor
             Warrior warrior = new Warrior();
             pic.Tag = warrior;
             pic.Size = new Size(100, 100);
-            //pic.SizeMode = PictureBoxSizeMode.StretchImage;
-            //pic.BorderStyle = BorderStyle.FixedSingle;
+            pic.SizeMode = PictureBoxSizeMode.StretchImage;
+            pic.BorderStyle = BorderStyle.FixedSingle;
             pic.MouseDown += object_MouseDown;
             pic.MouseMove += object_MouseMove;
             pic.MouseUp += object_MouseUp;
-            pic.BringToFront();
             map.Controls.Add(pic);
+            pic.BringToFront();
+            floor.BringToFront();
             return pic;
         }
         private void addWarrior_Click(object sender, EventArgs e)
         {
-            CreateWarrior();
+            chooseObj = CreateWarrior();
+            UpdateUI();
         }
-
+        void AdjustPictureBox(MyPictureBox pic)
+        {
+            if (pic.Tag as Warrior!=null)
+            {
+                AdjustPictureBox(pic, pic.Tag as Warrior);
+            }
+            else if(pic.Tag as Adornment!=null)
+            {
+                AdjustPictureBox(pic, pic.Tag as Adornment);
+            }
+        }
         void AdjustPictureBox(MyPictureBox pic, Warrior warrior)
         {
+            if (warrior.template!=null)
+            {
+                pic.Image = Image.FromFile(resourcePath.Text + "\\" + warrior.template.image);
+                pic.Size = new Size(warrior.template.width, warrior.template.height);
+            }
+            pic.Location = new Point(warrior.x - map.HorizontalScroll.Value - pic.Width / 2, map.Height - (int)mapFloorHeight.Value - pic.Height);
+            warriorName.Text = warrior.name;
 
         }
-        void AdjustPictureBox(MyPictureBox pic, Adornment adornment=null)
+        void AdjustPictureBox(MyPictureBox pic, Adornment adornment)
         {
-            if (adornment==null)
-            {
-                adornment = pic.Tag as Adornment;
-            }
             pic.Location = new Point(adornment.x - map.HorizontalScroll.Value, map.Height - adornment.y);
             pic.Size = new Size(adornment.width, adornment.height);
             if (adornment.image == null || adornment.image.Equals(""))
@@ -186,6 +213,8 @@ namespace MapEditor
             {
                 Warrior warrior = chooseObj.Tag as Warrior;
                 tabControl.SelectedIndex = 1;
+                warriorX.Value = warrior.x;
+                warriorPath.Text = warrior.path;
             }
             else if (chooseObj.Tag as Adornment != null)
             {
@@ -282,8 +311,6 @@ namespace MapEditor
             element.InnerText = mapFloorHeight.Value.ToString();
             root.AppendChild(element);
             ///////////////////////////////////////////
-            XmlElement warriorNode = doc.CreateElement("Warrior");
-            root.AppendChild(warriorNode);
             XmlElement adornmentNode = doc.CreateElement("Adornment");
             root.AppendChild(adornmentNode);
             foreach(Control control in map.Controls)
@@ -292,10 +319,6 @@ namespace MapEditor
                 if (pic==null)
                 {
                     continue;
-                }
-                if (pic.Tag as Warrior!=null)
-                {
-                    
                 }
                 else if (pic.Tag as Adornment!=null)
                 {
@@ -325,9 +348,65 @@ namespace MapEditor
                     attr.Value = adornment.height.ToString();
                 }
             }
+            XmlElement warriorNode = doc.CreateElement("Warrior");
+            root.AppendChild(warriorNode);
+            foreach (Control control in map.Controls)
+            {
+                MyPictureBox pic = control as MyPictureBox;
+                if (pic == null)
+                {
+                    continue;
+                }
+                else if (pic.Tag as Warrior != null)
+                {
+                    Warrior warrior = pic.Tag as Warrior;
+                    XmlElement node = doc.CreateElement(warrior.name);
+                    warriorNode.AppendChild(node);
 
+                    XmlAttribute attr;
+                    attr = doc.CreateAttribute("WarriorTemplate");
+                    node.Attributes.Append(attr);
+                    attr.Value = warrior.path;
 
-            doc.Save("aa.xml");
+                    attr = doc.CreateAttribute("X");
+                    node.Attributes.Append(attr);
+                    attr.Value = warrior.x.ToString();
+
+                    attr = doc.CreateAttribute("Level");
+                    node.Attributes.Append(attr);
+                    attr.Value = warrior.level.ToString();
+
+                    attr = doc.CreateAttribute("GuardingDistance");
+                    node.Attributes.Append(attr);
+                    attr.Value = warrior.guardingDistance.ToString();
+
+                    attr = doc.CreateAttribute("PowerPoint");
+                    node.Attributes.Append(attr);
+                    attr.Value = warrior.level.ToString();
+
+                    attr = doc.CreateAttribute("StrongPoint");
+                    node.Attributes.Append(attr);
+                    attr.Value = warrior.level.ToString();
+
+                    attr = doc.CreateAttribute("IntelligencePoint");
+                    node.Attributes.Append(attr);
+                    attr.Value = warrior.level.ToString();
+
+                    attr = doc.CreateAttribute("AgilityPoint");
+                    node.Attributes.Append(attr);
+                    attr.Value = warrior.level.ToString();
+                }
+            }
+            if (openFilePath.Text.Equals(""))
+            {
+                SaveFileDialog dialog = new SaveFileDialog();
+                if(dialog.ShowDialog()!=DialogResult.OK)
+                {
+                    return;
+                }
+                openFilePath.Text = GetRelativePath(Application.StartupPath, dialog.FileName);
+            }
+            doc.Save(openFilePath.Text);
         }
 
         private void chooseImage_Click(object sender, EventArgs e)
@@ -343,15 +422,21 @@ namespace MapEditor
 
         private void resourcePath_TextChanged(object sender, EventArgs e)
         {
+            SaveSetting();
+        }
+        void SaveSetting()
+        {
             XmlDocument doc = new XmlDocument();
             XmlElement root = doc.CreateElement("Root");
             doc.AppendChild(root);
             XmlElement ele = doc.CreateElement("ResourcePath");
             root.AppendChild(ele);
             ele.InnerText = resourcePath.Text;
+            ele = doc.CreateElement("WarriorPath");
+            root.AppendChild(ele);
+            ele.InnerText = warriorDir.Text;
             doc.Save("setting.xml");
         }
-
         private void chooseResourcePath_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog dialog = new FolderBrowserDialog();
@@ -376,8 +461,11 @@ namespace MapEditor
         private void openFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
+            dialog.InitialDirectory = Path.GetFullPath(warriorDir.Text);
             if(dialog.ShowDialog()==DialogResult.OK)
             {
+                map.Controls.Clear();
+                map.Controls.Add(floor);
                 openFilePath.Text = dialog.FileName;
                 LoadFormFile(openFilePath.Text);
             }
@@ -395,7 +483,7 @@ namespace MapEditor
             mapWidth.Value = int.Parse(ele.InnerText);
             ele = root.GetElementsByTagName("FloorHeight").Item(0) as XmlElement;
             mapFloorHeight.Value = int.Parse(ele.InnerText);
-            XmlElement warriorNode = root.GetElementsByTagName("Warrior").Item(0) as XmlElement;
+            
             XmlElement adornmentNode = root.GetElementsByTagName("Adornment").Item(0) as XmlElement;
             foreach (XmlElement item in adornmentNode.ChildNodes)
             {
@@ -409,7 +497,106 @@ namespace MapEditor
                 adornment.height = int.Parse(item.GetAttribute("Height"));
                 AdjustPictureBox(pic, adornment);
             }
+            XmlElement warriorNode = root.GetElementsByTagName("Warrior").Item(0) as XmlElement;
+            foreach (XmlElement item in warriorNode.ChildNodes)
+            {
+                MyPictureBox pic = CreateWarrior();
+                Warrior warrior = pic.Tag as Warrior;
+                warrior.name = item.Name;
+                warrior.path = item.GetAttribute("WarriorTemplate");
+                if (!warrior.path.Equals(""))
+                {
+                    warrior.template = new WarriorTemplate(warriorDir.Text + "\\" + warrior.path);
+                }
+                warrior.x = int.Parse(item.GetAttribute("X"));
+                warrior.level = int.Parse(item.GetAttribute("Level"));
+                warrior.guardingDistance = int.Parse(item.GetAttribute("GuardingDistance"));
+                AdjustPictureBox(pic);
+            }
 
+        }
+
+        private void chooseWarriorDir_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            try
+            {
+                dialog.SelectedPath = Path.GetFullPath(resourcePath.Text);
+            }
+            catch (Exception)
+            {
+
+                dialog.SelectedPath = Application.StartupPath;
+            }
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                warriorDir.Text = GetRelativePath(Application.StartupPath, dialog.SelectedPath);
+            }
+        }
+
+        private void warriorDir_TextChanged(object sender, EventArgs e)
+        {
+            SaveSetting();
+        }
+
+        private void warriorLevel_ValueChanged(object sender, EventArgs e)
+        {
+            if (chooseObj != null && chooseObj.Tag as Warrior != null)
+            {
+                Warrior warrior = chooseObj.Tag as Warrior;
+                warrior.level = (int)warriorLevel.Value;
+            }
+        }
+
+        private void chooseWarriorPath_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.InitialDirectory = Path.GetFullPath(warriorDir.Text);
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                 warriorPath.Text = dialog.SafeFileName;
+            }
+
+            
+        }
+
+        private void warriorPath_TextChanged(object sender, EventArgs e)
+        {
+            if (chooseObj != null && chooseObj.Tag as Warrior != null)
+            {
+                Warrior warrior = chooseObj.Tag as Warrior;
+                warrior.path = warriorPath.Text;
+                warrior.template = new WarriorTemplate(warriorDir.Text + "\\" + warrior.path);
+                AdjustPictureBox(chooseObj, warrior);
+            }
+            
+        }
+
+        private void deleteObject_Click(object sender, EventArgs e)
+        {
+            if (chooseObj!=null)
+            {
+                map.Controls.Remove(chooseObj);
+            }
+        }
+
+        private void warriorName_TextChanged(object sender, EventArgs e)
+        {
+            if (chooseObj != null && chooseObj.Tag as Warrior != null)
+            {
+                Warrior warrior = chooseObj.Tag as Warrior;
+                warrior.name = warriorName.Text;
+            }
+        }
+
+        private void warriorGuardingDistance_ValueChanged(object sender, EventArgs e)
+        {
+            if (chooseObj != null && chooseObj.Tag as Warrior != null)
+            {
+                Warrior warrior = chooseObj.Tag as Warrior;
+                warrior.guardingDistance = (int)warriorGuardingDistance.Value;
+            }
         }
 
 
