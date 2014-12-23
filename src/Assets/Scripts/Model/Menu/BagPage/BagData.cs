@@ -122,7 +122,7 @@ public class Inventory
 	}
 
 	[XmlIgnore]
-	public Dictionary<DataType, Dictionary<DataSubType, List<string> > > bagItemClassify 
+	private Dictionary<DataType, Dictionary<DataSubType, List<string> > > bagItemClassify 
 		= new Dictionary<DataType, Dictionary<DataSubType, List<string> > >();
 }
 
