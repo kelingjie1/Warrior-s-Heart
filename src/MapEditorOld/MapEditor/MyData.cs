@@ -30,14 +30,9 @@ namespace MapEditor
         public string path;
         public int guardingDistance;
         public int level;
-        public int powerPoint;
-        public int agilityPoint;
-        public int strongPoint;
-        public int intelligencePoint;
         public Warrior()
         {
             name = "unname";
-            x = 0;
         }
     }
     public class Adornment
