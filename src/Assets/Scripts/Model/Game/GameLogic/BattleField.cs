@@ -39,6 +39,7 @@ public class BattleField : MonoBehaviour
     public List<GameObject> trashList;
 
     public int width = 960;
+    public int floorHeight;
 
     void Awake()
     {
@@ -55,37 +56,38 @@ public class BattleField : MonoBehaviour
         }
     }
 
+    UITexture CreateAdorment()
+    {
+        GameObject go = new GameObject();
+        gameObject.AddChild(go);
+        go.AddComponent<UITexture>();
+        return go.GetComponent<UITexture>();
+    }
     void LoadMap()
     {
+//         string path = "";
 //         XmlDocument doc = new XmlDocument();
 //         doc.Load(path);
 //         XmlElement root = doc.DocumentElement;
 //         XmlElement ele = root.GetElementsByTagName("Width").Item(0) as XmlElement;
-//         mapWidth.Text = ele.InnerText;
+//         width = int.Parse(ele.InnerText);
 //         ele = root.GetElementsByTagName("FloorHeight").Item(0) as XmlElement;
-//         mapFloorHeight.Text = ele.InnerText;
+//         floorHeight = int.Parse(ele.InnerText);
 // 
 //         XmlElement adornmentNode = root.GetElementsByTagName("Adornment").Item(0) as XmlElement;
 //         foreach (XmlElement item in adornmentNode.ChildNodes)
 //         {
-//             Image obj = createObj();
-//             Adornment adornment = new Adornment();
-//             obj.Tag = adornment;
-//             adornment.name = item.Name;
-//             adornment.image = item.GetAttribute("Image");
-//             adornment.x = int.Parse(item.GetAttribute("X"));
-//             adornment.y = int.Parse(item.GetAttribute("Y"));
-//             adornment.width = int.Parse(item.GetAttribute("Width"));
-//             adornment.height = int.Parse(item.GetAttribute("Height"));
-//             bool.TryParse(item.GetAttribute("Locked"), out adornment.locked);
-//             UpdateUI(obj);
+//             UITexture obj = CreateAdorment();
+//             obj.name = item.Name;
+//             obj.mainTexture=Resources.Load<Texture>(item.GetAttribute("Image"));
+//             obj.transform.localPosition = new Vector3(int.Parse(item.GetAttribute("X")), int.Parse(item.GetAttribute("Y")), 0);
+//             obj.width = int.Parse(item.GetAttribute("Width"));
+//             obj.height = int.Parse(item.GetAttribute("Height"));
 //         }
 //         XmlElement warriorNode = root.GetElementsByTagName("Warrior").Item(0) as XmlElement;
 //         foreach (XmlElement item in warriorNode.ChildNodes)
 //         {
-//             Image obj = createObj();
-//             Warrior warrior = new Warrior();
-//             obj.Tag = warrior;
+//             Warrior warrior = Warrior.Create();
 //             warrior.name = item.Name;
 //             warrior.path = item.GetAttribute("WarriorTemplate");
 //             if (!warrior.path.Equals(""))
@@ -99,9 +101,6 @@ public class BattleField : MonoBehaviour
 //             warrior.intelligencePoint = int.Parse(item.GetAttribute("IntelligencePoint"));
 // 
 //             warrior.guardingDistance = int.Parse(item.GetAttribute("GuardingDistance"));
-// 
-//             bool.TryParse(item.GetAttribute("Locked"), out warrior.locked);
-//             UpdateUI(obj);
 //         }
 
         /////////////////////////////////////////////////////////////////////////////////
