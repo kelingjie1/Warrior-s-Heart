@@ -16,14 +16,23 @@ public class GamePage : BasePage
         }
     }
 
-    UIScrollView scrollView;
+    UIPanel scrollView;
     void Awake()
     {
-        scrollView = gameObject.FindChild("ScrollView").GetComponent<UIScrollView>();
-        
+        scrollView = gameObject.FindChild("ScrollView").GetComponent<UIPanel>();
 
     }
-
+    void Update()
+    {
+        if (scrollView.transform.localPosition.x < -480 - BattleField.Instance.width)
+        {
+            scrollView.transform.localPosition = new Vector3(-480 - BattleField.Instance.width, -320, 0);
+        }
+        if (scrollView.transform.localPosition.x > -480)
+        {
+            scrollView.transform.localPosition = new Vector3(-480, -320, 0);
+        }
+    }
     private void OnScroll(GameObject go, float delta)
     {
         Debug.Log(delta);

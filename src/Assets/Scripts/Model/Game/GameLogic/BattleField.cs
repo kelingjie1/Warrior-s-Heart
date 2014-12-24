@@ -38,6 +38,8 @@ public class BattleField : MonoBehaviour
     public List<Ammo> DefenderAmmoList;
     public List<GameObject> trashList;
 
+    public int width = 960;
+
     void Awake()
     {
         m_instance = this;
