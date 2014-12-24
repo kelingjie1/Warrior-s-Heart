@@ -1,0 +1,8 @@
+<Root>
+  <Width>2000</Width>
+  <FloorHeight>100</FloorHeight>
+  <Adornment>
+    <unname Image="Texture\background\battlebackground.jpg" X="1000" Y="320" Width="2000" Height="640" />
+  </Adornment>
+  <Warrior />
+</Root>

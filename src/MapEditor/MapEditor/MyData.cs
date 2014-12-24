@@ -22,14 +22,17 @@ namespace MapEditor
             height = int.Parse(((XmlElement)root.GetElementsByTagName("PicYSize").Item(0)).InnerText);
         }
     }
-    public class Warrior
+    public class ObjBase
+    {
+        public bool locked;
+    }
+    public class Warrior : ObjBase
     {
         public string name;
         public WarriorTemplate template;
         public int x;
         public string path;
         public int guardingDistance;
-        public int level;
         public int powerPoint;
         public int agilityPoint;
         public int strongPoint;
@@ -37,10 +40,10 @@ namespace MapEditor
         public Warrior()
         {
             name = "unname";
-            x = 0;
+            x = 100;
         }
     }
-    public class Adornment
+    public class Adornment : ObjBase
     {
         public string name;
         public string image;

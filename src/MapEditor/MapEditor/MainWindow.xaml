@@ -3,55 +3,57 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="800" Width="1000">
     <Grid>
-        <TabControl x:Name="tabControl" Margin="0,65,10,10" Width="200" HorizontalAlignment="Right">
+        <TabControl x:Name="tabControl" Margin="0,65,10,10" Width="223" HorizontalAlignment="Right">
             <TabItem Header="地图属性">
                 <Grid Background="#FFE5E5E5">
                     <Label Content="Width" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
                     <Label Content="FloorHeight" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.735,2.346"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="88,13,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="92" KeyDown="TextKeyDown"/>
-                    <TextBox x:Name="mapFloorHeight" HorizontalAlignment="Left" Height="23" Margin="88,41,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="92" LostFocus="mapFloorChange" KeyDown="TextKeyDown"/>
+                    <TextBox x:Name="mapWidth" HorizontalAlignment="Left" Height="23" Margin="88,13,0,0" TextWrapping="Wrap" Text="2000" VerticalAlignment="Top" Width="92" KeyDown="mapWidthKeyDown" LostFocus="mapWidthChange"/>
+                    <TextBox x:Name="mapFloorHeight" HorizontalAlignment="Left" Height="23" Margin="88,41,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="92" LostFocus="mapFloorChange" KeyDown="mapFloorKeyDown"/>
                 </Grid>
             </TabItem>
             <TabItem Header="战士属性">
                 <Grid Background="#FFE5E5E5" HorizontalAlignment="Right" Width="202">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="63*"/>
+                        <ColumnDefinition Width="38*"/>
+                    </Grid.ColumnDefinitions>
                     <Label Content="Name" HorizontalAlignment="Left" Margin="19,5,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Template" HorizontalAlignment="Left" Margin="19,31,0,0" VerticalAlignment="Top"/>
-                    <Label Content="GuardingDistance" HorizontalAlignment="Left" Margin="19,57,0,0" VerticalAlignment="Top"/>
-                    <Label Content="X" HorizontalAlignment="Left" Margin="19,80,0,0" VerticalAlignment="Top"/>
-                    <Label Content="PowerPoint" HorizontalAlignment="Left" Margin="20,106,0,0" VerticalAlignment="Top"/>
-                    <Label Content="StrongPoint" HorizontalAlignment="Left" Margin="20,162,0,0" VerticalAlignment="Top"/>
-                    <Label Content="IntelligencePoint" HorizontalAlignment="Left" Margin="19,188,0,0" VerticalAlignment="Top"/>
-                    <Label Content="AgilityPoint" HorizontalAlignment="Left" Margin="19,134,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="warriorName" HorizontalAlignment="Left" Height="23" Margin="132,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" KeyDown="TextKeyDown" LostFocus="TextLostFocus"/>
-                    <TextBox x:Name="warriorTemplate" HorizontalAlignment="Left" Height="23" Margin="132,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" KeyDown="TextKeyDown" LostFocus="TextLostFocus"/>
-                    <TextBox x:Name="warriorGuardingDistance" HorizontalAlignment="Left" Height="23" Margin="132,57,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" KeyDown="TextKeyDown" LostFocus="TextLostFocus"/>
-                    <TextBox x:Name="warriorX" HorizontalAlignment="Left" Height="23" Margin="132,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" KeyDown="TextKeyDown" LostFocus="TextLostFocus"/>
-                    <TextBox x:Name="warriorPowerPoint" HorizontalAlignment="Left" Height="23" Margin="132,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" KeyDown="TextKeyDown" LostFocus="TextLostFocus"/>
-                    <TextBox x:Name="warriorStrongPoint" HorizontalAlignment="Left" Height="23" Margin="132,165,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" KeyDown="TextKeyDown" LostFocus="TextLostFocus"/>
-                    <TextBox x:Name="warriorIntelligencePoint" HorizontalAlignment="Left" Height="23" Margin="132,191,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" KeyDown="TextKeyDown" LostFocus="TextLostFocus"/>
-                    <TextBox x:Name="warriorAgilityPoint" HorizontalAlignment="Left" Height="23" Margin="132,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" KeyDown="TextKeyDown" LostFocus="TextLostFocus"/>
-                    <Button Content="..." HorizontalAlignment="Left" Margin="97,34,0,0" VerticalAlignment="Top" Width="29" Click="openWarriorTemplate"/>
+                    <Label Content="警戒" HorizontalAlignment="Left" Margin="19,100,0,0" VerticalAlignment="Top"/>
+                    <Label Content="X" HorizontalAlignment="Left" Margin="19,123,0,0" VerticalAlignment="Top"/>
+                    <Label Content="力" HorizontalAlignment="Left" Margin="20,149,0,0" VerticalAlignment="Top"/>
+                    <Label Content="体" HorizontalAlignment="Left" Margin="20,205,0,0" VerticalAlignment="Top"/>
+                    <Label Content="智" HorizontalAlignment="Left" Margin="19,231,0,0" VerticalAlignment="Top"/>
+                    <Label Content="敏" HorizontalAlignment="Left" Margin="19,177,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="warriorName" HorizontalAlignment="Left" Height="23" Margin="86,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" KeyDown="TextKeyDown" LostFocus="TextLostFocus" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="warriorTemplate" HorizontalAlignment="Left" Margin="86,34,0,568" TextWrapping="Wrap" Width="106" KeyDown="TextKeyDown" LostFocus="TextLostFocus" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="warriorGuardingDistance" HorizontalAlignment="Left" Height="23" Margin="86,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" KeyDown="TextKeyDown" LostFocus="TextLostFocus" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="warriorX" HorizontalAlignment="Left" Height="23" Margin="86,126,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" KeyDown="TextKeyDown" LostFocus="TextLostFocus" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="warriorPowerPoint" HorizontalAlignment="Left" Height="23" Margin="86,152,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" KeyDown="TextKeyDown" LostFocus="TextLostFocus" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="warriorStrongPoint" HorizontalAlignment="Left" Height="23" Margin="86,208,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" KeyDown="TextKeyDown" LostFocus="TextLostFocus" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="warriorIntelligencePoint" HorizontalAlignment="Left" Height="23" Margin="86,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" KeyDown="TextKeyDown" LostFocus="TextLostFocus" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="warriorAgilityPoint" HorizontalAlignment="Left" Height="23" Margin="86,180,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" KeyDown="TextKeyDown" LostFocus="TextLostFocus" Grid.ColumnSpan="2"/>
+                    <Button Content="Template" HorizontalAlignment="Left" Margin="20,34,0,0" VerticalAlignment="Top" Width="64" Click="openWarriorTemplate"/>
                 </Grid>
             </TabItem>
             <TabItem Header="装饰属性">
                 <Grid Background="#FFE5E5E5" HorizontalAlignment="Right" Width="202">
                     <Label Content="Name" HorizontalAlignment="Left" Margin="19,5,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="adornmentName" HorizontalAlignment="Left" Height="23" Margin="132,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" KeyDown="TextKeyDown" LostFocus="TextLostFocus"/>
-                    <Label Content="Image" HorizontalAlignment="Left" Margin="19,28,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="adornmentImage" HorizontalAlignment="Left" Height="23" Margin="132,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" KeyDown="TextKeyDown" LostFocus="TextLostFocus"/>
-                    <Label Content="X" HorizontalAlignment="Left" Margin="19,51,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="adornmentX" HorizontalAlignment="Left" Height="23" Margin="132,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" KeyDown="TextKeyDown" LostFocus="TextLostFocus"/>
-                    <Label Content="Y" HorizontalAlignment="Left" Margin="19,74,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="adornmentY" HorizontalAlignment="Left" Height="23" Margin="132,79,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" KeyDown="TextKeyDown" LostFocus="TextLostFocus"/>
-                    <Label Content="Width" HorizontalAlignment="Left" Margin="19,97,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="adornmentWidth" HorizontalAlignment="Left" Height="23" Margin="132,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" KeyDown="TextKeyDown" LostFocus="TextLostFocus"/>
-                    <Label Content="Height" HorizontalAlignment="Left" Margin="19,120,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="adornmentHeight" HorizontalAlignment="Left" Height="23" Margin="132,125,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" KeyDown="TextKeyDown" LostFocus="TextLostFocus"/>
-                    <Button Content="..." HorizontalAlignment="Left" Margin="92,32,0,0" VerticalAlignment="Top" Width="35" Click="openImage"/>
+                    <TextBox x:Name="adornmentName" HorizontalAlignment="Left" Height="23" Margin="73,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="119" KeyDown="TextKeyDown" LostFocus="TextLostFocus"/>
+                    <TextBox x:Name="adornmentImage" HorizontalAlignment="Left" Height="74" Margin="73,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="119" KeyDown="TextKeyDown" LostFocus="TextLostFocus"/>
+                    <Label Content="X" HorizontalAlignment="Left" Margin="19,107,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="adornmentX" HorizontalAlignment="Left" Height="23" Margin="73,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="119" KeyDown="TextKeyDown" LostFocus="TextLostFocus"/>
+                    <Label Content="Y" HorizontalAlignment="Left" Margin="19,130,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="adornmentY" HorizontalAlignment="Left" Height="23" Margin="73,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="119" KeyDown="TextKeyDown" LostFocus="TextLostFocus"/>
+                    <Label Content="Width" HorizontalAlignment="Left" Margin="19,153,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="adornmentWidth" HorizontalAlignment="Left" Height="23" Margin="73,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="119" KeyDown="TextKeyDown" LostFocus="TextLostFocus"/>
+                    <Label Content="Height" HorizontalAlignment="Left" Margin="19,176,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="adornmentHeight" HorizontalAlignment="Left" Height="23" Margin="73,181,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="119" KeyDown="TextKeyDown" LostFocus="TextLostFocus"/>
+                    <Button Content="Image" HorizontalAlignment="Left" Margin="19,33,0,0" VerticalAlignment="Top" Width="45" Click="openImage"/>
                 </Grid>
             </TabItem>
         </TabControl>
-        <ScrollViewer x:Name="scrollView" Margin="10,65,215,10" HorizontalScrollBarVisibility="Auto" Background="{DynamicResource {x:Static SystemColors.AppWorkspaceBrushKey}}">
+        <ScrollViewer x:Name="scrollView" Margin="10,65,238,10" HorizontalScrollBarVisibility="Auto" Background="{DynamicResource {x:Static SystemColors.AppWorkspaceBrushKey}}">
             <Canvas x:Name="map" Height="640" Width="2000" Background="#FFACEAB5"/>
         </ScrollViewer>
         <Button Content="添加装饰" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="125" Height="50" Click="createAdornment"/>
@@ -68,6 +70,7 @@
         <Label Content="当前文件路径" HorizontalAlignment="Left" Margin="547,39,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.024,0.423"/>
         <TextBox x:Name="currentFilePath" HorizontalAlignment="Left" Height="23" Margin="634,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Button Content="打开文件" HorizontalAlignment="Left" Margin="759,41,0,0" VerticalAlignment="Top" Width="75" Click="openFile"/>
-        <Button Content="保存" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="93" Height="50"/>
+        <Button Content="保存" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="93" Height="50" Click="Button_Click"/>
+        <CheckBox x:Name="locked" Content="锁定控件" HorizontalAlignment="Left" Margin="800,17,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked"/>
     </Grid>
 </Window>
