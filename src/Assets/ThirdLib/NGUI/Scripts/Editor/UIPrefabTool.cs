@@ -135,7 +135,7 @@ public class UIPrefabTool : EditorWindow
 
 		if (mTab == 0)
 		{
-			BetterList<string> filtered = new BetterList<string>();
+			List<string> filtered = new List<string>();
 			string[] allAssets = AssetDatabase.GetAllAssetPaths();
 
 			foreach (string s in allAssets)
@@ -374,6 +374,24 @@ public class UIPrefabTool : EditorWindow
 	}
 
 	/// <summary>
+	/// GetComponentInChildren doesn't work on prefabs.
+	/// </summary>
+
+	static UISnapshotPoint GetSnapshotPoint (Transform t)
+	{
+		UISnapshotPoint point = t.GetComponent<UISnapshotPoint>();
+		if (point != null) return point;
+		
+		for (int i = 0, imax = t.childCount; i < imax; ++i)
+		{
+			Transform c = t.GetChild(i);
+			point = GetSnapshotPoint(c);
+			if (point != null) return point;
+		}
+		return null;
+	}
+
+	/// <summary>
 	/// Generate an item preview for the specified item.
 	/// </summary>
 
@@ -381,18 +399,27 @@ public class UIPrefabTool : EditorWindow
 	{
 		if (item == null || item.prefab == null) return;
 
+		if (point == null) point = GetSnapshotPoint(item.prefab.transform);
+
+		if (point != null && point.thumbnail != null)
+		{
+			Debug.Log(2);
+			// Explicitly chosen thumbnail
+			item.tex = point.thumbnail;
+			item.dynamicTex = false;
+			return;
+		}
+		else if (!UnityEditorInternal.InternalEditorUtility.HasPro())
+		{
+			// Render textures only work in Unity Pro
+			string path = "Assets/NGUI/Editor/Preview/" + item.prefab.name + ".png";
+			item.tex = File.Exists(path) ? (Texture2D)Resources.LoadAssetAtPath(path, typeof(Texture2D)) : null;
+			item.dynamicTex = false;
+			return;
+		}
+
 		int dim = (cellSize - 4) * 2;
-		RenderTexture rt = (item.tex as RenderTexture);
 
-		// If the dimensions have changed, we will need to create a new render texture
-		if (rt != null && item.dynamicTex && (item.tex.width != dim || item.tex.height != dim))
-			DestroyImmediate(item.tex);
-
-#if UNITY_3_5
-		// Unfortunately Unity 3.5 doesn't seem to support a proper way of doing any of this
-		item.tex = null;
-		item.dynamicTex = false;
-#else
 		// Asset Preview-based approach is unreliable, and most of the time fails to provide a texture.
 		// Sometimes it even throws null exceptions.
 		//item.tex = AssetPreview.GetAssetPreview(item.prefab);
@@ -411,26 +438,18 @@ public class UIPrefabTool : EditorWindow
 		root.layer = item.prefab.layer;
 
 		// Set up the camera
+#if UNITY_4_3 || UNITY_4_5 || UNITY_4_6
 		Camera cam = camGO.camera;
+		cam.isOrthoGraphic = true;
+#else
+		Camera cam = camGO.GetComponent<Camera>();
+		cam.orthographic = true;
+#endif
 		cam.renderingPath = RenderingPath.Forward;
 		cam.clearFlags = CameraClearFlags.Skybox;
-		cam.isOrthoGraphic = true;
 		cam.backgroundColor = new Color(0f, 0f, 0f, 0f);
-
-		// Set up the render texture for the camera
-		if (rt == null)
-		{
-			rt = new RenderTexture(dim, dim, 1);
-			rt.hideFlags = HideFlags.HideAndDontSave;
-			rt.generateMips = false;
-			rt.format = RenderTextureFormat.ARGB32;
-			rt.filterMode = FilterMode.Trilinear;
-			rt.anisoLevel = 4;
-
-			item.tex = rt;
-			item.dynamicTex = true;
-		}
-		cam.targetTexture = rt;
+		cam.targetTexture = (item.tex as RenderTexture);
+		cam.enabled = false;
 
 		// Finally instantiate the prefab as a child of the root
 		GameObject child = NGUITools.AddChild(root, item.prefab);
@@ -439,14 +458,27 @@ public class UIPrefabTool : EditorWindow
 		if (point == null) point = child.GetComponentInChildren<UISnapshotPoint>();
 
 		// If there is a UIRect present (widgets or panels) then it's an NGUI object
-		if (SetupPreviewForUI(cam, root, child, point) ||
-			SetupPreviewFor3D(cam, root, child, point))
-			cam.Render();
+		RenderTexture rt = (SetupPreviewForUI(cam, root, child, point) || SetupPreviewFor3D(cam, root, child, point)) ?
+			cam.RenderToTexture(dim, dim) : null;
+
+		// Did we have a different render texture? Get rid of it.
+		if (item.tex != rt && item.tex != null && item.dynamicTex)
+		{
+			NGUITools.DestroyImmediate(item.tex);
+			item.tex = null;
+			item.dynamicTex = false;
+		}
+
+		// Do we have a new render texture? Assign it.
+		if (rt != null)
+		{
+			item.tex = rt;
+			item.dynamicTex = true;
+		}
 
 		// Clean up everything
 		DestroyImmediate(camGO);
 		DestroyImmediate(root);
-#endif
 	}
 
 	/// <summary>
@@ -469,12 +501,7 @@ public class UIPrefabTool : EditorWindow
 
 		if (point != null) SetupSnapshotCamera(child, cam, point);
 		else SetupSnapshotCamera(child, cam, objSize, Mathf.RoundToInt(Mathf.Max(size.x, size.y)), -100f, 100f);
-
-		Execute<UIWidget>("Start", root);
-		Execute<UIPanel>("Start", root);
-		Execute<UIWidget>("Update", root);
-		Execute<UIPanel>("Update", root);
-		Execute<UIPanel>("LateUpdate", root);
+		NGUITools.ImmediatelyCreateDrawCalls(root);
 		return true;
 	}
 
@@ -507,7 +534,11 @@ public class UIPrefabTool : EditorWindow
 
 		// Set the camera's properties
 		cam.cullingMask = mask;
+#if UNITY_4_3 || UNITY_4_5 || UNITY_4_6
 		cam.isOrthoGraphic = true;
+#else
+		cam.orthographic = true;
+#endif
 		cam.transform.position = bounds.center;
 		cam.transform.rotation = Quaternion.LookRotation(camDir);
 
@@ -548,7 +579,11 @@ public class UIPrefabTool : EditorWindow
 
 		cam.transform.position = pos;
 		cam.transform.rotation = rot;
+#if UNITY_4_3 || UNITY_4_5 || UNITY_4_6
 		cam.isOrthoGraphic = point.isOrthographic;
+#else
+		cam.orthographic = point.isOrthographic;
+#endif
 		cam.nearClipPlane = point.nearClip;
 		cam.farClipPlane = point.farClip;
 		cam.orthographicSize = point.orthoSize;
@@ -593,7 +628,11 @@ public class UIPrefabTool : EditorWindow
 			float.TryParse(parts[1], out far);
 			float.TryParse(parts[2], out fov);
 
+#if UNITY_4_3 || UNITY_4_5 || UNITY_4_6
 			cam.isOrthoGraphic = false;
+#else
+			cam.orthographic = false;
+#endif
 			cam.nearClipPlane = near;
 			cam.farClipPlane = far;
 			cam.fieldOfView = fov;
@@ -663,25 +702,6 @@ public class UIPrefabTool : EditorWindow
 				mLights[i].enabled = true;
 			mLights = null;
 		}
-	}
-
-	/// <summary>
-	/// Helper function that executes the functions in a proper order.
-	/// </summary>
-
-	static void Execute<T> (string funcName, GameObject root) where T : Component
-	{
-		T[] comps = root.GetComponents<T>();
-
-		foreach (T comp in comps)
-		{
-			MethodInfo method = comp.GetType().GetMethod(funcName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-			if (method != null) method.Invoke(comp, null);
-		}
-
-		Transform t = root.transform;
-		for (int i = 0, imax = t.childCount; i < imax; ++i)
-			Execute<T>(funcName, t.GetChild(i).gameObject);
 	}
 
 	/// <summary>

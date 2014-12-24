@@ -51,11 +51,11 @@ public class UIButtonColor : UIWidgetContainer
 
 	public float duration = 0.2f;
 
-	protected Color mStartingColor;
-	protected Color mDefaultColor;
-	protected bool mInitDone = false;
-	protected UIWidget mWidget;
-	protected State mState = State.Normal;
+	[System.NonSerialized] protected Color mStartingColor;
+	[System.NonSerialized] protected Color mDefaultColor;
+	[System.NonSerialized] protected bool mInitDone = false;
+	[System.NonSerialized] protected UIWidget mWidget;
+	[System.NonSerialized] protected State mState = State.Normal;
 
 	/// <summary>
 	/// Button's current state.
@@ -103,25 +103,26 @@ public class UIButtonColor : UIWidgetContainer
 
 	public void ResetDefaultColor () { defaultColor = mStartingColor; }
 
-	void Awake () { if (!mInitDone) OnInit(); }
-
-	void Start () { if (!isEnabled) SetState(State.Disabled, true); }
+	void Start () { if (!mInitDone) OnInit(); if (!isEnabled) SetState(State.Disabled, true); }
 
 	protected virtual void OnInit ()
 	{
 		mInitDone = true;
 		if (tweenTarget == null) tweenTarget = gameObject;
-		mWidget = tweenTarget.GetComponent<UIWidget>();
+		if (tweenTarget != null) mWidget = tweenTarget.GetComponent<UIWidget>();
 
 		if (mWidget != null)
 		{
 			mDefaultColor = mWidget.color;
 			mStartingColor = mDefaultColor;
 		}
-		else
+		else if (tweenTarget != null)
 		{
+#if UNITY_4_3 || UNITY_4_5 || UNITY_4_6
 			Renderer ren = tweenTarget.renderer;
-
+#else
+			Renderer ren = tweenTarget.GetComponent<Renderer>();
+#endif
 			if (ren != null)
 			{
 				mDefaultColor = Application.isPlaying ? ren.material.color : ren.sharedMaterial.color;
@@ -129,8 +130,11 @@ public class UIButtonColor : UIWidgetContainer
 			}
 			else
 			{
+#if UNITY_4_3 || UNITY_4_5 || UNITY_4_6
 				Light lt = tweenTarget.light;
-
+#else
+				Light lt = tweenTarget.GetComponent<Light>();
+#endif
 				if (lt != null)
 				{
 					mDefaultColor = lt.color;
@@ -152,7 +156,11 @@ public class UIButtonColor : UIWidgetContainer
 	protected virtual void OnEnable ()
 	{
 #if UNITY_EDITOR
-		if (!Application.isPlaying) return;
+		if (!Application.isPlaying)
+		{
+			mInitDone = false;
+			return;
+		}
 #endif
 		if (mInitDone) OnHover(UICamera.IsHighlighted(gameObject));
 
@@ -264,8 +272,11 @@ public class UIButtonColor : UIWidgetContainer
 
 	protected virtual void OnSelect (bool isSelected)
 	{
-		if (isEnabled && (!isSelected || UICamera.currentScheme == UICamera.ControlScheme.Controller) && tweenTarget != null)
-			OnHover(isSelected);
+		if (isEnabled && tweenTarget != null)
+		{
+			if (UICamera.currentScheme == UICamera.ControlScheme.Controller) OnHover(isSelected);
+			else if (!isSelected && UICamera.touchCount < 2) OnHover(isSelected);
+		}
 	}
 
 	/// <summary>
@@ -283,9 +294,20 @@ public class UIButtonColor : UIWidgetContainer
 		if (mState != state)
 		{
 			mState = state;
+			UpdateColor(instant);
+		}
+	}
 
-			TweenColor tc;
+	/// <summary>
+	/// Update the button's color. Call this method after changing the colors of the button at run-time.
+	/// </summary>
 
+	public void UpdateColor (bool instant)
+	{
+		TweenColor tc;
+
+		if (tweenTarget != null)
+		{
 			switch (mState)
 			{
 				case State.Hover: tc = TweenColor.Begin(tweenTarget, duration, hover); break;

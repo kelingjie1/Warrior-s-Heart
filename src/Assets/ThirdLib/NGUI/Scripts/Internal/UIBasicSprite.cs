@@ -48,8 +48,8 @@ public abstract class UIBasicSprite : UIWidget
 	[HideInInspector][SerializeField] protected Flip mFlip = Flip.Nothing;
 
 	// Cached to avoid allocations
-	Rect mInnerUV = new Rect();
-	Rect mOuterUV = new Rect();
+	[System.NonSerialized] Rect mInnerUV = new Rect();
+	[System.NonSerialized] Rect mOuterUV = new Rect();
 
 	/// <summary>
 	/// When the sprite type is advanced, this determines whether the center is tiled or sliced.
@@ -290,7 +290,15 @@ public abstract class UIBasicSprite : UIWidget
 		{
 			Color colF = color;
 			colF.a = finalAlpha;
-			return premultipliedAlpha ? NGUITools.ApplyPMA(colF) : colF;
+			if (premultipliedAlpha) colF = NGUITools.ApplyPMA(colF);
+
+			if (QualitySettings.activeColorSpace == ColorSpace.Linear)
+			{
+				colF.r = Mathf.Pow(colF.r, 2.2f);
+				colF.g = Mathf.Pow(colF.g, 2.2f);
+				colF.b = Mathf.Pow(colF.b, 2.2f);
+			}
+			return colF;
 		}
 	}
 

@@ -21,10 +21,8 @@ public class UISprite : UIBasicSprite
 	// Deprecated, no longer used
 	[HideInInspector][SerializeField] bool mFillCenter = true;
 
-	[System.NonSerialized]
-	protected UISpriteData mSprite;
-	
-	bool mSpriteSet = false;
+	[System.NonSerialized] protected UISpriteData mSprite;
+	[System.NonSerialized] bool mSpriteSet = false;
 
 	/// <summary>
 	/// Retrieve the material used by the font.
@@ -420,6 +418,10 @@ public class UISprite : UIBasicSprite
 		outer = NGUIMath.ConvertToTexCoords(outer, tex.width, tex.height);
 		inner = NGUIMath.ConvertToTexCoords(inner, tex.width, tex.height);
 
+		int offset = verts.size;
 		Fill(verts, uvs, cols, outer, inner);
+
+		if (onPostFill != null)
+			onPostFill(this, offset, verts, uvs, cols);
 	}
 }

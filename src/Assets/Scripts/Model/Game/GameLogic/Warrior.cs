@@ -96,7 +96,7 @@ public class Warrior : MonoBehaviour
         }
         if (lastPrefix!=animation.namePrefix)
         {
-            animation.Reset();
+            animation.ResetToBeginning();
         }
     }
     public bool isAttacker;
