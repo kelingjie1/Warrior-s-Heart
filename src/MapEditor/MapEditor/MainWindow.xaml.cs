@@ -105,7 +105,11 @@ namespace MapEditor
         private void openImageDir(object sender, RoutedEventArgs e)
         {
             System.Windows.Forms.FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog();
-            dialog.SelectedPath = (new Uri(imageDir.Text)).AbsoluteUri;
+            try
+            {
+                dialog.SelectedPath = (new Uri(imageDir.Text)).AbsoluteUri;
+            }
+            catch { }
             if (dialog.ShowDialog()==System.Windows.Forms.DialogResult.OK)
             {
                 imageDir.Text = dialog.SelectedPath;
@@ -116,7 +120,11 @@ namespace MapEditor
         private void openWarriorDir(object sender, RoutedEventArgs e)
         {
             System.Windows.Forms.FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog();
-            dialog.SelectedPath = (new Uri(warriorDir.Text)).AbsoluteUri;
+            try
+            {
+                dialog.SelectedPath = (new Uri(warriorDir.Text)).AbsoluteUri;
+            }
+            catch { }
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 warriorDir.Text = dialog.SelectedPath;
@@ -127,7 +135,11 @@ namespace MapEditor
         private void openMapDir(object sender, RoutedEventArgs e)
         {
             System.Windows.Forms.FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog();
-            dialog.SelectedPath = (new Uri(mapDir.Text)).AbsoluteUri;
+            try
+            {
+                dialog.SelectedPath = (new Uri(mapDir.Text)).AbsoluteUri;
+            }
+            catch { }
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 mapDir.Text = dialog.SelectedPath;
@@ -138,7 +150,11 @@ namespace MapEditor
         private void openFile(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
-            dialog.InitialDirectory = (new Uri(mapDir.Text)).AbsoluteUri;
+            try
+            {
+                dialog.InitialDirectory = (new Uri(mapDir.Text)).AbsoluteUri;
+            }
+            catch { }
             if (dialog.ShowDialog()==true)
             {
                 currentFilePath.Text = dialog.FileName;
@@ -298,7 +314,6 @@ namespace MapEditor
             Image obj = createObj();
             Adornment adornment = new Adornment();
             obj.Tag = adornment;
-            map.Children.Add(obj);
             UpdateUI(obj);
         }
 
@@ -363,7 +378,7 @@ namespace MapEditor
                 }
                 
 
-                if (!adornment.image.Equals(""))
+                if (adornment.image!=null&&!adornment.image.Equals(""))
                 {
                     obj.Source = new BitmapImage(new Uri(imageDir.Text + "\\" + adornment.image));
                 }

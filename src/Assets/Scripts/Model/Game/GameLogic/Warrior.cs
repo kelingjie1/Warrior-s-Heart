@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+using System.Xml;
 public enum AttackState
 {
     None,
@@ -16,11 +16,7 @@ public enum MoveState
 
 public class Warrior : MonoBehaviour
 {
-    //基础属性
-    public float power;
-    public float agility;
-    public float strong;
-    public float intelligence;
+    public WarriorAttribute attribute = new WarriorAttribute();
     //属性
     public float knockback;
     public float antiKnockback;
@@ -33,7 +29,7 @@ public class Warrior : MonoBehaviour
     public float maxHP;
     public float maxMoveSpeed;
     public bool canAttackMove;
-    
+    public float guardingDistance;
 
     //当前属性
     public float hp;
@@ -62,6 +58,22 @@ public class Warrior : MonoBehaviour
                 return -1;
             }
         }
+    }
+    public void ReadFromXML(XmlElement item)
+    {
+        name = item.Name;
+        attribute.template = new WarriorTemplate(Config.WarriorPath + item.GetAttribute("WarriorTemplate"));
+        transform.localPosition = new Vector3(int.Parse(item.GetAttribute("X")), BattleField.Instance.floorHeight, 0);
+        attribute.powerPoint = int.Parse(item.GetAttribute("PowerPoint"));
+        attribute.agilityPoint = int.Parse(item.GetAttribute("AgilityPoint"));
+        attribute.strongPoint = int.Parse(item.GetAttribute("StrongPoint"));
+        attribute.intelligencePoint = int.Parse(item.GetAttribute("IntelligencePoint"));
+
+        guardingDistance = int.Parse(item.GetAttribute("GuardingDistance"));
+
+        
+
+
     }
     void UpdateAnimation()
     {
@@ -253,4 +265,5 @@ public class Warrior : MonoBehaviour
 
 
     }
+
 }

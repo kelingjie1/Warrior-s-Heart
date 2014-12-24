@@ -65,43 +65,32 @@ public class BattleField : MonoBehaviour
     }
     void LoadMap()
     {
-//         string path = "";
-//         XmlDocument doc = new XmlDocument();
-//         doc.Load(path);
-//         XmlElement root = doc.DocumentElement;
-//         XmlElement ele = root.GetElementsByTagName("Width").Item(0) as XmlElement;
-//         width = int.Parse(ele.InnerText);
-//         ele = root.GetElementsByTagName("FloorHeight").Item(0) as XmlElement;
-//         floorHeight = int.Parse(ele.InnerText);
-// 
-//         XmlElement adornmentNode = root.GetElementsByTagName("Adornment").Item(0) as XmlElement;
-//         foreach (XmlElement item in adornmentNode.ChildNodes)
-//         {
-//             UITexture obj = CreateAdorment();
-//             obj.name = item.Name;
-//             obj.mainTexture=Resources.Load<Texture>(item.GetAttribute("Image"));
-//             obj.transform.localPosition = new Vector3(int.Parse(item.GetAttribute("X")), int.Parse(item.GetAttribute("Y")), 0);
-//             obj.width = int.Parse(item.GetAttribute("Width"));
-//             obj.height = int.Parse(item.GetAttribute("Height"));
-//         }
-//         XmlElement warriorNode = root.GetElementsByTagName("Warrior").Item(0) as XmlElement;
-//         foreach (XmlElement item in warriorNode.ChildNodes)
-//         {
-//             Warrior warrior = Warrior.Create();
-//             warrior.name = item.Name;
-//             warrior.path = item.GetAttribute("WarriorTemplate");
-//             if (!warrior.path.Equals(""))
-//             {
-//                 warrior.template = new WarriorTemplate(warriorDir.Text + "\\" + warrior.path);
-//             }
-//             warrior.x = int.Parse(item.GetAttribute("X"));
-//             warrior.powerPoint = int.Parse(item.GetAttribute("PowerPoint"));
-//             warrior.agilityPoint = int.Parse(item.GetAttribute("AgilityPoint"));
-//             warrior.strongPoint = int.Parse(item.GetAttribute("StrongPoint"));
-//             warrior.intelligencePoint = int.Parse(item.GetAttribute("IntelligencePoint"));
-// 
-//             warrior.guardingDistance = int.Parse(item.GetAttribute("GuardingDistance"));
-//         }
+        string path = "";
+        XmlDocument doc = new XmlDocument();
+        doc.Load(path);
+        XmlElement root = doc.DocumentElement;
+        XmlElement ele = root.GetElementsByTagName("Width").Item(0) as XmlElement;
+        width = int.Parse(ele.InnerText);
+        ele = root.GetElementsByTagName("FloorHeight").Item(0) as XmlElement;
+        floorHeight = int.Parse(ele.InnerText);
+
+        XmlElement adornmentNode = root.GetElementsByTagName("Adornment").Item(0) as XmlElement;
+        foreach (XmlElement item in adornmentNode.ChildNodes)
+        {
+            UITexture obj = CreateAdorment();
+            obj.name = item.Name;
+            obj.mainTexture = Resources.Load<Texture>(Config.ImagePath + item.GetAttribute("Image"));
+            obj.transform.localPosition = new Vector3(int.Parse(item.GetAttribute("X")), int.Parse(item.GetAttribute("Y")), 0);
+            obj.width = int.Parse(item.GetAttribute("Width"));
+            obj.height = int.Parse(item.GetAttribute("Height"));
+        }
+        XmlElement warriorNode = root.GetElementsByTagName("Warrior").Item(0) as XmlElement;
+        foreach (XmlElement item in warriorNode.ChildNodes)
+        {
+            Warrior warrior = Warrior.Create();
+            warrior.ReadFromXML(item);
+            
+        }
 
         /////////////////////////////////////////////////////////////////////////////////
 
