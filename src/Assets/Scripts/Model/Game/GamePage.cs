@@ -15,8 +15,24 @@ public class GamePage : BasePage
             return m_instance;
         }
     }
+
+    UIScrollView scrollView;
+    void Awake()
+    {
+        scrollView = gameObject.FindChild("ScrollView").GetComponent<UIScrollView>();
+        
+
+    }
+
+    private void OnScroll(GameObject go, float delta)
+    {
+        Debug.Log(delta);
+    }
     public override void PageDidAppear()
     {
+         
         BattleField.Instance.StartBattle();
     }
+
+    
 }

@@ -55,33 +55,35 @@ public class BattleField : MonoBehaviour
 
     void LoadMap()
     {
-//         string path = Config.DownloadPath;
 //         XmlDocument doc = new XmlDocument();
 //         doc.Load(path);
 //         XmlElement root = doc.DocumentElement;
 //         XmlElement ele = root.GetElementsByTagName("Width").Item(0) as XmlElement;
-//         mapWidth.Value = int.Parse(ele.InnerText);
+//         mapWidth.Text = ele.InnerText;
 //         ele = root.GetElementsByTagName("FloorHeight").Item(0) as XmlElement;
-//         mapFloorHeight.Value = int.Parse(ele.InnerText);
+//         mapFloorHeight.Text = ele.InnerText;
 // 
 //         XmlElement adornmentNode = root.GetElementsByTagName("Adornment").Item(0) as XmlElement;
 //         foreach (XmlElement item in adornmentNode.ChildNodes)
 //         {
-//             MyPictureBox pic = CreateAdorment();
-//             Adornment adornment = pic.Tag as Adornment;
+//             Image obj = createObj();
+//             Adornment adornment = new Adornment();
+//             obj.Tag = adornment;
 //             adornment.name = item.Name;
 //             adornment.image = item.GetAttribute("Image");
 //             adornment.x = int.Parse(item.GetAttribute("X"));
 //             adornment.y = int.Parse(item.GetAttribute("Y"));
 //             adornment.width = int.Parse(item.GetAttribute("Width"));
 //             adornment.height = int.Parse(item.GetAttribute("Height"));
-//             AdjustPictureBox(pic, adornment);
+//             bool.TryParse(item.GetAttribute("Locked"), out adornment.locked);
+//             UpdateUI(obj);
 //         }
 //         XmlElement warriorNode = root.GetElementsByTagName("Warrior").Item(0) as XmlElement;
 //         foreach (XmlElement item in warriorNode.ChildNodes)
 //         {
-//             MyPictureBox pic = CreateWarrior();
-//             Warrior warrior = pic.Tag as Warrior;
+//             Image obj = createObj();
+//             Warrior warrior = new Warrior();
+//             obj.Tag = warrior;
 //             warrior.name = item.Name;
 //             warrior.path = item.GetAttribute("WarriorTemplate");
 //             if (!warrior.path.Equals(""))
@@ -89,9 +91,15 @@ public class BattleField : MonoBehaviour
 //                 warrior.template = new WarriorTemplate(warriorDir.Text + "\\" + warrior.path);
 //             }
 //             warrior.x = int.Parse(item.GetAttribute("X"));
-//             warrior.level = int.Parse(item.GetAttribute("Level"));
+//             warrior.powerPoint = int.Parse(item.GetAttribute("PowerPoint"));
+//             warrior.agilityPoint = int.Parse(item.GetAttribute("AgilityPoint"));
+//             warrior.strongPoint = int.Parse(item.GetAttribute("StrongPoint"));
+//             warrior.intelligencePoint = int.Parse(item.GetAttribute("IntelligencePoint"));
+// 
 //             warrior.guardingDistance = int.Parse(item.GetAttribute("GuardingDistance"));
-//             AdjustPictureBox(pic);
+// 
+//             bool.TryParse(item.GetAttribute("Locked"), out warrior.locked);
+//             UpdateUI(obj);
 //         }
 
         /////////////////////////////////////////////////////////////////////////////////
