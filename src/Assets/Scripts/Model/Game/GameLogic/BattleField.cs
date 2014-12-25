@@ -65,7 +65,7 @@ public class BattleField : MonoBehaviour
     }
     void LoadMap()
     {
-        string path = "";
+        string path = Config.MapPath + "1-1";
         XmlDocument doc = new XmlDocument();
         doc.Load(path);
         XmlElement root = doc.DocumentElement;
@@ -79,7 +79,7 @@ public class BattleField : MonoBehaviour
         {
             UITexture obj = CreateAdorment();
             obj.name = item.Name;
-            obj.mainTexture = Resources.Load<Texture>(Config.ImagePath + item.GetAttribute("Image"));
+            obj.mainTexture = ResourceManager.LoadTexture(Config.ImagePath + item.GetAttribute("Image"));
             obj.transform.localPosition = new Vector3(int.Parse(item.GetAttribute("X")), int.Parse(item.GetAttribute("Y")), 0);
             obj.width = int.Parse(item.GetAttribute("Width"));
             obj.height = int.Parse(item.GetAttribute("Height"));
@@ -88,23 +88,32 @@ public class BattleField : MonoBehaviour
         foreach (XmlElement item in warriorNode.ChildNodes)
         {
             Warrior warrior = Warrior.Create();
+            this.gameObject.AddChild(warrior.gameObject);
             warrior.ReadFromXML(item);
-            
+            if (warrior.isAttacker)
+            {
+                AttackerList.Add(warrior);
+            }
+            else
+            {
+                DefenderList.Add(warrior);
+            }
         }
+        
 
         /////////////////////////////////////////////////////////////////////////////////
 
-        for (int i = 0; i < 2; i++)
-        {
-            Warrior attacker = Warrior.Create();
-            this.gameObject.AddChild(attacker.gameObject);
-            attacker.transform.localPosition = new Vector3(50 + i * 20, 82, 0);
-            attacker.isAttacker = true;
-            attacker.name = "attacker" + i;
-            AttackerList.Add(attacker);
-        }
-        AttackerList[0].TestMelee();
-        AttackerList[1].TestRemote();
+//         for (int i = 0; i < 2; i++)
+//         {
+//             Warrior attacker = Warrior.Create();
+//             this.gameObject.AddChild(attacker.gameObject);
+//             attacker.transform.localPosition = new Vector3(50 + i * 20, 82, 0);
+//             attacker.isAttacker = true;
+//             attacker.name = "attacker" + i;
+//             AttackerList.Add(attacker);
+//         }
+//         AttackerList[0].TestMelee();
+//         AttackerList[1].TestRemote();
         for (int i = 0; i < AttackerList.Count; i++)
         {
             for (int j = i + 1; j < AttackerList.Count; j++)
@@ -113,16 +122,16 @@ public class BattleField : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < 2; i++)
-        {
-            Warrior defender = Warrior.Create();
-            this.gameObject.AddChild(defender.gameObject);
-            defender.transform.localPosition = new Vector3(Screen.width - 50 - i * 20, 82, 0);
-            defender.name = "defender" + i;
-            DefenderList.Add(defender);
-        }
-        DefenderList[0].TestMelee();
-        DefenderList[1].TestRemote();
+//         for (int i = 0; i < 2; i++)
+//         {
+//             Warrior defender = Warrior.Create();
+//             this.gameObject.AddChild(defender.gameObject);
+//             defender.transform.localPosition = new Vector3(Screen.width - 50 - i * 20, 82, 0);
+//             defender.name = "defender" + i;
+//             DefenderList.Add(defender);
+//         }
+//         DefenderList[0].TestMelee();
+//         DefenderList[1].TestRemote();
         for (int i = 0; i < DefenderList.Count; i++)
         {
             for (int j = i + 1; j < DefenderList.Count; j++)

@@ -29,6 +29,7 @@ namespace MapEditor
     public class Warrior : ObjBase
     {
         public string name;
+        public bool isAttacker;
         public WarriorTemplate template;
         public int x;
         public string path;

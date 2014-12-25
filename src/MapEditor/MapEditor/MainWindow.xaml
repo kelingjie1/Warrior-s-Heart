@@ -15,25 +15,26 @@
             <TabItem Header="战士属性">
                 <Grid Background="#FFE5E5E5" HorizontalAlignment="Right" Width="202">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="63*"/>
-                        <ColumnDefinition Width="38*"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="0*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Content="Name" HorizontalAlignment="Left" Margin="19,5,0,0" VerticalAlignment="Top"/>
-                    <Label Content="警戒" HorizontalAlignment="Left" Margin="19,100,0,0" VerticalAlignment="Top"/>
-                    <Label Content="X" HorizontalAlignment="Left" Margin="19,123,0,0" VerticalAlignment="Top"/>
-                    <Label Content="力" HorizontalAlignment="Left" Margin="20,149,0,0" VerticalAlignment="Top"/>
-                    <Label Content="体" HorizontalAlignment="Left" Margin="20,205,0,0" VerticalAlignment="Top"/>
-                    <Label Content="智" HorizontalAlignment="Left" Margin="19,231,0,0" VerticalAlignment="Top"/>
-                    <Label Content="敏" HorizontalAlignment="Left" Margin="19,177,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="warriorName" HorizontalAlignment="Left" Height="23" Margin="86,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" KeyDown="TextKeyDown" LostFocus="TextLostFocus" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="warriorTemplate" HorizontalAlignment="Left" Margin="86,34,0,568" TextWrapping="Wrap" Width="106" KeyDown="TextKeyDown" LostFocus="TextLostFocus" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="warriorGuardingDistance" HorizontalAlignment="Left" Height="23" Margin="86,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" KeyDown="TextKeyDown" LostFocus="TextLostFocus" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="warriorX" HorizontalAlignment="Left" Height="23" Margin="86,126,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" KeyDown="TextKeyDown" LostFocus="TextLostFocus" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="warriorPowerPoint" HorizontalAlignment="Left" Height="23" Margin="86,152,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" KeyDown="TextKeyDown" LostFocus="TextLostFocus" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="warriorStrongPoint" HorizontalAlignment="Left" Height="23" Margin="86,208,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" KeyDown="TextKeyDown" LostFocus="TextLostFocus" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="warriorIntelligencePoint" HorizontalAlignment="Left" Height="23" Margin="86,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" KeyDown="TextKeyDown" LostFocus="TextLostFocus" Grid.ColumnSpan="2"/>
-                    <TextBox x:Name="warriorAgilityPoint" HorizontalAlignment="Left" Height="23" Margin="86,180,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" KeyDown="TextKeyDown" LostFocus="TextLostFocus" Grid.ColumnSpan="2"/>
-                    <Button Content="Template" HorizontalAlignment="Left" Margin="20,34,0,0" VerticalAlignment="Top" Width="64" Click="openWarriorTemplate"/>
+                    <Label Content="Name" HorizontalAlignment="Left" Margin="19,5,0,0" VerticalAlignment="Top" Height="26" Width="44"/>
+                    <Label Content="警戒" HorizontalAlignment="Left" Margin="19,100,0,0" VerticalAlignment="Top" Height="26" Width="34"/>
+                    <Label Content="X" HorizontalAlignment="Left" Margin="19,123,0,0" VerticalAlignment="Top" Height="26" Width="18"/>
+                    <Label Content="力" HorizontalAlignment="Left" Margin="20,149,0,0" VerticalAlignment="Top" Height="26" Width="22"/>
+                    <Label Content="体" HorizontalAlignment="Left" Margin="20,205,0,0" VerticalAlignment="Top" Height="26" Width="22"/>
+                    <Label Content="智" HorizontalAlignment="Left" Margin="19,231,0,0" VerticalAlignment="Top" Height="26" Width="22"/>
+                    <Label Content="敏" HorizontalAlignment="Left" Margin="19,177,0,0" VerticalAlignment="Top" Height="26" Width="22"/>
+                    <TextBox x:Name="warriorName" HorizontalAlignment="Left" Height="23" Margin="86,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" KeyDown="TextKeyDown" LostFocus="TextLostFocus"/>
+                    <TextBox x:Name="warriorTemplate" HorizontalAlignment="Left" Margin="86,34,0,568" TextWrapping="Wrap" Width="106" KeyDown="TextKeyDown" LostFocus="TextLostFocus"/>
+                    <TextBox x:Name="warriorGuardingDistance" HorizontalAlignment="Left" Height="23" Margin="86,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" KeyDown="TextKeyDown" LostFocus="TextLostFocus"/>
+                    <TextBox x:Name="warriorX" HorizontalAlignment="Left" Height="23" Margin="86,126,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" KeyDown="TextKeyDown" LostFocus="TextLostFocus"/>
+                    <TextBox x:Name="warriorPowerPoint" HorizontalAlignment="Left" Height="23" Margin="86,152,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" KeyDown="TextKeyDown" LostFocus="TextLostFocus"/>
+                    <TextBox x:Name="warriorStrongPoint" HorizontalAlignment="Left" Height="23" Margin="86,208,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" KeyDown="TextKeyDown" LostFocus="TextLostFocus"/>
+                    <TextBox x:Name="warriorIntelligencePoint" HorizontalAlignment="Left" Height="23" Margin="86,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" KeyDown="TextKeyDown" LostFocus="TextLostFocus"/>
+                    <TextBox x:Name="warriorAgilityPoint" HorizontalAlignment="Left" Height="23" Margin="86,180,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" KeyDown="TextKeyDown" LostFocus="TextLostFocus"/>
+                    <Button Content="Template" HorizontalAlignment="Left" Margin="20,34,0,0" VerticalAlignment="Top" Width="64" Click="openWarriorTemplate" Height="22"/>
+                    <CheckBox x:Name="isAttacker" Content="进攻方" HorizontalAlignment="Left" Margin="20,262,0,0" VerticalAlignment="Top" Height="16" Width="62" Checked="isAttacker_Checked" Unchecked="isAttacker_Checked"/>
                 </Grid>
             </TabItem>
             <TabItem Header="装饰属性">

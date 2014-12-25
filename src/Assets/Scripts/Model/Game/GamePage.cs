@@ -24,13 +24,13 @@ public class GamePage : BasePage
     }
     void Update()
     {
-        if (scrollView.transform.localPosition.x < -480 - BattleField.Instance.width)
+        if (scrollView.transform.localPosition.x < Screen.width/2 - BattleField.Instance.width)
         {
-            scrollView.transform.localPosition = new Vector3(-480 - BattleField.Instance.width, -320, 0);
+            scrollView.transform.localPosition = new Vector3(Screen.width / 2 - BattleField.Instance.width, -Screen.height/2, 0);
         }
-        if (scrollView.transform.localPosition.x > -480)
+        if (scrollView.transform.localPosition.x > -Screen.width/2)
         {
-            scrollView.transform.localPosition = new Vector3(-480, -320, 0);
+            scrollView.transform.localPosition = new Vector3(-Screen.width / 2, -Screen.height/2, 0);
         }
     }
     private void OnScroll(GameObject go, float delta)

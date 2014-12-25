@@ -62,6 +62,7 @@ public class Warrior : MonoBehaviour
     public void ReadFromXML(XmlElement item)
     {
         name = item.Name;
+        isAttacker = bool.Parse(item.GetAttribute("IsAttacker"));
         attribute.template = new WarriorTemplate(Config.WarriorPath + item.GetAttribute("WarriorTemplate"));
         transform.localPosition = new Vector3(int.Parse(item.GetAttribute("X")), BattleField.Instance.floorHeight, 0);
         attribute.powerPoint = int.Parse(item.GetAttribute("PowerPoint"));
@@ -71,7 +72,36 @@ public class Warrior : MonoBehaviour
 
         guardingDistance = int.Parse(item.GetAttribute("GuardingDistance"));
 
-        
+        if (attribute.template.category.Equals("Fighter"))
+        {
+            knockback = 2f;
+            maxMoveSpeed = 1.0f;
+            acceleration = 1f;
+            attackDistance = 100;
+            hitDelay = 0.3f;
+            attackInterval = 1;
+            canAttackMove = true;
+
+            this.FindHitTargetHandler.Add(new FindHitTargetHandler_Base());
+            DidFinishAttackHandler_Melee_Base didfinishattack = new DidFinishAttackHandler_Melee_Base();
+            didfinishattack.owner = this;
+            BattleField.Instance.RegisterEvent(BattleEventType.DidFinishAttack, didfinishattack);
+        }
+        else
+        {
+            knockback = 1f;
+            maxMoveSpeed = 1.0f;
+            acceleration = 1f;
+            attackDistance = 700;
+            hitDelay = 0.3f;
+            attackInterval = 2;
+            canAttackMove = false;
+
+            this.FindHitTargetHandler.Add(new FindHitTargetHandler_Base());
+            DidFinishAttackHandler_Remote_Base didfinishattack = new DidFinishAttackHandler_Remote_Base();
+            didfinishattack.owner = this;
+            BattleField.Instance.RegisterEvent(BattleEventType.DidFinishAttack, didfinishattack);
+        }
 
 
     }

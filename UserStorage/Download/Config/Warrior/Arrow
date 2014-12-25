@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<master xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="abc.abc">
+  <Category>Arrow</Category>
+  <Level>1</Level>
+  <BasicAttr>
+    <Power>14</Power>
+    <Strong>12</Strong>
+    <Intelligence>2</Intelligence>
+    <Agility>8</Agility>
+    <PowerGrow>0.4</PowerGrow>
+    <StrongGrow>0.8</StrongGrow>
+    <IntelligenceGrow>0.1</IntelligenceGrow>
+    <AgilityGrow>0.3</AgilityGrow>
+  </BasicAttr>
+  <OtherAttr>
+    <HitDelay>0.6</HitDelay>
+    <Collide>
+      <MinX>0</MinX>
+      <MaxX>90</MaxX>
+      <MinY>0</MinY>
+      <MaxY>100</MaxY>
+    </Collide>
+    <PicInfo>
+      <PicPath>Texture\icon\Arrow.png</PicPath>
+      <PicXSize>120</PicXSize>
+      <PicYSize>130</PicYSize>
+    </PicInfo>
+  </OtherAttr>
+</master>

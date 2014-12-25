@@ -200,6 +200,7 @@ namespace MapEditor
                 Warrior warrior = new Warrior();
                 obj.Tag = warrior;
                 warrior.name = item.Name;
+                bool.TryParse(item.GetAttribute("IsAttacker"), out warrior.isAttacker);
                 warrior.path = item.GetAttribute("WarriorTemplate");
                 if (!warrior.path.Equals(""))
                 {
@@ -241,7 +242,7 @@ namespace MapEditor
             {
                 return;
             }
-            if (chooseObj==null)
+            if (sender != chooseObj)
             {
                 return;
             }
@@ -343,6 +344,7 @@ namespace MapEditor
             }
             else if (warrior != null)
             {
+                warrior.isAttacker = (bool)isAttacker.IsChecked;
                 warrior.x = int.Parse(warriorX.Text);
                 warrior.guardingDistance = int.Parse(warriorGuardingDistance.Text);
                 warrior.powerPoint = int.Parse(warriorPowerPoint.Text);
@@ -381,10 +383,27 @@ namespace MapEditor
                 if (adornment.image!=null&&!adornment.image.Equals(""))
                 {
                     obj.Source = new BitmapImage(new Uri(imageDir.Text + "\\" + adornment.image));
+
                 }
             }
             else if (warrior != null)
             {
+                if (warrior.template != null)
+                {
+                    obj.Source = new BitmapImage(new Uri(imageDir.Text + "\\" + warrior.template.image));
+                    obj.Width = warrior.template.width;
+                    obj.Height = warrior.template.height;
+                    if (warrior.isAttacker)
+                    {
+                        obj.LayoutTransform = new ScaleTransform(1, 1);
+                    }
+                    else
+                    {
+                        obj.LayoutTransform = new ScaleTransform(-1, 1);
+                    }
+
+                }
+
                 Canvas.SetLeft(obj, warrior.x - obj.Width / 2);
                 Canvas.SetTop(obj, EditorY(int.Parse(mapFloorHeight.Text) + (int)obj.Height));
 
@@ -403,10 +422,7 @@ namespace MapEditor
                     locked.IsChecked = warrior.locked;
                 }
                 
-                if (warrior.template!=null)
-                {
-                    obj.Source = new BitmapImage(new Uri(imageDir.Text + "\\" + warrior.template.image));
-                }
+
                 
             }
         }
@@ -486,8 +502,8 @@ namespace MapEditor
                     Warrior warrior = chooseObj.Tag as Warrior;
                     warrior.path = warriorTemplate.Text;
                     warrior.template = new WarriorTemplate(dialog.FileName);
-                    chooseObj.Source = new BitmapImage(new Uri(imageDir.Text + "\\" + warrior.template.image));
                 }
+                UpdateUI(chooseObj);
             }
         }
 
@@ -588,6 +604,10 @@ namespace MapEditor
                     warriorNode.AppendChild(node);
 
                     XmlAttribute attr;
+                    attr = doc.CreateAttribute("IsAttacker");
+                    node.Attributes.Append(attr);
+                    attr.Value = warrior.isAttacker.ToString();
+
                     attr = doc.CreateAttribute("WarriorTemplate");
                     node.Attributes.Append(attr);
                     attr.Value = warrior.path;
@@ -633,6 +653,11 @@ namespace MapEditor
                 currentFilePath.Text = dialog.FileName;
             }
             doc.Save(currentFilePath.Text);
+        }
+
+        private void isAttacker_Checked(object sender, RoutedEventArgs e)
+        {
+            UpdateData(chooseObj);
         }
 
 
