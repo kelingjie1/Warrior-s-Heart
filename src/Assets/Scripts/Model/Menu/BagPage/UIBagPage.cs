@@ -164,6 +164,12 @@ public class UIBagPage : BasePage {
 		UIEventListener.Get (gameObject.FindChild("Fire")).onClick = OnClickForButtonFire;
 	}
 
+	override public void PageWillDisappear()
+	{
+		BagDataMrg.Instance.SaveXml();
+	}
+
+
 	void OnClickForItem(GameObject bagItem)
 	{
 		SetCurrentItem(bagItem.GetComponent<UIBagItem>());

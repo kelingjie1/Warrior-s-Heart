@@ -1,0 +1,9 @@
+E:\maptools\masterEdit\bin\Debug\masterEdit.exe.config
+E:\maptools\masterEdit\bin\Debug\masterEdit.exe
+E:\maptools\masterEdit\bin\Debug\masterEdit.pdb
+E:\maptools\masterEdit\obj\Debug\masterEdit.csprojResolveAssemblyReference.cache
+E:\maptools\masterEdit\obj\Debug\masterEdit.Properties.Resources.resources
+E:\maptools\masterEdit\obj\Debug\masterEdit.csproj.GenerateResource.Cache
+E:\maptools\masterEdit\obj\Debug\masterEdit.exe
+E:\maptools\masterEdit\obj\Debug\masterEdit.pdb
+E:\maptools\masterEdit\obj\Debug\masterEdit.MainForm.resources

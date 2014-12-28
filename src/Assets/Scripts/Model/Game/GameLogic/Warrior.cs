@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+using System.Xml;
 public enum AttackState
 {
     None,
@@ -16,11 +16,7 @@ public enum MoveState
 
 public class Warrior : MonoBehaviour
 {
-    //基础属性
-    public float power;
-    public float agility;
-    public float strong;
-    public float intelligence;
+    public WarriorAttribute attribute = new WarriorAttribute();
     //属性
     public float knockback;
     public float antiKnockback;
@@ -33,7 +29,7 @@ public class Warrior : MonoBehaviour
     public float maxHP;
     public float maxMoveSpeed;
     public bool canAttackMove;
-    
+    public float guardingDistance;
 
     //当前属性
     public float hp;
@@ -62,6 +58,52 @@ public class Warrior : MonoBehaviour
                 return -1;
             }
         }
+    }
+    public void ReadFromXML(XmlElement item)
+    {
+        name = item.Name;
+        isAttacker = bool.Parse(item.GetAttribute("IsAttacker"));
+        attribute.template = new WarriorTemplate(Config.WarriorPath + item.GetAttribute("WarriorTemplate"));
+        transform.localPosition = new Vector3(int.Parse(item.GetAttribute("X")), BattleField.Instance.floorHeight, 0);
+        attribute.powerPoint = int.Parse(item.GetAttribute("PowerPoint"));
+        attribute.agilityPoint = int.Parse(item.GetAttribute("AgilityPoint"));
+        attribute.strongPoint = int.Parse(item.GetAttribute("StrongPoint"));
+        attribute.intelligencePoint = int.Parse(item.GetAttribute("IntelligencePoint"));
+
+        guardingDistance = int.Parse(item.GetAttribute("GuardingDistance"));
+
+        if (attribute.template.category.Equals("Fighter"))
+        {
+            knockback = 2f;
+            maxMoveSpeed = 1.0f;
+            acceleration = 1f;
+            attackDistance = 100;
+            hitDelay = 0.3f;
+            attackInterval = 1;
+            canAttackMove = true;
+
+            this.FindHitTargetHandler.Add(new FindHitTargetHandler_Base());
+            DidFinishAttackHandler_Melee_Base didfinishattack = new DidFinishAttackHandler_Melee_Base();
+            didfinishattack.owner = this;
+            BattleField.Instance.RegisterEvent(BattleEventType.DidFinishAttack, didfinishattack);
+        }
+        else
+        {
+            knockback = 1f;
+            maxMoveSpeed = 1.0f;
+            acceleration = 1f;
+            attackDistance = 700;
+            hitDelay = 0.3f;
+            attackInterval = 2;
+            canAttackMove = false;
+
+            this.FindHitTargetHandler.Add(new FindHitTargetHandler_Base());
+            DidFinishAttackHandler_Remote_Base didfinishattack = new DidFinishAttackHandler_Remote_Base();
+            didfinishattack.owner = this;
+            BattleField.Instance.RegisterEvent(BattleEventType.DidFinishAttack, didfinishattack);
+        }
+
+
     }
     void UpdateAnimation()
     {
@@ -96,7 +138,7 @@ public class Warrior : MonoBehaviour
         }
         if (lastPrefix!=animation.namePrefix)
         {
-            animation.Reset();
+            animation.ResetToBeginning();
         }
     }
     public bool isAttacker;
@@ -107,37 +149,41 @@ public class Warrior : MonoBehaviour
         return ResourceManager.Load("Prefab/Game/Warrior").GetComponent<Warrior>();
     }
 
-
-    void Awake()
+    public void TestMelee()
     {
         //近战
-//         knockback = 0.1f;
-//         maxMoveSpeed = 1.0f;
-//         acceleration = 0.2f;
-//         attackDistance = 100;
-//         hitDelay = 0.3f;
-//         attackInterval = 1;
-//         canAttackMove = true;
-//         this.FindHitTargetHandler.Add(new FindHitTargetHandler_Base());
-//         DidFinishAttackHandler_Melee_Base didfinishattack=new DidFinishAttackHandler_Melee_Base();
-//         didfinishattack.owner=this;
-//         BattleField.Instance.RegisterEvent(BattleEventType.DidFinishAttack, didfinishattack);
-        
-
-
-
-        //远程
-        knockback = 0.1f;
+        knockback = 1f;
         maxMoveSpeed = 1.0f;
-        acceleration = 0.2f;
-        attackDistance = 700;
+        acceleration = 1f;
+        attackDistance = 100;
         hitDelay = 0.3f;
         attackInterval = 1;
+        canAttackMove = true;
+        this.FindHitTargetHandler.Add(new FindHitTargetHandler_Base());
+        DidFinishAttackHandler_Melee_Base didfinishattack = new DidFinishAttackHandler_Melee_Base();
+        didfinishattack.owner = this;
+        BattleField.Instance.RegisterEvent(BattleEventType.DidFinishAttack, didfinishattack);
+    }
+    public void TestRemote()
+    {
+        //远程
+        knockback = 1f;
+        maxMoveSpeed = 1.0f;
+        acceleration = 1f;
+        attackDistance = 700;
+        hitDelay = 0.3f;
+        attackInterval = 2;
         canAttackMove = false;
         this.FindHitTargetHandler.Add(new FindHitTargetHandler_Base());
         DidFinishAttackHandler_Remote_Base didfinishattack = new DidFinishAttackHandler_Remote_Base();
         didfinishattack.owner = this;
         BattleField.Instance.RegisterEvent(BattleEventType.DidFinishAttack, didfinishattack);
+    }
+    void Awake()
+    {
+
+        
+
         
     }
 
@@ -249,4 +295,5 @@ public class Warrior : MonoBehaviour
 
 
     }
+
 }

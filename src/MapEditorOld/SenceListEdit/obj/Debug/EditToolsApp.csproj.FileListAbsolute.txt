@@ -1,0 +1,11 @@
+E:\maptools\SenceListEdit\bin\Debug\WindowsFormsApplication1.exe.config
+E:\maptools\SenceListEdit\bin\Debug\WindowsFormsApplication1.exe
+E:\maptools\SenceListEdit\bin\Debug\WindowsFormsApplication1.pdb
+E:\maptools\SenceListEdit\obj\Debug\EditToolsApp.csprojResolveAssemblyReference.cache
+E:\maptools\SenceListEdit\obj\Debug\EditToolsApp.edittools.resources
+E:\maptools\SenceListEdit\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+E:\maptools\SenceListEdit\obj\Debug\EditToolsApp.tabforms.sectionEditForm.resources
+E:\maptools\SenceListEdit\obj\Debug\EditToolsApp.tabforms.senceEditForm.resources
+E:\maptools\SenceListEdit\obj\Debug\EditToolsApp.csproj.GenerateResource.Cache
+E:\maptools\SenceListEdit\obj\Debug\WindowsFormsApplication1.exe
+E:\maptools\SenceListEdit\obj\Debug\WindowsFormsApplication1.pdb

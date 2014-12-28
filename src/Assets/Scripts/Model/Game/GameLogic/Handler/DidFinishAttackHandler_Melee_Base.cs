@@ -6,8 +6,12 @@ public class DidFinishAttackHandler_Melee_Base : BattleEventHandler
 {
     public override object HandleEvent(List<Warrior> sponsors = null, List<Warrior> responders = null, object param0 = null, object param1 = null, object param2 = null, object param3 = null)
     {
-        //FindTarget
+        if (sponsors[0] != owner)
+        {
+            return null;
+        }
 
+        //FindTarget
         if (sponsors[0].FindHitTargetHandler.Count > 0)
         {
             responders = new List<Warrior>();

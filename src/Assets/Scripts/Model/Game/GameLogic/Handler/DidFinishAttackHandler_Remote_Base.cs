@@ -36,7 +36,11 @@ public class DidFinishAttackHandler_Remote_Base : BattleEventHandler
         {
             Physics.IgnoreCollision(ammo.collider, warrior.collider);
         }
-        foreach (Ammo otherammo in ammolist)
+        foreach (Ammo otherammo in BattleField.Instance.AttackerAmmoList)
+        {
+            Physics.IgnoreCollision(ammo.collider, otherammo.collider);
+        }
+        foreach (Ammo otherammo in BattleField.Instance.DefenderAmmoList)
         {
             Physics.IgnoreCollision(ammo.collider, otherammo.collider);
         }

@@ -12,7 +12,7 @@ public class SettingReader
     string m_text;
     public void LoadFromFile(string path)
     {
-        m_text = File.ReadAllText(path);
+        m_text = File.OpenText(path).ReadToEnd();
         ParseSetting();
     }
     public void LoadFromString(string setting)

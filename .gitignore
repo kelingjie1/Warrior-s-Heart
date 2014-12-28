@@ -6,3 +6,7 @@
 src/Library/
 src/Temp/
 src/obj/
+src/MapEditor/MapEditor/bin
+src/MapEditor/MapEditor/obj
+src/MapEditorOld/MapEditor/bin
+src/MapEditorOld/MapEditor/obj

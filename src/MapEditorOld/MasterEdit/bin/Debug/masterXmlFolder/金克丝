@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<master xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="abc.abc">
+  <Category>弓箭手</Category>
+  <BasicAttr>
+    <Power>8</Power>
+    <Strong>5</Strong>
+    <Intelligence>1</Intelligence>
+    <Agility>22</Agility>
+    <PowerGrow>0.3</PowerGrow>
+    <StrongGrow>0.2</StrongGrow>
+    <IntelligenceGrow>0.1</IntelligenceGrow>
+    <AgilityGrow>0.8</AgilityGrow>
+  </BasicAttr>
+  <OtherAttr>
+    <HitDelay>0.3</HitDelay>
+    <Collide>
+      <MinX>10</MinX>
+      <MaxX>220</MaxX>
+      <MinY>0</MinY>
+      <MaxY>250</MaxY>
+    </Collide>
+    <PicInfo>
+      <PicPath>图片2.wmf</PicPath>
+      <PicXSize>246</PicXSize>
+      <PicYSize>259</PicYSize>
+    </PicInfo>
+  </OtherAttr>
+</master>

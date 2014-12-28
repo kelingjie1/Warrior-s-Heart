@@ -7,19 +7,20 @@ public class Test : MonoBehaviour
 {
 	void Start () 
     {
-        OrderedList<BattleEventHandler> list = new OrderedList<BattleEventHandler>(new EventHandlerComparer());
-        for (int i = 0; i < 100; i++)
-        {
-            BattleEventHandler handle=new BattleEventHandler();
-            handle.priority=Random.Range(0, 100);
-            list.Add(handle);
-        }
-
-        for (int i = 0; i < 100; i++)
-        {
-            Debug.Log(list[i].priority);
-        }
+        UIEventListener.Get(this.gameObject.FindChild("button")).onClick = OnButtonClick;
 	}
+
+    private void OnButtonClick(GameObject go)
+    {
+        UISprite sprite = go.GetComponent<UISprite>();
+        Debug.Log(Application.streamingAssetsPath);
+        WWW www = new WWW("file://D:/Warrior-s-Heart/UserStorage/Download/Resources/Animation/Fighter.assetbundle");
+        Debug.Log(www.assetBundle);
+        Object obj = Instantiate(www.assetBundle.Load("Fighter",System.Type.GetType("UIAtlas")));
+        Debug.Log(obj);
+        sprite.atlas = obj as UIAtlas;
+        sprite.spriteName = "attack_00000";
+    }
 
 
 }
