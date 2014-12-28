@@ -24,7 +24,7 @@ public class LoginPage : BasePage
 
     void OnQQLoginButtonClick(GameObject go)
     {
-        Application.LoadLevel("Menu");
+		LoginModel.instance.LoginToServer();
     }
 
     void OnWXLoginButtonClick(GameObject go)

@@ -1,0 +1,65 @@
+package game_proto;
+
+// request header
+message ReqHeader
+{
+	optional uint64 sequence      = 1;
+	optional string session_key   = 2;
+	optional string mobile_info   = 3;
+	optional int32  proto_version = 4; 
+}
+
+// request package
+message ReqPackage
+{
+	required int32     type   = 1;
+	required ReqHeader header = 2;
+	required bytes     body   = 3;
+}
+
+// response header
+message RspHeader
+{
+	required int32  error_code = 1;
+	required string error_msg  = 2;
+}
+
+// response package
+message RspPackage
+{
+	required int32     type   = 1;
+	required RspHeader header = 2;
+	required bytes     body   = 3;
+}
+
+// message type
+enum MessageType
+{
+	kMsgLoginReq           = 1;
+	kMsgLoginRsp           = 2;
+	kMsgDownloadChapterReq = 3;
+	kMsgDownloadChapterRsp = 4;
+}
+
+// **************************************************
+// ***********logic request and response ************
+// **************************************************
+enum LoginChannel
+{
+	kChannelTypeQQ = 1;
+	kChannelTypeWX = 2;
+}
+
+message LoginReq
+{
+	optional string device  = 1;
+	optional int32  channel = 2;  // login by qq or wx
+	optional string token   = 3;  // login token in qq or wx
+}
+
+message LoginRsp
+{
+	optional string uid = 1;
+    optional string session_key = 2;
+	optional int64  sequence = 3;
+}

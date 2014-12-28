@@ -23,14 +23,14 @@ public sealed partial class NetworkManager
 		}
 	}
 
-	private Uri m_ServerUri = new Uri("http://182.254.202.167:8088/service.php");
-	private const String SESSION_KEY = "WarriorHeart";
+	private Uri m_ServerUri = new Uri("http://42.96.170.192:8080/app/service");
 	private const String OPCODE_KEY = "opcode";
 	private String m_SessionId = String.Empty;
 	private WebClient m_WebClient = new WebClient();
 	private Queue m_PacketQueue = Queue.Synchronized(new Queue());
 	private IDictionary<Int32, IPacketHandler> m_PacketHandlers = new Dictionary<Int32, IPacketHandler>();
-	
+
+	// single instance
 	private static NetworkManager instance = null;
 	public static NetworkManager Instance
 	{
@@ -50,6 +50,7 @@ public sealed partial class NetworkManager
 		m_WebClient.UploadDataCompleted += new UploadDataCompletedEventHandler(OnUploadDataCompleted);
 
 		// register event
+		RegisterAllHandler();
 	}
 
 	public void SetServerUrl(String url)
@@ -80,8 +81,6 @@ public sealed partial class NetworkManager
 		try
 		{
 			Debug.Log ("Send packet:" + System.Text.Encoding.Default.GetString (packet));
-			//m_WebClient.Headers.Set(SESSION_KEY, m_SessionId);
-			m_WebClient.Headers.Set(SESSION_KEY, "roshantu");
 			m_WebClient.UploadDataAsync(m_ServerUri, packet);
 			//EventManager.Instance.DispatchEvent(Event.EventDefine.ConnectStart);
 		}
@@ -155,7 +154,6 @@ public sealed partial class NetworkManager
 		Int32 opcode = 0;
 		if (m_WebClient.ResponseHeaders != null)
 		{
-			m_SessionId = m_WebClient.ResponseHeaders.Get(SESSION_KEY);
 			String opcodeStr = m_WebClient.ResponseHeaders.Get(OPCODE_KEY);
 			Int32.TryParse(opcodeStr, out opcode);
 		}
