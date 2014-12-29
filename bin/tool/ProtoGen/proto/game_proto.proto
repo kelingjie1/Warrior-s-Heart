@@ -1,5 +1,8 @@
 package game_proto;
 
+// *********************************************************
+// **************     basic struct         *****************
+// *********************************************************
 // request header
 message ReqHeader
 {
@@ -41,9 +44,103 @@ enum MessageType
 	kMsgDownloadChapterRsp = 4;
 }
 
+// user info defination
+message User
+{
+	optional string uid      = 1;
+	optional string nickname = 2;
+	optional int32  level    = 3;
+	optional int32  gold     = 4;
+	optional int32  diamond  = 5;
+}
+
+// WarriorItem
+message WarriorItem
+{
+	optional int64  id                = 1;
+	optional string name              = 2;
+	optional int32  level             = 3;
+	optional int32  exp               = 4;
+	optional int32  free_point        = 5;
+	optional string ref_id            = 6;   // warrior's reference id
+
+	optional float  power             = 7;
+	optional float  strong            = 8;
+	optional float  intelligence      = 9;
+	optional float  agility           = 10;
+	
+	optional float  power_grow        = 11;
+	optional float  strong_grow       = 12;
+	optional float  intelligence_grow = 13;
+	optional float  agility_grow      = 14;
+	
+	optional int32  power_point       = 15;
+	optional int32  strong_point      = 16;
+	optional int32  intelligence_point= 17;
+	optional int32  agility_point     = 18;
+}
+
+// StaticItem
+message StaticItem
+{
+	optional string ref_id  = 1;
+	optional int32  count   = 2;
+}
+
+// bag info defination
+enum BagType
+{
+	kStaticItemType  = 1;
+	kWarriorType     = 2;
+}
+
+message BagItem
+{
+	optional int32       type        = 1;
+    optional WarriorItem warrior_item= 2;
+	optional StaticItem  static_item = 3;
+}
+
+message Bag
+{
+	repeated BagItem bag_items = 1;
+}
+
+message Part
+{
+	optional string id         = 1;
+	optional int32  star       = 2;
+	optional int32  rest_count = 3;
+}
+
+message Chapter
+{
+	repeated Part part_list    = 1;
+}
+
+message MapState
+{
+	repeated Chapter chapter_list = 1;
+}
+
+
 // **************************************************
 // ***********logic request and response ************
 // **************************************************
+message UpdateAppReq
+{
+	optional string app_version      = 1;
+	optional string resource_version = 2;
+	optional string config_version   = 3;
+}
+
+message UpdateAppRsp
+{
+	optional string app_update_url   = 1;
+	optional string resource_url     = 2;
+	optional string config_url       = 3;
+}
+
 enum LoginChannel
 {
 	kChannelTypeQQ = 1;
@@ -59,7 +156,52 @@ message LoginReq
 
 message LoginRsp
 {
-	optional string uid = 1;
+	optional string uid         = 1;
     optional string session_key = 2;
-	optional int64  sequence = 3;
+	optional int64  sequence    = 3;
+}
+
+message GetUserReq
+{
+	optional string uid  = 1;
+}
+
+message GetUserRsp
+{
+	optional User user = 1;
+}
+
+message StartFightReq
+{
+    optional string part_id = 1;
+}
+
+message StartFightRsp
+{
+}
+
+message EndBattleReq
+{
+	optional string part_id = 1;
+	optional int32  start   = 2;
+}
+
+message EndBattleRsp
+{
+	optional int32 star           = 1;
+	optional int32 gold           = 2;
+	optional int32 exp            = 3;
+	optional int32 diamond        = 4;
+	repeated BagItem reward_items = 5;
+}
+
+message GetAllInfoReq
+{
+}
+
+message GetAllInfoRsp
+{
+	optional User     user      = 1;
+	optional Bag      bag       = 2;
+	optional MapState map_state = 3;
 }
