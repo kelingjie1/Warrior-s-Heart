@@ -89,7 +89,7 @@ public class Warrior : MonoBehaviour
         }
         else
         {
-            knockback = 1f;
+            knockback = 3f;
             maxMoveSpeed = 1.0f;
             acceleration = 1f;
             attackDistance = 700;
@@ -152,7 +152,7 @@ public class Warrior : MonoBehaviour
     public void TestMelee()
     {
         //近战
-        knockback = 1f;
+        knockback = 2f;
         maxMoveSpeed = 1.0f;
         acceleration = 1f;
         attackDistance = 100;
@@ -167,7 +167,7 @@ public class Warrior : MonoBehaviour
     public void TestRemote()
     {
         //远程
-        knockback = 1f;
+        knockback = 5f;
         maxMoveSpeed = 1.0f;
         acceleration = 1f;
         attackDistance = 700;
@@ -232,7 +232,7 @@ public class Warrior : MonoBehaviour
                 BattleField.Instance.SendEvent(BattleEventType.DidFinishAttack, new List<Warrior>() { this }, null, msg);
             }
         }
-        else
+        else if(moveState!=MoveState.KnockBack)
         {
             if(responders.Count > 0)
             {
@@ -250,7 +250,7 @@ public class Warrior : MonoBehaviour
         }
         else
         {
-            if (this.rigidbody.velocity.x * dir > 0)
+            if (this.rigidbody.velocity.x * dir >= 0)
             {
                 this.moveState = MoveState.Move;
             }
@@ -258,7 +258,7 @@ public class Warrior : MonoBehaviour
             {
                 this.moveState = MoveState.KnockBack;
             }
-            if (responders.Count > 0 && !canAttackMove)
+            if (this.moveState == MoveState.Move && responders.Count > 0 && !canAttackMove)
             {
                 this.moveState = MoveState.Idle;
             }

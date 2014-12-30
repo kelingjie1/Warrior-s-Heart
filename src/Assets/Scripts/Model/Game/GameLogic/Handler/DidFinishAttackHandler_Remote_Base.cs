@@ -17,6 +17,11 @@ public class DidFinishAttackHandler_Remote_Base : BattleEventHandler
         //忽视本方碰撞
         List<Warrior> warriorlist;
         List<Ammo> ammolist;
+        if (sponsors.Count>0)
+        {
+            ammo.owner = sponsors[0];
+        }
+        
         if (sponsors[0].isAttacker)
         {
             warriorlist = BattleField.Instance.AttackerList;

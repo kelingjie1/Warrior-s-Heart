@@ -11,7 +11,7 @@ public class DidKnockHandler_Base : BattleEventHandler
             return null;
         }
         KnockEventMessage knockmsg = param0 as KnockEventMessage;
-        Debug.Log("knock");
+        Debug.Log(sponsors[0].name + " knock " + responders[0].name + ":" + knockmsg.KnockStrength);
         responders[0].moveState = MoveState.KnockBack;
         responders[0].rigidbody.AddForce(new Vector3(-knockmsg.KnockStrength * responders[0].dir, 0, 0), ForceMode.Impulse);
         return null;

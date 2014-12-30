@@ -344,6 +344,7 @@ namespace MapEditor
             }
             else if (warrior != null)
             {
+                warrior.name = warriorName.Text;
                 warrior.isAttacker = (bool)isAttacker.IsChecked;
                 warrior.x = int.Parse(warriorX.Text);
                 warrior.guardingDistance = int.Parse(warriorGuardingDistance.Text);
@@ -377,6 +378,7 @@ namespace MapEditor
                     adornmentWidth.Text = adornment.width.ToString();
                     adornmentHeight.Text = adornment.height.ToString();
                     locked.IsChecked = adornment.locked;
+               
                 }
                 
 
@@ -420,6 +422,7 @@ namespace MapEditor
                     warriorStrongPoint.Text = warrior.strongPoint.ToString();
                     warriorIntelligencePoint.Text = warrior.intelligencePoint.ToString();
                     locked.IsChecked = warrior.locked;
+                    isAttacker.IsChecked = warrior.isAttacker;
                 }
                 
 
@@ -659,6 +662,16 @@ namespace MapEditor
         {
             UpdateData(chooseObj);
         }
+
+        private void deleteObj(object sender, RoutedEventArgs e)
+        {
+            if (chooseObj!=null)
+            {
+                map.Children.Remove(chooseObj);
+                chooseObj = null;
+            }
+        }
+
 
 
 

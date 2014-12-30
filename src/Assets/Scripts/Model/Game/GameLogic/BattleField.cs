@@ -41,9 +41,12 @@ public class BattleField : MonoBehaviour
     public int width = 960;
     public int floorHeight;
 
+
+    public BoxCollider floorCollider;
     void Awake()
     {
         m_instance = this;
+        floorCollider = gameObject.FindChild("Floor").GetComponent<BoxCollider>();
     }
     public void AddTrash(GameObject go)
     {
@@ -73,6 +76,8 @@ public class BattleField : MonoBehaviour
         width = int.Parse(ele.InnerText);
         ele = root.GetElementsByTagName("FloorHeight").Item(0) as XmlElement;
         floorHeight = int.Parse(ele.InnerText);
+        floorCollider.center = new Vector3(width / 2, floorHeight / 2, 0);
+        floorCollider.size = new Vector3(width, floorHeight, 100);
 
         XmlElement adornmentNode = root.GetElementsByTagName("Adornment").Item(0) as XmlElement;
         foreach (XmlElement item in adornmentNode.ChildNodes)
