@@ -3,6 +3,8 @@
   <FloorHeight>60</FloorHeight>
   <Adornment>
     <unname Image="Texture\background\battlebackground.jpg" X="1000" Y="320" Width="2000" Height="640" Locked="True" />
+    <unname Image="Texture\icon\0m.png" X="403" Y="313" Width="100" Height="100" Locked="False" />
+    <unname Image="Texture\icon\0m.png" X="188" Y="467" Width="100" Height="100" Locked="False" />
   </Adornment>
   <Warrior>
     <unname IsAttacker="False" WarriorTemplate="Fighter" X="566" GuardingDistance="0" PowerPoint="0" AgilityPoint="0" StrongPoint="11" IntelligencePoint="22" Locked="False" />

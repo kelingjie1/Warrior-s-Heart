@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Xml;
+using game_proto;
 
 public class WarriorTemplate
 {
@@ -9,15 +10,6 @@ public class WarriorTemplate
     public int width;
     public int height;
 
-    public float power;
-    public float strong;
-    public float intelligence;
-    public float agility;
-
-    public float powerGrow;
-    public float strongGrow;
-    public float intelligenceGrow;
-    public float agilityGrow;
     public float colliderWidth;
     public float colliderHeight;
     public WarriorTemplate(string path)
@@ -30,16 +22,6 @@ public class WarriorTemplate
         width = int.Parse(root.GetFirstTextByTag("PicXSize"));
         height = int.Parse(root.GetFirstTextByTag("PicYSize"));
 
-        power = float.Parse(root.GetFirstTextByTag("Power"));
-        strong = float.Parse(root.GetFirstTextByTag("Strong"));
-        intelligence = float.Parse(root.GetFirstTextByTag("Intelligence"));
-        agility = float.Parse(root.GetFirstTextByTag("Agility"));
-
-        powerGrow = float.Parse(root.GetFirstTextByTag("PowerGrow"));
-        strongGrow = float.Parse(root.GetFirstTextByTag("StrongGrow"));
-        intelligenceGrow = float.Parse(root.GetFirstTextByTag("IntelligenceGrow"));
-        agilityGrow = float.Parse(root.GetFirstTextByTag("AgilityGrow"));
-
         colliderWidth = float.Parse(root.GetFirstTextByTag("MaxX")) - float.Parse(root.GetFirstTextByTag("MinX"));
         colliderHeight = float.Parse(root.GetFirstTextByTag("MaxY")) - float.Parse(root.GetFirstTextByTag("MinY"));
 
@@ -48,6 +30,7 @@ public class WarriorTemplate
 }
 public class WarriorAttribute
 {
+    public WarriorItem warriorItem;
     public WarriorTemplate template;
     public int level;
     public int powerPoint;
@@ -58,28 +41,57 @@ public class WarriorAttribute
     {
         get
         {
-            return template.power + template.powerGrow * powerPoint;
+            if (warriorItem!=null)
+            {
+                return warriorItem.power + warriorItem.power_grow * warriorItem.power_point;   
+            }
+            else
+            {
+                return powerPoint;
+            }
         }
     }
     public float strong
     {
         get
         {
-            return template.strong + template.strongGrow * strongPoint;
+            if (warriorItem != null)
+            {
+                return warriorItem.strong + warriorItem.strong_grow * warriorItem.strong_point;
+            }
+            else
+            {
+                return strongPoint;
+            }
         }
     }
     public float intelligence
     {
         get
         {
-            return template.intelligence + template.intelligenceGrow * intelligencePoint;
+            if (warriorItem != null)
+            {
+                return warriorItem.intelligence + warriorItem.intelligence_grow * warriorItem.intelligence_point;
+            }
+            else
+            {
+                return intelligencePoint;
+            }
         }
     }
     public float agility
     {
         get
         {
-            return template.agility + template.agilityGrow * agilityPoint;
+            if (warriorItem != null)
+            {
+                return warriorItem.agility + warriorItem.agility_grow * warriorItem.agility_point;
+            }
+            else
+            {
+                return agilityPoint;
+            }
         }
     }
+    
 }
