@@ -11,5 +11,7 @@ public class LoginScene : MonoBehaviour
     void Update()
     {
         EventManager.Instance.Update();
+		// Network should be global
+		NetworkManager.Instance.Update ();
     }
 }

@@ -24,7 +24,7 @@ message ReqPackage
 message RspHeader
 {
 	required int32  error_code = 1;
-	required string error_msg  = 2;
+	optional string error_msg  = 2;
 }
 
 // response package
@@ -40,8 +40,8 @@ enum MessageType
 {
 	kMsgLoginReq           = 1;
 	kMsgLoginRsp           = 2;
-	kMsgDownloadChapterReq = 3;
-	kMsgDownloadChapterRsp = 4;
+	kMsgUpdateAppReq       = 3;
+	kMsgUpdateAppRsp       = 4;
 }
 
 // user info defination
@@ -57,27 +57,27 @@ message User
 // WarriorItem
 message WarriorItem
 {
-	optional int64  id                = 1;
-	optional string name              = 2;
-	optional int32  level             = 3;
-	optional int32  exp               = 4;
-	optional int32  free_point        = 5;
-	optional string ref_id            = 6;   // warrior's reference id
+	optional int64  id                 = 1;
+	optional string name               = 2;
+	optional int32  level              = 3;
+	optional int32  exp                = 4;
+	optional int32  free_point         = 5;
+	optional string ref_id             = 6;   // warrior's reference id
 
-	optional float  power             = 7;
-	optional float  strong            = 8;
-	optional float  intelligence      = 9;
-	optional float  agility           = 10;
+	optional float  power              = 7;
+	optional float  strong             = 8;
+	optional float  intelligence       = 9;
+	optional float  agility            = 10;
 	
-	optional float  power_grow        = 11;
-	optional float  strong_grow       = 12;
-	optional float  intelligence_grow = 13;
-	optional float  agility_grow      = 14;
+	optional float  power_grow         = 11;
+	optional float  strong_grow        = 12;
+	optional float  intelligence_grow  = 13;
+	optional float  agility_grow       = 14;
 	
-	optional int32  power_point       = 15;
-	optional int32  strong_point      = 16;
-	optional int32  intelligence_point= 17;
-	optional int32  agility_point     = 18;
+	optional int32  power_point        = 15;
+	optional int32  strong_point       = 16;
+	optional int32  intelligence_point = 17;
+	optional int32  agility_point      = 18;
 }
 
 // StaticItem
@@ -96,9 +96,9 @@ enum BagType
 
 message BagItem
 {
-	optional int32       type        = 1;
-    optional WarriorItem warrior_item= 2;
-	optional StaticItem  static_item = 3;
+	optional int32       type         = 1;
+    optional WarriorItem warrior_item = 2;
+	optional StaticItem  static_item  = 3;
 }
 
 message Bag

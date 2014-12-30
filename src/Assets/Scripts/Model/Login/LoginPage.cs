@@ -22,9 +22,16 @@ public class LoginPage : BasePage
         UIEventListener.Get(this.gameObject.FindChild("WXLoginButton")).onClick = OnWXLoginButtonClick;
     }
 
+	void Start()
+	{
+		LoginModel.Instance.DownloadResource ();
+	}
+
+	// Event
     void OnQQLoginButtonClick(GameObject go)
-    {
-		LoginModel.instance.LoginToServer();
+    {	
+		//LoginModel.Instance.LoginToServer();
+		LoginModel.Instance.DownloadResource ();
     }
 
     void OnWXLoginButtonClick(GameObject go)

@@ -95,8 +95,9 @@ namespace game_proto
       get { return _error_code; }
       set { _error_code = value; }
     }
-    private string _error_msg;
-    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"error_msg", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    private string _error_msg = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"error_msg", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
     public string error_msg
     {
       get { return _error_msg; }
@@ -816,11 +817,11 @@ namespace game_proto
       [global::ProtoBuf.ProtoEnum(Name=@"kMsgLoginRsp", Value=2)]
       kMsgLoginRsp = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"kMsgDownloadChapterReq", Value=3)]
-      kMsgDownloadChapterReq = 3,
+      [global::ProtoBuf.ProtoEnum(Name=@"kMsgUpdateAppReq", Value=3)]
+      kMsgUpdateAppReq = 3,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"kMsgDownloadChapterRsp", Value=4)]
-      kMsgDownloadChapterRsp = 4
+      [global::ProtoBuf.ProtoEnum(Name=@"kMsgUpdateAppRsp", Value=4)]
+      kMsgUpdateAppRsp = 4
     }
   
     [global::ProtoBuf.ProtoContract(Name=@"BagType")]

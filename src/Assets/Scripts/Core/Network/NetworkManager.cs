@@ -23,7 +23,7 @@ public sealed partial class NetworkManager
 		}
 	}
 
-	private Uri m_ServerUri = new Uri("http://42.96.170.192:8080/app/service");
+	private Uri m_ServerUri = new Uri("http://182.254.202.167:8080/app/service");
 	private const String OPCODE_KEY = "opcode";
 	private String m_SessionId = String.Empty;
 	private WebClient m_WebClient = new WebClient();

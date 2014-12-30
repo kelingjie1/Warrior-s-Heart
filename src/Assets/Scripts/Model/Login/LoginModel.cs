@@ -14,14 +14,14 @@ public class LoginModel
 	{
 		EventManager.Instance.RegisterEvent(EventDefine.LoginServerComplete, OnLoginServerSuccess);
 		EventManager.Instance.RegisterEvent(EventDefine.ErrorCodeReply, OnErrorCodeReply);
+		EventManager.Instance.RegisterEvent (EventDefine.UpdateAppComplete, OnUpdateAppRsp);
 	}
 
-	// functions
+	/************************************************************
+	 ************       logic functions    **********************
+	 ************************************************************/
 	public void LoginToServer()
 	{	
-		string url = "http://42.96.170.192:8080/app/service";
-		NetworkManager.Instance.SetServerUrl(url);
-
 		// header
 		ReqHeader header = new ReqHeader ();
 		header.mobile_info = SystemInfo.operatingSystem;
@@ -42,7 +42,32 @@ public class LoginModel
 		NetworkManager.Instance.Send(buffer);
 	}
 
-	// event
+	public void DownloadResource()
+	{
+		// header
+		ReqHeader header = new ReqHeader ();
+		header.mobile_info = SystemInfo.operatingSystem;
+		
+		// body
+		UpdateAppReq request = new UpdateAppReq();
+		request.app_version  = "1.0";
+		request.config_version = "1.0";
+		request.resource_version = "1.0";
+
+		// package
+		ReqPackage package = new ReqPackage ();
+		package.header = header;
+		package.body = ProtoManager.Serialize (request);
+		package.type = (int)MessageType.kMsgUpdateAppReq;
+		
+		byte[] buffer = ProtoManager.Serialize (package);
+		// request.Version   = GameInfo.Version;
+		NetworkManager.Instance.Send(buffer);
+	}
+
+	/************************************************************
+	 ************       event callback    ***********************
+	 ************************************************************/
 	void OnLoginServerSuccess(EventDefine type, System.Object param, System.Object param2, System.Object param3, System.Object param4)
 	{
 		EventManager.Instance.UnRegisterEvent(EventDefine.ErrorCodeReply, OnErrorCodeReply);
@@ -53,11 +78,31 @@ public class LoginModel
 	{
 		Debug.Log ("OnErrorReply");
 	}
+
+	void OnUpdateAppRsp(EventDefine type, System.Object param, System.Object param2, System.Object param3, System.Object param4)
+	{
+		UpdateAppRsp response = (UpdateAppRsp)param;
+		Debug.Log ("app_version:" + response.app_update_url
+		           + " config_verson:" + response.config_url
+		           + " resource_version:" + response.resource_url);
+
+		if (string.IsNullOrEmpty != response.app_update_url) {
+		    // redirect to app stores
+		}
+
+		if (string.IsNullOrEmpty != response.resource_url) {
+		
+		}
+
+		if (string.IsNullOrEmpty != response.config_url) {
+		
+		}
+	}
 	
 	// Instance
 	private LoginModel() { Init(); }
 	private static LoginModel sInstance = null;
-	public static LoginModel instance
+	public static LoginModel Instance
 	{
 		get
 		{
