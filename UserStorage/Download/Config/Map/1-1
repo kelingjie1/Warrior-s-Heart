@@ -7,10 +7,7 @@
     <unname Image="Texture\icon\0m.png" X="188" Y="467" Width="100" Height="100" Locked="False" />
   </Adornment>
   <Warrior>
-    <unname IsAttacker="False" WarriorTemplate="Fighter" X="566" GuardingDistance="0" PowerPoint="0" AgilityPoint="0" StrongPoint="11" IntelligencePoint="22" Locked="False" />
-    <unname IsAttacker="False" WarriorTemplate="Arrow" X="653" GuardingDistance="50" PowerPoint="20" AgilityPoint="30" StrongPoint="0" IntelligencePoint="0" Locked="False" />
-    <unname IsAttacker="True" WarriorTemplate="Fighter" X="182" GuardingDistance="0" PowerPoint="0" AgilityPoint="0" StrongPoint="0" IntelligencePoint="0" Locked="False" />
-    <unname IsAttacker="True" WarriorTemplate="Fighter" X="273" GuardingDistance="0" PowerPoint="0" AgilityPoint="0" StrongPoint="0" IntelligencePoint="0" Locked="False" />
-    <unname IsAttacker="True" WarriorTemplate="Arrow" X="97" GuardingDistance="0" PowerPoint="0" AgilityPoint="0" StrongPoint="0" IntelligencePoint="0" Locked="False" />
+    <l1 IsAttacker="True" WarriorTemplate="Fighter" X="100" GuardingDistance="0" PowerPoint="0" AgilityPoint="0" StrongPoint="11" IntelligencePoint="22" Locked="False" />
+    <r1 IsAttacker="False" WarriorTemplate="Arrow" X="653" GuardingDistance="50" PowerPoint="20" AgilityPoint="30" StrongPoint="0" IntelligencePoint="0" Locked="False" />
   </Warrior>
 </Root>

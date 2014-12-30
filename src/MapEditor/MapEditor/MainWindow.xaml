@@ -57,8 +57,8 @@
         <ScrollViewer x:Name="scrollView" Margin="10,65,238,10" HorizontalScrollBarVisibility="Auto" Background="{DynamicResource {x:Static SystemColors.AppWorkspaceBrushKey}}">
             <Canvas x:Name="map" Height="640" Width="2000" Background="#FFACEAB5"/>
         </ScrollViewer>
-        <Button Content="添加装饰" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="125" Height="50" Click="createAdornment"/>
-        <Button Content="添加战士" HorizontalAlignment="Left" Margin="140,10,0,0" VerticalAlignment="Top" Width="125" Height="50" Click="createWarrior"/>
+        <Button Content="添加装饰" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="84" Height="50" Click="createAdornment"/>
+        <Button Content="添加战士" HorizontalAlignment="Left" Margin="99,11,0,0" VerticalAlignment="Top" Width="89" Height="50" Click="createWarrior"/>
         <Label Content="图片资源位置" HorizontalAlignment="Left" Margin="284,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.024,0.423"/>
         <Label Content="战士数据位置" HorizontalAlignment="Left" Margin="284,34,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.024,0.423"/>
         <Label Content="地图保存位置" HorizontalAlignment="Left" Margin="547,13,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.024,0.423"/>
@@ -73,5 +73,6 @@
         <Button Content="打开文件" HorizontalAlignment="Left" Margin="759,41,0,0" VerticalAlignment="Top" Width="75" Click="openFile"/>
         <Button Content="保存" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="93" Height="50" Click="Button_Click"/>
         <CheckBox x:Name="locked" Content="锁定控件" HorizontalAlignment="Left" Margin="800,17,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked"/>
+        <Button Content="删除" HorizontalAlignment="Left" Margin="193,12,0,0" VerticalAlignment="Top" Width="75" Height="48" Click="deleteObj"/>
     </Grid>
 </Window>
