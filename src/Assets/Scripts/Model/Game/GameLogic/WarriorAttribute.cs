@@ -7,11 +7,13 @@ public class WarriorTemplate
 {
     public string category;
     public string image;
+    public float hitDelay = 0.3f;
     public int width;
     public int height;
 
     public float colliderWidth;
     public float colliderHeight;
+    public float attackDistance = 100;
     public WarriorTemplate(string path)
     {
         XmlDocument doc = new XmlDocument();
@@ -41,9 +43,9 @@ public class WarriorAttribute
     {
         get
         {
-            if (warriorItem!=null)
+            if (warriorItem != null)
             {
-                return warriorItem.power + warriorItem.power_grow * warriorItem.power_point;   
+                return warriorItem.power + warriorItem.power_grow * warriorItem.power_point;
             }
             else
             {

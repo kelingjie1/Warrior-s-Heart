@@ -86,15 +86,16 @@ public class LoginModel
 		           + " config_verson:" + response.config_url
 		           + " resource_version:" + response.resource_url);
 
-		if (string.IsNullOrEmpty != response.app_update_url) {
+		if (!string.IsNullOrEmpty(response.app_update_url)) 
+        {
 		    // redirect to app stores
 		}
 
-		if (string.IsNullOrEmpty != response.resource_url) {
+		if (!string.IsNullOrEmpty(response.resource_url)) {
 		
 		}
 
-		if (string.IsNullOrEmpty != response.config_url) {
+		if (!string.IsNullOrEmpty(response.config_url)) {
 		
 		}
 	}

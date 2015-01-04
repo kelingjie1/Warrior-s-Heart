@@ -17,25 +17,140 @@ public enum MoveState
 public class Warrior : MonoBehaviour
 {
     public WarriorAttribute attribute = new WarriorAttribute();
+
+
+
     //属性
-    public float knockback;
-    public float antiKnockback;
-    public float physicalAttack;
-    public float physicalDefence;
-    public float magicAttack;
-    public float magicDefence;
-    public float hitDelay;
-    public float attackInterval;
-    public float maxHP;
-    public float maxMoveSpeed;
+    public float knockback
+    {
+        get
+        {
+            float v = attribute.power / 10;
+            return v * (1 + knockbackMultiple) + knockbackAdd;
+        }
+    }
+    public float knockbackMultiple = 1;
+    public float knockbackAdd = 0;
+
+    public float antiKnockback
+    {
+        get
+        {
+            float v = attribute.power / 20;
+            return v * (1 + antiKnockbackMultiple) + antiKnockbackAdd;
+        }
+    }
+    public float antiKnockbackMultiple = 1;
+    public float antiKnockbackAdd = 0;
+
+    public float physicalAttack
+    {
+        get
+        {
+            float v = attribute.power;
+            return v * (1 + physicalAttackMultiple) + physicalAttackAdd;
+        }
+    }
+    public float physicalAttackMultiple = 1;
+    public float physicalAttackAdd = 0;
+
+    public float physicalDefence
+    {
+        get
+        {
+            float v = attribute.strong / 2;
+            return v * (1 + physicalDefenceMultiple) + physicalDefenceAdd;
+        }
+    }
+    public float physicalDefenceMultiple = 1;
+    public float physicalDefenceAdd = 0;
+
+    public float magicAttack
+    {
+        get
+        {
+            float v = attribute.intelligence;
+            return v * (1 + magicAttackMultiple) + magicAttackAdd;
+        }
+    }
+    public float magicAttackMultiple = 1;
+    public float magicAttackAdd = 0;
+
+    public float magicDefence
+    {
+        get
+        {
+            float v = attribute.intelligence / 2;
+            return v * (1 + magicDefenceMultiple) + magicDefenceAdd;
+        }
+    }
+    public float magicDefenceMultiple = 1;
+    public float magicDefenceAdd = 0;
+
+    public float hitDelay
+    {
+        get
+        {
+            return attribute.template.hitDelay / AttackSpeedMultiple;
+        }
+    }
+    public float attackInterval
+    {
+        get
+        {
+            return 1.5f / AttackSpeedMultiple;
+        }
+    }
+    public float AttackSpeedMultiple = 1;
+
+    public float maxHP
+    {
+        get
+        {
+            float v = 500 + attribute.strong * 20;
+            return v * (1 + maxHPMultiple) + maxHPAdd;
+        }
+    }
+    public float maxHPMultiple = 1;
+    public float maxHPAdd = 0;
+
+    public float maxMoveSpeed
+    {
+        get
+        {
+            float v = 1 + attribute.agility / 20;
+            return v * (1 + maxMoveSpeedMultiple) + maxMoveSpeedAdd;
+        }
+    }
+    public float maxMoveSpeedMultiple = 1;
+    public float maxMoveSpeedAdd = 0;
+
+    public float acceleration
+    {
+        get
+        {
+            float v = 1 + attribute.agility / 10;
+            return v * (1 + accelerationMultiple) + accelerationAdd;
+        }
+    }
+    public float accelerationMultiple = 1;
+    public float accelerationAdd = 0;
+
+    public float attackDistance
+    {
+        get
+        {
+            return attribute.template.attackDistance;
+        }
+    }
+
     public bool canAttackMove;
     public float guardingDistance;
 
     //当前属性
     public float hp;
     public float attackSpeed;
-    public float acceleration;
-    public float attackDistance;
+
     
     //状态
     public float hitRestTime;
@@ -74,12 +189,6 @@ public class Warrior : MonoBehaviour
 
         if (attribute.template.category.Equals("Fighter"))
         {
-            knockback = 2f;
-            maxMoveSpeed = 1.0f;
-            acceleration = 1f;
-            attackDistance = 100;
-            hitDelay = 0.3f;
-            attackInterval = 1;
             canAttackMove = true;
 
             this.FindHitTargetHandler.Add(new FindHitTargetHandler_Base());
@@ -89,12 +198,6 @@ public class Warrior : MonoBehaviour
         }
         else
         {
-            knockback = 3f;
-            maxMoveSpeed = 1.0f;
-            acceleration = 1f;
-            attackDistance = 700;
-            hitDelay = 0.3f;
-            attackInterval = 2;
             canAttackMove = false;
 
             this.FindHitTargetHandler.Add(new FindHitTargetHandler_Base());
@@ -149,36 +252,36 @@ public class Warrior : MonoBehaviour
         return ResourceManager.Load("Prefab/Game/Warrior").GetComponent<Warrior>();
     }
 
-    public void TestMelee()
-    {
-        //近战
-        knockback = 2f;
-        maxMoveSpeed = 1.0f;
-        acceleration = 1f;
-        attackDistance = 100;
-        hitDelay = 0.3f;
-        attackInterval = 1;
-        canAttackMove = true;
-        this.FindHitTargetHandler.Add(new FindHitTargetHandler_Base());
-        DidFinishAttackHandler_Melee_Base didfinishattack = new DidFinishAttackHandler_Melee_Base();
-        didfinishattack.owner = this;
-        BattleField.Instance.RegisterEvent(BattleEventType.DidFinishAttack, didfinishattack);
-    }
-    public void TestRemote()
-    {
-        //远程
-        knockback = 5f;
-        maxMoveSpeed = 1.0f;
-        acceleration = 1f;
-        attackDistance = 700;
-        hitDelay = 0.3f;
-        attackInterval = 2;
-        canAttackMove = false;
-        this.FindHitTargetHandler.Add(new FindHitTargetHandler_Base());
-        DidFinishAttackHandler_Remote_Base didfinishattack = new DidFinishAttackHandler_Remote_Base();
-        didfinishattack.owner = this;
-        BattleField.Instance.RegisterEvent(BattleEventType.DidFinishAttack, didfinishattack);
-    }
+//     public void TestMelee()
+//     {
+//         //近战
+//         knockback = 2f;
+//         maxMoveSpeed = 1.0f;
+//         acceleration = 1f;
+//         attackDistance = 100;
+//         hitDelay = 0.3f;
+//         attackInterval = 1;
+//         canAttackMove = true;
+//         this.FindHitTargetHandler.Add(new FindHitTargetHandler_Base());
+//         DidFinishAttackHandler_Melee_Base didfinishattack = new DidFinishAttackHandler_Melee_Base();
+//         didfinishattack.owner = this;
+//         BattleField.Instance.RegisterEvent(BattleEventType.DidFinishAttack, didfinishattack);
+//     }
+//     public void TestRemote()
+//     {
+//         //远程
+//         knockback = 5f;
+//         maxMoveSpeed = 1.0f;
+//         acceleration = 1f;
+//         attackDistance = 700;
+//         hitDelay = 0.3f;
+//         attackInterval = 2;
+//         canAttackMove = false;
+//         this.FindHitTargetHandler.Add(new FindHitTargetHandler_Base());
+//         DidFinishAttackHandler_Remote_Base didfinishattack = new DidFinishAttackHandler_Remote_Base();
+//         didfinishattack.owner = this;
+//         BattleField.Instance.RegisterEvent(BattleEventType.DidFinishAttack, didfinishattack);
+//     }
     void Awake()
     {
 
