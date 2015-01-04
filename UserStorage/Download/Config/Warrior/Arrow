@@ -13,6 +13,7 @@
     <AgilityGrow>0.3</AgilityGrow>
   </BasicAttr>
   <OtherAttr>
+    <AttackDistance>1000</AttackDistance>
     <HitDelay>0.6</HitDelay>
     <Collide>
       <MinX>0</MinX>

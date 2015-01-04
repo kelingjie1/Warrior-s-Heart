@@ -23,7 +23,8 @@ public class WarriorTemplate
         image = root.GetFirstTextByTag("PicPath");
         width = int.Parse(root.GetFirstTextByTag("PicXSize"));
         height = int.Parse(root.GetFirstTextByTag("PicYSize"));
-
+        attackDistance = float.Parse(root.GetFirstTextByTag("AttackDistance"));
+        hitDelay = float.Parse(root.GetFirstTextByTag("HitDelay"));
         colliderWidth = float.Parse(root.GetFirstTextByTag("MaxX")) - float.Parse(root.GetFirstTextByTag("MinX"));
         colliderHeight = float.Parse(root.GetFirstTextByTag("MaxY")) - float.Parse(root.GetFirstTextByTag("MinY"));
 

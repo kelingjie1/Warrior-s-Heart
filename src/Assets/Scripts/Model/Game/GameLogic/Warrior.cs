@@ -345,7 +345,6 @@ public class Warrior : MonoBehaviour
 
         if (this.moveState == MoveState.Idle)
         {
-            this.rigidbody.velocity = new Vector3(0, 0, 0);
             if (responders.Count == 0 || canAttackMove)
             {
                 this.moveState = MoveState.Move;
@@ -365,13 +364,19 @@ public class Warrior : MonoBehaviour
             {
                 this.moveState = MoveState.Idle;
             }
-            else
+
+            if (this.moveState == MoveState.Move || this.moveState == MoveState.KnockBack)
             {
                 this.constantForce.force = new Vector3(dir * acceleration, 0, 0);
                 if (this.rigidbody.velocity.x > maxMoveSpeed)
                 {
                     this.rigidbody.velocity = new Vector3(maxMoveSpeed, 0, 0);
                 }
+            }
+            else
+            {
+                this.constantForce.force = new Vector3(0, 0, 0);
+                this.rigidbody.velocity = new Vector3(0, 0, 0);
             }
 
         }

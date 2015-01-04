@@ -3,17 +3,18 @@
   <Category>Fighter</Category>
   <Level>1</Level>
   <BasicAttr>
-    <Power>14</Power>
-    <Strong>12</Strong>
-    <Intelligence>2</Intelligence>
-    <Agility>8</Agility>
-    <PowerGrow>0.4</PowerGrow>
-    <StrongGrow>0.8</StrongGrow>
-    <IntelligenceGrow>0.1</IntelligenceGrow>
-    <AgilityGrow>0.3</AgilityGrow>
+    <Power>15</Power>
+    <Strong>10</Strong>
+    <Intelligence>5</Intelligence>
+    <Agility>7</Agility>
+    <PowerGrow>2.0</PowerGrow>
+    <StrongGrow>1.2</StrongGrow>
+    <IntelligenceGrow>1.0</IntelligenceGrow>
+    <AgilityGrow>0.8</AgilityGrow>
   </BasicAttr>
   <OtherAttr>
-    <HitDelay>0.6</HitDelay>
+    <AttackDistance>100</AttackDistance>
+    <HitDelay>0.3</HitDelay>
     <Collide>
       <MinX>0</MinX>
       <MaxX>90</MaxX>
