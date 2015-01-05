@@ -6,6 +6,7 @@ public class DidHitHandler_Base : BattleEventHandler
 {
     public override object HandleEvent(List<Warrior> sponsors = null, List<Warrior> responders = null, object param0 = null, object param1 = null, object param2 = null, object param3 = null)
     {
+        HitEventMessage hitmsg = param0 as HitEventMessage;
         if (responders.Count==0)
         {
             return null;
@@ -39,6 +40,8 @@ public class DidHitHandler_Base : BattleEventHandler
         
 
         HurtEventMessage hurtmsg = new HurtEventMessage();
+        float physicalDamageScale = 1 - responders[0].physicalDefence / (responders[0].physicalDefence + 100);
+        hurtmsg.physicalDamage = hitmsg.physicalAttack * physicalDamageScale;
         BattleField.Instance.SendEvent(BattleEventType.WillHurt, sponsors, responders, hurtmsg);
         if (hurtmsg.ContinueAction)
         {

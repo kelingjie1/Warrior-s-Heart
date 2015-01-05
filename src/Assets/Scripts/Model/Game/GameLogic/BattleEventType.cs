@@ -42,8 +42,16 @@ public class KnockEventMessage : BattleEventMessage
 {
     public float KnockStrength;
 }
-
+public class HitEventMessage : BattleEventMessage
+{
+    public float physicalAttack;
+    public float magicAttack;
+    public float absoluteAttack;
+    public Ammo ammo;
+}
 public class HurtEventMessage : BattleEventMessage
 {
-    public float Damage;
+    public float physicalDamage;
+    public float magicDamage;
+    public float absoluteDamage;
 }

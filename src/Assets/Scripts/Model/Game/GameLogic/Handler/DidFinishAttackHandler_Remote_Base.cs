@@ -20,6 +20,7 @@ public class DidFinishAttackHandler_Remote_Base : BattleEventHandler
         if (sponsors.Count>0)
         {
             ammo.owner = sponsors[0];
+            ammo.msg.physicalAttack = sponsors[0].physicalAttack;
         }
         
         if (sponsors[0].isAttacker)

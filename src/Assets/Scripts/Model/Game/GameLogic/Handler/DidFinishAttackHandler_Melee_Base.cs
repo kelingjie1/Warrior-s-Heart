@@ -17,7 +17,8 @@ public class DidFinishAttackHandler_Melee_Base : BattleEventHandler
             responders = new List<Warrior>();
             sponsors[0].FindHitTargetHandler[0].HandleEvent(sponsors, responders);
         }
-        BattleEventMessage msg = new BattleEventMessage();
+        HitEventMessage msg = new HitEventMessage();
+        msg.physicalAttack = sponsors[0].physicalAttack;
         BattleField.Instance.SendEvent(BattleEventType.WillHit, sponsors, responders, msg);
         if (!msg.ContinueAction)
         {

@@ -161,6 +161,8 @@ public class BattleField : MonoBehaviour
         this.RegisterEvent(BattleEventType.DidHit, didhitbase);
         DidKnockHandler_Base didknockbase = new DidKnockHandler_Base();
         this.RegisterEvent(BattleEventType.DidKnock, didknockbase);
+        DidHurtHandler_Base didhurtbase = new DidHurtHandler_Base();
+        this.RegisterEvent(BattleEventType.DidHurt, didhurtbase);
         /////////////////////////
         this.SendEvent(BattleEventType.DidStartBattle);
     }

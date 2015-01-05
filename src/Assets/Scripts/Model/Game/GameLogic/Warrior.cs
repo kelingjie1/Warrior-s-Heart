@@ -26,7 +26,7 @@ public class Warrior : MonoBehaviour
         get
         {
             float v = attribute.power / 10;
-            return v * (1 + knockbackMultiple) + knockbackAdd;
+            return v * knockbackMultiple + knockbackAdd;
         }
     }
     public float knockbackMultiple = 1;
@@ -37,7 +37,7 @@ public class Warrior : MonoBehaviour
         get
         {
             float v = attribute.power / 20;
-            return v * (1 + antiKnockbackMultiple) + antiKnockbackAdd;
+            return v * antiKnockbackMultiple + antiKnockbackAdd;
         }
     }
     public float antiKnockbackMultiple = 1;
@@ -47,8 +47,8 @@ public class Warrior : MonoBehaviour
     {
         get
         {
-            float v = attribute.power;
-            return v * (1 + physicalAttackMultiple) + physicalAttackAdd;
+            float v = attribute.power * 2 + 50;
+            return v * physicalAttackMultiple + physicalAttackAdd;
         }
     }
     public float physicalAttackMultiple = 1;
@@ -59,7 +59,7 @@ public class Warrior : MonoBehaviour
         get
         {
             float v = attribute.strong / 2;
-            return v * (1 + physicalDefenceMultiple) + physicalDefenceAdd;
+            return v * physicalDefenceMultiple + physicalDefenceAdd;
         }
     }
     public float physicalDefenceMultiple = 1;
@@ -70,7 +70,7 @@ public class Warrior : MonoBehaviour
         get
         {
             float v = attribute.intelligence;
-            return v * (1 + magicAttackMultiple) + magicAttackAdd;
+            return v * magicAttackMultiple + magicAttackAdd;
         }
     }
     public float magicAttackMultiple = 1;
@@ -81,7 +81,7 @@ public class Warrior : MonoBehaviour
         get
         {
             float v = attribute.intelligence / 2;
-            return v * (1 + magicDefenceMultiple) + magicDefenceAdd;
+            return v * magicDefenceMultiple + magicDefenceAdd;
         }
     }
     public float magicDefenceMultiple = 1;
@@ -108,7 +108,7 @@ public class Warrior : MonoBehaviour
         get
         {
             float v = 500 + attribute.strong * 20;
-            return v * (1 + maxHPMultiple) + maxHPAdd;
+            return v * maxHPMultiple + maxHPAdd;
         }
     }
     public float maxHPMultiple = 1;
@@ -119,7 +119,7 @@ public class Warrior : MonoBehaviour
         get
         {
             float v = 1 + attribute.agility / 20;
-            return v * (1 + maxMoveSpeedMultiple) + maxMoveSpeedAdd;
+            return v * maxMoveSpeedMultiple + maxMoveSpeedAdd;
         }
     }
     public float maxMoveSpeedMultiple = 1;
@@ -130,7 +130,7 @@ public class Warrior : MonoBehaviour
         get
         {
             float v = 1 + attribute.agility / 10;
-            return v * (1 + accelerationMultiple) + accelerationAdd;
+            return v * accelerationMultiple + accelerationAdd;
         }
     }
     public float accelerationMultiple = 1;
@@ -174,6 +174,11 @@ public class Warrior : MonoBehaviour
             }
         }
     }
+    //满状态
+    void Reset()
+    {
+        hp = maxHP;
+    }
     public void ReadFromXML(XmlElement item)
     {
         name = item.Name;
@@ -205,6 +210,7 @@ public class Warrior : MonoBehaviour
             didfinishattack.owner = this;
             BattleField.Instance.RegisterEvent(BattleEventType.DidFinishAttack, didfinishattack);
         }
+        Reset();
 
 
     }

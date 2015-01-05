@@ -5,9 +5,11 @@ using System.Collections.Generic;
 public class Ammo : MonoBehaviour 
 {
     public Warrior owner;
+    public HitEventMessage msg = new HitEventMessage();
     public static Ammo Create()
     {
-        return ResourceManager.Load("Prefab/Game/Ammo").GetComponent<Ammo>();
+        Ammo ammo = ResourceManager.Load("Prefab/Game/Ammo").GetComponent<Ammo>();
+        return ammo;
     }
     void OnCollisionEnter(Collision collision)
     {
@@ -28,7 +30,7 @@ public class Ammo : MonoBehaviour
             {
                 List<Warrior> sponsors = new List<Warrior>() { owner };
                 List<Warrior> responders = new List<Warrior>() { warrior };
-                BattleEventMessage msg = new BattleEventMessage();
+                msg.ammo = this;
                 BattleField.Instance.SendEvent(BattleEventType.WillHit, sponsors, responders, msg);
                 if (!msg.ContinueAction)
                 {
