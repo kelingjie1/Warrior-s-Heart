@@ -14,10 +14,16 @@ public class UIEntryDialog : BasePage {
 	void Awake()
 	{
 		UIEventListener.Get (gameObject.FindChild("EnterButton")).onClick = OnStartGameClick;
+		UIEventListener.Get (gameObject.FindChild("CloseDialog")).onClick = OnCloseDialogClick;
 	}
 
 	void OnStartGameClick(GameObject go)
 	{
 		Application.LoadLevel("Game");
+	}
+
+	void OnCloseDialogClick(GameObject go)
+	{
+		PageManager.Instance.CloseDialog();
 	}
 }

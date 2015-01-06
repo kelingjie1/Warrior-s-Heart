@@ -221,4 +221,13 @@ public class PageManager : MonoBehaviour
 		}
 		DialogAnimationFinish();
 	}
+
+	public void CloseDialog()
+	{
+		if (m_currentDialog) 
+		{
+			Destroy(m_currentDialog.gameObject);
+		}
+		//DialogAnimationFinish();
+	}
 }

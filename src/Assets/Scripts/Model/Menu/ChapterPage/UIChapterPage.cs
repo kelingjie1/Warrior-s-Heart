@@ -37,6 +37,6 @@ public class UIChapterPage : BasePage
 	
 	void OnStartGameClick(GameObject go)
 	{
-		PageManager.Instance.ShowPage(UIEntryDialog.Instance);
+		PageManager.Instance.ShowDialog(UIEntryDialog.Instance);
 	}
 }
