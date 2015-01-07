@@ -53,6 +53,9 @@ public class PageManager : MonoBehaviour
 	}
 	public void ShowPage(BasePage page, AnimationType type = AnimationType.NULL)
 	{
+		//切换页面把当前的对话框关闭
+		CloseDialog();
+
 		Tweener tweener = null;
 		
 		m_nextPage = page;
@@ -162,7 +165,12 @@ public class PageManager : MonoBehaviour
 		Tweener tweener = null;
 		
 		m_nextDialog = dialog;
-		
+
+		//屏蔽page点击事件
+		dialog.gameObject.AddComponent<BoxCollider>();
+		BoxCollider collider = dialog.gameObject.GetComponent<BoxCollider>();
+		collider.size = new Vector3 (Screen.width, Screen.height, 1);
+
 		this.gameObject.AddChild(dialog.gameObject);
 		if (m_currentDialog)
 		{
