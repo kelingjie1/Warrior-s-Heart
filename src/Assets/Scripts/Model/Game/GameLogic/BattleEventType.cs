@@ -15,6 +15,8 @@ public enum BattleEventType
     DidKnock,
     WillHurt,
     DidHurt,
+    WillDie,
+    DidDie,
     ArriveTopSpeed,
     StopKnockBack,
     KnockScreenEdge,
