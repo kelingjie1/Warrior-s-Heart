@@ -62,7 +62,17 @@ public class BattleField : MonoBehaviour
             GameObject.Destroy(trash);
         }
     }
-
+    public void JudgeWin()
+    {
+        if (AttackerList.Count==0)
+        {
+            PageManager.Instance.ShowDialog(ScorePage.Instance);
+        }
+        else if (DefenderList.Count==0)
+        {
+            PageManager.Instance.ShowDialog(ScorePage.Instance);
+        }
+    }
     UITexture CreateAdorment()
     {
         GameObject go = new GameObject();
@@ -156,7 +166,7 @@ public class BattleField : MonoBehaviour
             defender.transform.localScale = new Vector3(-1, 1, 1);
         }
     }
-
+    
     public void StartBattle()
     {
         this.SendEvent(BattleEventType.WillStartBattle);

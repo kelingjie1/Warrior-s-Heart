@@ -150,7 +150,7 @@ public class Warrior : MonoBehaviour
     //当前属性
     public float hp;
     public float attackSpeed;
-
+    public bool pause;
     
     //状态
     public float hitRestTime;

@@ -22,6 +22,7 @@ public class DidHurtHandler_Base : BattleEventHandler
                 {
                     BattleField.Instance.DefenderList.Remove(warrior);
                 }
+                BattleField.Instance.JudgeWin();
                 GameObject.Destroy(warrior.gameObject);
             }
         }
