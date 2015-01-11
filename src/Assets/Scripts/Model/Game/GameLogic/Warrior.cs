@@ -150,7 +150,6 @@ public class Warrior : MonoBehaviour
     //当前属性
     public float hp;
     public float attackSpeed;
-    public bool pause;
     
     //状态
     public float hitRestTime;
@@ -175,10 +174,16 @@ public class Warrior : MonoBehaviour
         }
     }
     //满状态
-    void Reset()
+    public void Reset()
     {
         hp = maxHP;
     }
+
+	public void Pause()
+	{
+		this.GetComponent<UISpriteAnimation>().Pause();
+	}
+
     public void ReadFromXML(XmlElement item)
     {
         name = item.Name;

@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using ProtoBuf;
 
 public sealed partial class NetworkManager
 {
@@ -63,7 +64,10 @@ public sealed partial class NetworkManager
 
 		m_ServerUri = new Uri(url);
 	}
-
+	public void Send(IExtensible msg)
+	{
+		Send(ProtoManager.Serialize (msg));
+	}
 	public void Send(byte[] packet)
 	{
 		if (m_ServerUri == null)

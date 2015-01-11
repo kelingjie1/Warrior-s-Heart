@@ -62,15 +62,30 @@ public class BattleField : MonoBehaviour
             GameObject.Destroy(trash);
         }
     }
+	public void Pause()
+	{
+		Time.timeScale = 0;
+		foreach (Warrior warrior in AttackerList) 
+		{
+			warrior.Pause();
+		}
+
+		foreach (Warrior warrior in DefenderList) 
+		{
+			warrior.Pause();
+		}
+	}
     public void JudgeWin()
     {
         if (AttackerList.Count==0)
         {
             PageManager.Instance.ShowDialog(ScorePage.Instance);
+			Pause();
         }
         else if (DefenderList.Count==0)
         {
             PageManager.Instance.ShowDialog(ScorePage.Instance);
+			Pause();
         }
     }
     UITexture CreateAdorment()
