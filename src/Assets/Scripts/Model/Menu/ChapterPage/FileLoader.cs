@@ -20,7 +20,7 @@ public class FileLoader{
 		{
 			return Application.persistentDataPath + @"/" + name;
 		}*/
-		return @"C:/Users/morningli/Desktop/Warrior-s-Heart/UserStorage/" + name;
+		return Config.BaseDataPath + name;
 	}
 
 	public static Texture2D LoadTexture(string name)

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using game_proto;
 
 public class LoginPage : BasePage 
 {
@@ -35,6 +36,10 @@ public class LoginPage : BasePage
 
     void OnWXLoginButtonClick(GameObject go)
     {
-        Application.LoadLevel("Menu");
+		LoginReq req = new LoginReq ();
+		req.token = "test";
+		req.channel = (int)LoginChannel.kChannelTypeQQ;
+		NetworkManager.Instance.Send(req);
+        //Application.LoadLevel("Menu");
     }
 }
