@@ -80,25 +80,12 @@ message WarriorItem
 	optional int32  agility_point      = 18;
 }
 
-// StaticItem
-message StaticItem
-{
-	optional string ref_id  = 1;
-	optional int32  count   = 2;
-}
-
 // bag info defination
-enum BagType
-{
-	kStaticItemType  = 1;
-	kWarriorType     = 2;
-}
 
 message BagItem
 {
-	optional int32       type         = 1;
-    optional WarriorItem warrior_item = 2;
-	optional StaticItem  static_item  = 3;
+	optional string ref_id  = 1;
+	optional int32  count   = 2;
 }
 
 message Bag
