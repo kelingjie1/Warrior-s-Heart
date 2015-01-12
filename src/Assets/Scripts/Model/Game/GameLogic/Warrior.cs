@@ -155,8 +155,13 @@ public class Warrior : MonoBehaviour
     public float hitRestTime;
     public float attackRestTime;
     public AttackState attackState;
+    public int attackLock;
+    public int moveLock;
     public MoveState moveState;
     public bool hasEnemyInAttackDistance;
+    public bool isNearWall;
+    List<Buff> buffList = new List<Buff>();
+    List<Buff> removeBuffList = new List<Buff>();
     public OrderedList<BattleEventHandler> FindHitTargetHandler = new OrderedList<BattleEventHandler>();
     public OrderedList<BattleEventHandler> FinishAttackHandler = new OrderedList<BattleEventHandler>();
     public int dir
@@ -318,6 +323,16 @@ public class Warrior : MonoBehaviour
         
     }
 
+    public void AddBuff(Buff buff)
+    {
+        buffList.Add(buff);
+        buff.Attach(this);
+    }
+    public void RemoveBuff(Buff buff)
+    {
+        removeBuffList.Add(buff);
+        buff.Detach();
+    }
     public void Attack()
     {
         if (attackRestTime>0)
@@ -343,6 +358,14 @@ public class Warrior : MonoBehaviour
         {
             return;
         }
+        foreach (Buff buff in buffList)
+        {
+            buff.Update();
+        }
+        foreach (Buff buff in removeBuffList)
+        {
+            buffList.Remove(buff);
+        }
         attackRestTime -= Time.deltaTime;
         /////////////////////////////////////////
         List<Warrior> sponsors = new List<Warrior>() { this };
@@ -367,7 +390,7 @@ public class Warrior : MonoBehaviour
                 BattleField.Instance.SendEvent(BattleEventType.DidFinishAttack, new List<Warrior>() { this }, null, msg);
             }
         }
-        else if(moveState!=MoveState.KnockBack)
+        else if(moveState!=MoveState.KnockBack&&attackLock==0)
         {
             if(responders.Count > 0)
             {
@@ -375,7 +398,7 @@ public class Warrior : MonoBehaviour
             }
         }
 
-        if (this.moveState == MoveState.Idle)
+        if (this.moveState == MoveState.Idle&&moveLock==0)
         {
             if (responders.Count == 0 || canAttackMove)
             {
@@ -425,7 +448,7 @@ public class Warrior : MonoBehaviour
         {
             FindHitTargetHandler[0].HandleEvent(sponsors, responders);
         }
-        BattleEventMessage msg=new BattleEventMessage();
+        HitEventMessage msg = new HitEventMessage();
         BattleField.Instance.SendEvent(BattleEventType.WillHit, sponsors, responders, msg);
         if (!msg.ContinueAction)
         {
@@ -434,6 +457,29 @@ public class Warrior : MonoBehaviour
         BattleField.Instance.SendEvent(BattleEventType.DidHit, sponsors, responders, msg);
 
 
+    }
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.name=="LeftWall"||collision.gameObject.name=="RightWall")
+        {
+            isNearWall = true;
+            List<Warrior> sponsors = new List<Warrior>() { this };
+            List<Warrior> responders = new List<Warrior>();
+            KnockWallEventMessage msg = new KnockWallEventMessage();
+            BattleField.Instance.SendEvent(BattleEventType.WillKnockWall, sponsors, responders, msg);
+            if (!msg.ContinueAction)
+            {
+                return;
+            }
+            BattleField.Instance.SendEvent(BattleEventType.DidKnockWall, sponsors, responders, msg);
+        }
+    }
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.name == "LeftWall" || collision.gameObject.name == "RightWall")
+        {
+            isNearWall = false;
+        }
     }
 
 }

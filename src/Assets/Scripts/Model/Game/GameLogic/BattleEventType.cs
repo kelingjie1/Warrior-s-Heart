@@ -17,6 +17,8 @@ public enum BattleEventType
     DidHurt,
     WillDie,
     DidDie,
+    WillKnockWall,
+    DidKnockWall,
     ArriveTopSpeed,
     StopKnockBack,
     KnockScreenEdge,
@@ -57,3 +59,9 @@ public class HurtEventMessage : BattleEventMessage
     public float magicDamage;
     public float absoluteDamage;
 }
+
+public class KnockWallEventMessage : BattleEventMessage
+{
+    
+}
+

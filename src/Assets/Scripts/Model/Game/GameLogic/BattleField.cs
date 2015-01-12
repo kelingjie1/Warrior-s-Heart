@@ -93,11 +93,10 @@ public class BattleField : MonoBehaviour
     public void ShowMessage(string msg, Vector3 position, Color color)
     {
         UILabel label = ResourceManager.Load("Prefab/Game/BattleLabel").GetComponent<UILabel>();
-        label.text = msg;
         BattleField.Instance.gameObject.AddChild(label.gameObject);
         label.transform.localPosition = position;
         label.transform.DOLocalMoveY(position.y + 50, 3).OnComplete(() => OnMessageMoveComplete(label));
-        
+        label.text = msg;
     }
     private void OnMessageMoveComplete(UILabel label)
     {
@@ -208,6 +207,8 @@ public class BattleField : MonoBehaviour
         this.RegisterEvent(BattleEventType.DidKnock, didknockbase);
         DidHurtHandler_Base didhurtbase = new DidHurtHandler_Base();
         this.RegisterEvent(BattleEventType.DidHurt, didhurtbase);
+        DidKnockWallHandler didknockwall = new DidKnockWallHandler();
+        this.RegisterEvent(BattleEventType.DidKnockWall, didknockwall);
         /////////////////////////
         this.SendEvent(BattleEventType.DidStartBattle);
     }

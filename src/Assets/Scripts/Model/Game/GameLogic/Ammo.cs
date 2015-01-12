@@ -40,10 +40,6 @@ public class Ammo : MonoBehaviour
             }
         }
     }
-    void OnTriggerEnter(Collider collider)
-    {
-        Debug.Log(collider.name);
-    }
     void Update()
     {
 
