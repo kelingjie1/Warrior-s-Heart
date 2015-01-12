@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
+using DG.Tweening;
 
 // public delegate void BattleEventDelegate(BattleEventDefine define, List<Warrior> sponsors = null, List<Warrior> responders = null, object param0 = null, object param1 = null, object param2 = null, object param3 = null);
 class EventHandlerComparer : IComparer<BattleEventHandler>
@@ -67,12 +68,12 @@ public class BattleField : MonoBehaviour
 		Time.timeScale = 0;
 		foreach (Warrior warrior in AttackerList) 
 		{
-			warrior.Pause();
+            warrior.pause = true;
 		}
 
 		foreach (Warrior warrior in DefenderList) 
 		{
-			warrior.Pause();
+            warrior.pause = true;
 		}
 	}
     public void JudgeWin()
@@ -87,6 +88,20 @@ public class BattleField : MonoBehaviour
             PageManager.Instance.ShowDialog(ScorePage.Instance);
 			Pause();
         }
+    }
+
+    public void ShowMessage(string msg, Vector3 position, Color color)
+    {
+        UILabel label = ResourceManager.Load("Prefab/Game/BattleLabel").GetComponent<UILabel>();
+        label.text = msg;
+        BattleField.Instance.gameObject.AddChild(label.gameObject);
+        label.transform.localPosition = position;
+        label.transform.DOLocalMoveY(position.y + 50, 3).OnComplete(() => OnMessageMoveComplete(label));
+        
+    }
+    private void OnMessageMoveComplete(UILabel label)
+    {
+        GameObject.Destroy(label.gameObject);
     }
     UITexture CreateAdorment()
     {

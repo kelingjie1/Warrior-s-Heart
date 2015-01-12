@@ -179,9 +179,26 @@ public class Warrior : MonoBehaviour
         hp = maxHP;
     }
 
-	public void Pause()
+    bool m_pause;
+	public bool pause
 	{
-		this.GetComponent<UISpriteAnimation>().Pause();
+        set
+        {
+            m_pause = value;
+            if (m_pause)
+            {
+                this.GetComponent<UISpriteAnimation>().Pause();
+            }
+            else
+            {
+                this.GetComponent<UISpriteAnimation>().Play();
+            }
+        }
+        get
+        {
+            return m_pause;
+        }
+		
 	}
 
     public void ReadFromXML(XmlElement item)
@@ -322,6 +339,10 @@ public class Warrior : MonoBehaviour
 
     void Update()
     {
+        if (pause)
+        {
+            return;
+        }
         attackRestTime -= Time.deltaTime;
         /////////////////////////////////////////
         List<Warrior> sponsors = new List<Warrior>() { this };

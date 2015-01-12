@@ -136,7 +136,7 @@ public class PageManager : MonoBehaviour
 		}
 		if (tweener!=null)
 		{
-			tweener.onComplete = AnimationFinish;
+			tweener.OnComplete(AnimationFinish);
 		}
 	}
 	
@@ -217,7 +217,7 @@ public class PageManager : MonoBehaviour
 		
 		if (tweener!=null)
 		{
-			tweener.onComplete = DialogAnimationFinish;
+			tweener.OnComplete(DialogAnimationFinish);
 		}
 	}
 	

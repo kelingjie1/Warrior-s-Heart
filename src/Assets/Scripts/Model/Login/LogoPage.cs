@@ -33,7 +33,7 @@ public class LogoPage : BasePage
     public override void PageDidAppear()
     {
         base.PageDidAppear();
-        StudioLogo.transform.DOScale(new Vector3(1, 1, 1), 1.5f).ChangeStartValue(new Vector3(30, 30, 30)).SetEase(Ease.InQuad).onComplete = OnScaleComplete;
+        StudioLogo.transform.DOScale(new Vector3(1, 1, 1), 1.5f).ChangeStartValue(new Vector3(30, 30, 30)).SetEase(Ease.InQuad).OnComplete(OnScaleComplete);
     }
 
     public override void PageDidDisappear()
@@ -44,12 +44,12 @@ public class LogoPage : BasePage
 
     void OnScaleComplete()
     {
-        StudioLogo.transform.DOShakePosition(3, 30, 40).onComplete = OnShakeComplete;
+        StudioLogo.transform.DOShakePosition(3, 30, 40).OnComplete(OnShakeComplete);
     }
     void OnShakeComplete()
     {
         DOTween.To(() => StudioName.alpha, x => StudioName.alpha = x, 0, 2);
-        DOTween.To(() => StudioLogo.alpha, x => StudioLogo.alpha = x, 0, 2).onComplete = OnHideComplete;
+        DOTween.To(() => StudioLogo.alpha, x => StudioLogo.alpha = x, 0, 2).OnComplete(OnHideComplete);
     }
     void OnHideComplete()
     {
