@@ -1,7 +1,5 @@
 *.suo
-*.csproj
 *.DotSettings
-*.sln
 *.userprefs
 src/Library/
 src/Temp/
