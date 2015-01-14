@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using NCalc;
 
 public class Test : MonoBehaviour 
 {
@@ -12,14 +13,8 @@ public class Test : MonoBehaviour
 
     private void OnButtonClick(GameObject go)
     {
-        UISprite sprite = go.GetComponent<UISprite>();
-        Debug.Log(Application.streamingAssetsPath);
-        WWW www = new WWW("file://D:/Warrior-s-Heart/UserStorage/Download/Resources/Animation/Fighter.assetbundle");
-        Debug.Log(www.assetBundle);
-        Object obj = Instantiate(www.assetBundle.Load("Fighter",System.Type.GetType("UIAtlas")));
-        Debug.Log(obj);
-        sprite.atlas = obj as UIAtlas;
-        sprite.spriteName = "attack_00000";
+        Expression e = new Expression("10+15*2");
+        Debug.Log(e.Evaluate());
     }
 
 

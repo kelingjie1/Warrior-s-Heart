@@ -22,7 +22,7 @@ public class BuffGiddy : Buff
         {
             warrior.moveState = MoveState.Idle;
         }
-
+        
         warrior.attackLock++;
         warrior.moveLock++;
     }
