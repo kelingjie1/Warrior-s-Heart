@@ -23,25 +23,6 @@ public class FileLoader{
 		return Config.BaseDataPath + name;
 	}
 
-	public static Texture2D LoadTexture(string name)
-	{
-		string filePath = GetFilePath(name);
-
-		FileStream fs = new FileStream(filePath,FileMode.Open,FileAccess.Read);
-		System.Drawing.Image img = System.Drawing.Image.FromStream(fs);
-
-		Debug.Log("load img:" + filePath);
-		
-		MemoryStream ms = new MemoryStream();
-		img.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-
-		Debug.Log("Array img");
-
-		Texture2D _tex2 = new Texture2D(1280, 1280);
-		_tex2.LoadImage(ms.ToArray());
-
-		return _tex2;
-	}
 
 	public static object LoadXML(string name, Type type)   
 	{   
