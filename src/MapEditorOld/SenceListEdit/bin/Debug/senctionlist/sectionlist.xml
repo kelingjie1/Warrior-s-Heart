@@ -37,6 +37,12 @@
       <Title>章节 2</Title>
       <Desc>火焰领域</Desc>
       <BackGroundPic>section_map2</BackGroundPic>
+      <Sences />
+    </Section>
+    <Section>
+      <Title>章节 3</Title>
+      <Desc>这是章节3的描述</Desc>
+      <BackGroundPic>section_map3</BackGroundPic>
     </Section>
   </Sections>
 </root>

@@ -6,7 +6,7 @@ public class BagDataMrg : Inventory
 {
 	private static BagDataMrg m_instance;
 
-	private static string m_sConfigFile = @"/UserData/user1/inventory.xml";
+	public static string m_sConfigFile = @"/UserData/user1/inventory.xml";
  
 	public static BagDataMrg Instance
 	{

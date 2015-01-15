@@ -22,21 +22,31 @@ public class UIChapterPage : BasePage
 		//加载关卡配置，获取关卡数据（包括场景）
 
 		//展示关卡,点的绘画
-		for (int i = 0; i < 5; ++i)
+
+
+		//chapterData
+		FileLoader.SaveXml(ChapterDataMgr.m_sConfigFile, ChapterDataMgr.Instance, typeof(ChapterDataMgr));
+
+		foreach (Section chapter in ChapterDataMgr.Instance.chapters)
 		{
+			Debug.Log(chapter.title);
+
 			UIChapterEntryPoint item = UIChapterEntryPoint.Instance;
 			gameObject.FindChild("WorldMap").AddChild(item.gameObject);
+			
+			item.gameObject.transform.localPosition = chapter.Position;
+			item.ChapterData = chapter;
 
-			item.gameObject.transform.localPosition = new Vector3 (-300 + i * 100, -150 + i * 100, 0);
-
-			UIEventListener.Get (item.gameObject).onClick = OnStartGameClick;
+			UIEventListener.Get (item.gameObject).onClick = OnEnterSectionClick;
 		}
-
 		//gameObject.FindChild ("EnterDialog").GetComponent<UITexture>().mainTexture = FileLoader.LoadTexture("Image 13.png");
 	}
 	
-	void OnStartGameClick(GameObject go)
+	void OnEnterSectionClick(GameObject go)
 	{
-		PageManager.Instance.ShowDialog(UIEntryDialog.Instance);
+		UIChapterEntryPoint entry = go.GetComponent<UIChapterEntryPoint>();
+		UISectionPage page = UISectionPage.Instance;
+		page.ChapterData = entry.ChapterData;
+		PageManager.Instance.ShowPage(page);
 	}
 }
