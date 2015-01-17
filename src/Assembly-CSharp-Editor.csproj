@@ -173,6 +173,7 @@
      <None Include="Assets\ThirdLib\NGUI\Resources\Shaders\Unlit - Premultiplied Colored 1.shader" />
      <None Include="Assets\ThirdLib\Spine\Examples\Spine\Hero\Hero.atlas.txt" />
      <None Include="Assets\ThirdLib\NGUI\Resources\Shaders\Unlit - Premultiplied Colored.shader" />
+     <None Include="Assets\Resources\Animation\Fighter.atlas.txt" />
      <None Include="Assets\ThirdLib\NGUI\Resources\Shaders\Unlit - Transparent Colored.shader" />
      <None Include="Assets\ThirdLib\NGUI\Resources\Shaders\Unlit - Text.shader" />
      <None Include="Assets\ThirdLib\Spine\Examples\Spine\Dragon\dragon.atlas.txt" />
@@ -187,6 +188,7 @@
      <None Include="Assets\ThirdLib\NGUI\Resources\Shaders\Unlit - Text (TextureClip).shader" />
      <None Include="Assets\ThirdLib\NGUI\Examples\Shaders\Unlit - Depth.shader" />
      <None Include="Assets\ThirdLib\NGUI\Examples\Atlases\SciFi\SciFi Font - Normal.txt" />
+     <None Include="Assets\Resources\Animation\Archer.atlas.txt" />
      <None Include="Assets\ThirdLib\NGUI\Examples\Models\Orc Armor\Orc Armor.shader" />
      <None Include="Assets\ThirdLib\Spine\spine-unity\Shaders\SkeletonLit.shader" />
      <None Include="Assets\ThirdLib\NGUI\Examples\Resources\Localization.txt" />

@@ -1,0 +1,124 @@
+
+Fighter.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Backpack
+  rotate: true
+  xy: 2, 21
+  size: 18, 78
+  orig: 18, 78
+  offset: 0, 0
+  index: -1
+Eyes
+  rotate: false
+  xy: 82, 23
+  size: 36, 10
+  orig: 36, 10
+  offset: 0, 0
+  index: -1
+Head_1
+  rotate: false
+  xy: 209, 97
+  size: 52, 24
+  orig: 52, 24
+  offset: 0, 0
+  index: -1
+Head_2
+  rotate: true
+  xy: 82, 35
+  size: 55, 82
+  orig: 55, 82
+  offset: 0, 0
+  index: -1
+LEar
+  rotate: true
+  xy: 45, 6
+  size: 13, 24
+  orig: 13, 24
+  offset: 0, 0
+  index: -1
+LForearm
+  rotate: true
+  xy: 304, 98
+  size: 23, 39
+  orig: 23, 39
+  offset: 0, 0
+  index: -1
+LLeg
+  rotate: false
+  xy: 384, 97
+  size: 27, 24
+  orig: 27, 24
+  offset: 0, 0
+  index: -1
+LLeg_1
+  rotate: false
+  xy: 491, 105
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+MainWeapon
+  rotate: true
+  xy: 82, 92
+  size: 29, 125
+  orig: 29, 125
+  offset: 0, 0
+  index: -1
+REar
+  rotate: true
+  xy: 2, 2
+  size: 17, 41
+  orig: 17, 41
+  offset: 0, 0
+  index: -1
+RForearm
+  rotate: true
+  xy: 263, 97
+  size: 24, 39
+  orig: 24, 39
+  offset: 0, 0
+  index: -1
+RLeg
+  rotate: false
+  xy: 345, 96
+  size: 37, 25
+  orig: 37, 25
+  offset: 0, 0
+  index: -1
+RLeg_1
+  rotate: false
+  xy: 472, 103
+  size: 17, 18
+  orig: 17, 18
+  offset: 0, 0
+  index: -1
+TorsoTop
+  rotate: false
+  xy: 2, 41
+  size: 78, 80
+  orig: 78, 80
+  offset: 0, 0
+  index: -1
+edeee
+  rotate: false
+  xy: 413, 101
+  size: 28, 20
+  orig: 28, 20
+  offset: 0, 0
+  index: -1
+ertgrt
+  rotate: false
+  xy: 443, 101
+  size: 27, 20
+  orig: 27, 20
+  offset: 0, 0
+  index: -1
+qizi
+  rotate: false
+  xy: 166, 30
+  size: 54, 60
+  orig: 54, 60
+  offset: 0, 0
+  index: -1
