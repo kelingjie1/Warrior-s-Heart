@@ -39,10 +39,10 @@
 	<Reference Include="System.Core" />
 	<Reference Include="System.Xml.Linq" />
 	<Reference Include="UnityEngine">
-	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>D:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>D:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
@@ -191,28 +191,28 @@
      <None Include="Assets\ThirdLib\Spine\spine-unity\Shaders\SkeletonLit.shader" />
      <None Include="Assets\ThirdLib\NGUI\Examples\Resources\Localization.txt" />
  <Reference Include="ICSharpCode.SharpZipLib">
- <HintPath>C:/Users/morningli/Desktop/Warrior-s-Heart/src/Assets/ThirdLib/ICSharpCode.SharpZipLib.dll</HintPath>
+ <HintPath>D:/Warrior-s-Heart/src/Assets/ThirdLib/ICSharpCode.SharpZipLib.dll</HintPath>
  </Reference>
  <Reference Include="DOTween">
- <HintPath>C:/Users/morningli/Desktop/Warrior-s-Heart/src/Assets/ThirdLib/DOTween/DOTween.dll</HintPath>
+ <HintPath>D:/Warrior-s-Heart/src/Assets/ThirdLib/DOTween/DOTween.dll</HintPath>
  </Reference>
  <Reference Include="DOTweenEditor">
- <HintPath>C:/Users/morningli/Desktop/Warrior-s-Heart/src/Assets/ThirdLib/DOTween/Editor/DOTweenEditor.dll</HintPath>
+ <HintPath>D:/Warrior-s-Heart/src/Assets/ThirdLib/DOTween/Editor/DOTweenEditor.dll</HintPath>
  </Reference>
  <Reference Include="Antlr3.Runtime">
- <HintPath>C:/Users/morningli/Desktop/Warrior-s-Heart/src/Assets/ThirdLib/Evaluant.Calculator/bin/Antlr3.Runtime.dll</HintPath>
+ <HintPath>D:/Warrior-s-Heart/src/Assets/ThirdLib/Evaluant.Calculator/bin/Antlr3.Runtime.dll</HintPath>
  </Reference>
  <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
- <HintPath>C:/Users/morningli/Desktop/Warrior-s-Heart/src/Assets/ThirdLib/UnityVS/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
+ <HintPath>D:/Warrior-s-Heart/src/Assets/ThirdLib/UnityVS/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
  </Reference>
  <Reference Include="SyntaxTree.VisualStudio.Unity.Messaging">
- <HintPath>C:/Users/morningli/Desktop/Warrior-s-Heart/src/Assets/ThirdLib/UnityVS/Editor/SyntaxTree.VisualStudio.Unity.Messaging.dll</HintPath>
+ <HintPath>D:/Warrior-s-Heart/src/Assets/ThirdLib/UnityVS/Editor/SyntaxTree.VisualStudio.Unity.Messaging.dll</HintPath>
  </Reference>
  <Reference Include="UnityVS.VersionSpecific">
- <HintPath>C:/Users/morningli/Desktop/Warrior-s-Heart/src/Assets/ThirdLib/UnityVS/Editor/UnityVS.VersionSpecific.dll</HintPath>
+ <HintPath>D:/Warrior-s-Heart/src/Assets/ThirdLib/UnityVS/Editor/UnityVS.VersionSpecific.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Graphs">
- <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
+ <HintPath>D:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

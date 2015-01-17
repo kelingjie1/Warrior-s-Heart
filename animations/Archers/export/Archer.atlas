@@ -1,0 +1,103 @@
+
+Archer.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Arrow
+  rotate: false
+  xy: 2, 11
+  size: 66, 11
+  orig: 66, 11
+  offset: 0, 0
+  index: -1
+Head
+  rotate: false
+  xy: 97, 10
+  size: 64, 52
+  orig: 64, 52
+  offset: 0, 0
+  index: -1
+Head_1
+  rotate: false
+  xy: 247, 43
+  size: 44, 19
+  orig: 44, 19
+  offset: 0, 0
+  index: -1
+LArm
+  rotate: true
+  xy: 247, 31
+  size: 10, 19
+  orig: 10, 19
+  offset: 0, 0
+  index: -1
+LForearm
+  rotate: true
+  xy: 70, 8
+  size: 14, 25
+  orig: 14, 25
+  offset: 0, 0
+  index: -1
+LLeg
+  rotate: true
+  xy: 411, 50
+  size: 12, 20
+  orig: 12, 20
+  offset: 0, 0
+  index: -1
+LShoulder
+  rotate: true
+  xy: 213, 2
+  size: 27, 29
+  orig: 27, 29
+  offset: 0, 0
+  index: -1
+MainWeapon
+  rotate: true
+  xy: 2, 24
+  size: 38, 93
+  orig: 38, 93
+  offset: 0, 0
+  index: -1
+RArm
+  rotate: true
+  xy: 360, 51
+  size: 11, 25
+  orig: 11, 25
+  offset: 0, 0
+  index: -1
+RForearm
+  rotate: true
+  xy: 329, 47
+  size: 15, 29
+  orig: 15, 29
+  offset: 0, 0
+  index: -1
+RLeg
+  rotate: true
+  xy: 387, 49
+  size: 13, 22
+  orig: 13, 22
+  offset: 0, 0
+  index: -1
+RShoulder
+  rotate: false
+  xy: 213, 31
+  size: 32, 31
+  orig: 32, 31
+  offset: 0, 0
+  index: -1
+TorsoBottom
+  rotate: false
+  xy: 293, 49
+  size: 34, 13
+  orig: 34, 13
+  offset: 0, 0
+  index: -1
+TorsoTop
+  rotate: false
+  xy: 163, 13
+  size: 48, 49
+  orig: 48, 49
+  offset: 0, 0
+  index: -1
