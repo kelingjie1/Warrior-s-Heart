@@ -152,6 +152,7 @@ public class Warrior : MonoBehaviour
     public float attackSpeed;
     
     //状态
+	public string animationName = "";
     public float hitRestTime;
     public float attackRestTime;
     public AttackState attackState;
@@ -192,11 +193,11 @@ public class Warrior : MonoBehaviour
             m_pause = value;
             if (m_pause)
             {
-                this.GetComponent<UISpriteAnimation>().Pause();
+                this.GetComponent<SkeletonAnimation>().state.TimeScale = 0;
             }
             else
             {
-                this.GetComponent<UISpriteAnimation>().Play();
+				this.GetComponent<SkeletonAnimation>().state.TimeScale = 1;
             }
         }
         get
@@ -211,7 +212,7 @@ public class Warrior : MonoBehaviour
         name = item.Name;
         isAttacker = bool.Parse(item.GetAttribute("IsAttacker"));
         attribute.template = new WarriorTemplate(Config.WarriorPath + item.GetAttribute("WarriorTemplate"));
-        transform.localPosition = new Vector3(int.Parse(item.GetAttribute("X")), BattleField.Instance.floorHeight, 0);
+        transform.localPosition = new Vector3(int.Parse(item.GetAttribute("X")), BattleField.Instance.floorHeight+100, 0);
         attribute.powerPoint = int.Parse(item.GetAttribute("PowerPoint"));
         attribute.agilityPoint = int.Parse(item.GetAttribute("AgilityPoint"));
         attribute.strongPoint = int.Parse(item.GetAttribute("StrongPoint"));
@@ -243,39 +244,42 @@ public class Warrior : MonoBehaviour
     }
     void UpdateAnimation()
     {
-        
-        UISpriteAnimation animation = this.GetComponent<UISpriteAnimation>();
-        animation.framesPerSecond = 30;
-        animation.enabled = true;
-        animation.loop = true;
-        string lastPrefix = animation.namePrefix;
+		string aniname="idle";
+		bool loop = true;
+		float timeScale = 1;
+		SkeletonAnimation animation = this.GetComponent<SkeletonAnimation>();
         if (attackState==AttackState.Attack)
         {
-            animation.namePrefix = "attack";
+			aniname="attack";
+			loop=false;
+			timeScale=3;
         }
         else
         {
             if (moveState==MoveState.Idle)
             {
-                animation.namePrefix = "standby";
+				aniname="idle";
             }
             else if (moveState==MoveState.Move)
             {
-                animation.namePrefix = "run";
+				aniname="move";
             }
             else if (moveState == MoveState.KnockBack)
             {
-                animation.namePrefix = "back";
+				aniname="knockback";
+				loop=false;
             }
             else
             {
                 Debug.LogError("error");
             }
         }
-        if (lastPrefix!=animation.namePrefix)
-        {
-            animation.ResetToBeginning();
-        }
+		if (animationName==""||animationName!=aniname) 
+		{
+			animation.state.SetAnimation(0,aniname,loop).timeScale=timeScale;
+		}
+		animationName = aniname;
+		Debug.Log (animation.state.GetCurrent (0)+" "+animation.state.GetCurrent (0).Loop);
     }
     public bool isAttacker;
 

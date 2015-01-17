@@ -417,6 +417,7 @@
      <None Include="Assets\ThirdLib\NGUI\Resources\Shaders\Unlit - Premultiplied Colored 3.shader" />
      <None Include="Assets\ThirdLib\NGUI\Examples\Atlases\Wooden\Arimo18.txt" />
      <None Include="Assets\ThirdLib\Spine\Examples\Spine\Dragon\license.txt" />
+     <None Include="Assets\Resources\Animation\Wizard.atlas.txt" />
      <None Include="Assets\ThirdLib\NGUI\Resources\Shaders\Unlit - Transparent Colored (TextureClip).shader" />
      <None Include="Assets\ThirdLib\NGUI\Examples\Atlases\SciFi\SciFi Font - Header.txt" />
      <None Include="Assets\Scripts\Core\Network\ProtobuffNet\Web\TODO.txt" />

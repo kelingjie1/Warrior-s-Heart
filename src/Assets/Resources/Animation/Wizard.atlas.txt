@@ -1,0 +1,89 @@
+
+Wizard.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Lhand
+  rotate: false
+  xy: 202, 42
+  size: 22, 38
+  orig: 31, 41
+  offset: 2, 0
+  index: -1
+Rarm
+  rotate: false
+  xy: 2, 2
+  size: 50, 24
+  orig: 55, 29
+  offset: 0, 5
+  index: -1
+body
+  rotate: false
+  xy: 95, 62
+  size: 71, 64
+  orig: 71, 66
+  offset: 0, 2
+  index: -1
+head1
+  rotate: false
+  xy: 2, 34
+  size: 91, 92
+  orig: 91, 92
+  offset: 0, 0
+  index: -1
+lleg
+  rotate: false
+  xy: 226, 45
+  size: 17, 12
+  orig: 17, 15
+  offset: 0, 0
+  index: -1
+lleg1
+  rotate: true
+  xy: 95, 14
+  size: 12, 14
+  orig: 26, 16
+  offset: 6, 0
+  index: -1
+rleg
+  rotate: true
+  xy: 226, 59
+  size: 21, 18
+  orig: 22, 24
+  offset: 0, 6
+  index: -1
+rleg1
+  rotate: true
+  xy: 74, 15
+  size: 17, 19
+  orig: 29, 19
+  offset: 0, 0
+  index: -1
+shield
+  rotate: false
+  xy: 168, 82
+  size: 73, 44
+  orig: 75, 46
+  offset: 0, 0
+  index: -1
+weapon1
+  rotate: true
+  xy: 95, 28
+  size: 32, 77
+  orig: 34, 79
+  offset: 2, 2
+  index: -1
+yanjing
+  rotate: true
+  xy: 54, 2
+  size: 30, 18
+  orig: 36, 27
+  offset: 5, 9
+  index: -1
+yaodai
+  rotate: false
+  xy: 174, 34
+  size: 26, 46
+  orig: 28, 48
+  offset: 0, 2
+  index: -1
