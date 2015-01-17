@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
+using Spine;
 public enum AttackState
 {
     None,
@@ -25,7 +26,7 @@ public class Warrior : MonoBehaviour
     {
         get
         {
-            float v = attribute.power / 10;
+            float v = attribute.power;
             return v * knockbackMultiple + knockbackAdd;
         }
     }
@@ -129,7 +130,7 @@ public class Warrior : MonoBehaviour
     {
         get
         {
-            float v = 1 + attribute.agility / 10;
+            float v = 10 + attribute.agility;
             return v * accelerationMultiple + accelerationAdd;
         }
     }
@@ -155,10 +156,66 @@ public class Warrior : MonoBehaviour
 	public string animationName = "";
     public float hitRestTime;
     public float attackRestTime;
-    public AttackState attackState;
+    AttackState m_attackState;
+    public AttackState attackState
+    {
+        get
+        {
+            return m_attackState;
+        }
+        set
+        {
+            if (m_attackState==value)
+            {
+                return;
+            }
+            m_attackState = value;
+            SkeletonAnimation animation = this.GetComponent<SkeletonAnimation>();
+            if (m_attackState==AttackState.Attack)
+            {
+                animation.state.SetAnimation(1, "attack", false).timeScale = 3;
+            }
+            else
+            {
+                if (animation.state.GetCurrent(1)!=null)
+                {
+                    animation.state.GetCurrent(1).OnEnd(animation.state, 1);
+                }
+                
+            }
+        }
+    }
     public int attackLock;
     public int moveLock;
-    public MoveState moveState;
+    MoveState m_moveState;
+    public MoveState moveState
+    {
+        get
+        {
+            return m_moveState;
+        }
+        set
+        {
+            if (m_moveState == value)
+            {
+                return;
+            }
+            m_moveState = value;
+            SkeletonAnimation animation = this.GetComponent<SkeletonAnimation>();
+            if (m_moveState == MoveState.Idle)
+            {
+                animation.state.SetAnimation(0, "idle", true);
+            }
+            else if (m_moveState == MoveState.Move)
+            {
+                animation.state.SetAnimation(0, "move", true);
+            }
+            else if (m_moveState == MoveState.KnockBack)
+            {
+                animation.state.SetAnimation(0, "knockback", false);
+            }
+        }
+    }
     public bool hasEnemyInAttackDistance;
     public bool isNearWall;
     List<Buff> buffList = new List<Buff>();
@@ -212,7 +269,7 @@ public class Warrior : MonoBehaviour
         name = item.Name;
         isAttacker = bool.Parse(item.GetAttribute("IsAttacker"));
         attribute.template = new WarriorTemplate(Config.WarriorPath + item.GetAttribute("WarriorTemplate"));
-        transform.localPosition = new Vector3(int.Parse(item.GetAttribute("X")), BattleField.Instance.floorHeight+100, 0);
+        transform.localPosition = new Vector3(int.Parse(item.GetAttribute("X")), BattleField.Instance.floorHeight+100, -10);
         attribute.powerPoint = int.Parse(item.GetAttribute("PowerPoint"));
         attribute.agilityPoint = int.Parse(item.GetAttribute("AgilityPoint"));
         attribute.strongPoint = int.Parse(item.GetAttribute("StrongPoint"));
@@ -238,47 +295,14 @@ public class Warrior : MonoBehaviour
             didfinishattack.owner = this;
             BattleField.Instance.RegisterEvent(BattleEventType.DidFinishAttack, didfinishattack);
         }
+
+        SkeletonAnimation animation = this.GetComponent<SkeletonAnimation>();
+        //"Animation/" + attribute.template.category + "_skel"
+        animation.skeletonDataAsset = Resources.Load("Animation/" + attribute.template.category + "_skel") as SkeletonDataAsset;
+        animation.Reset();
         Reset();
 
 
-    }
-    void UpdateAnimation()
-    {
-		string aniname="idle";
-		bool loop = true;
-		float timeScale = 1;
-		SkeletonAnimation animation = this.GetComponent<SkeletonAnimation>();
-        if (attackState==AttackState.Attack)
-        {
-			aniname="attack";
-			loop=false;
-			timeScale=3;
-        }
-        else
-        {
-            if (moveState==MoveState.Idle)
-            {
-				aniname="idle";
-            }
-            else if (moveState==MoveState.Move)
-            {
-				aniname="move";
-            }
-            else if (moveState == MoveState.KnockBack)
-            {
-				aniname="knockback";
-				loop=false;
-            }
-            else
-            {
-                Debug.LogError("error");
-            }
-        }
-		if (animationName==""||animationName!=aniname) 
-		{
-			animation.state.SetAnimation(0,aniname,loop).timeScale=timeScale;
-		}
-		animationName = aniname;
     }
     public bool isAttacker;
 
@@ -338,6 +362,10 @@ public class Warrior : MonoBehaviour
     }
     public void Attack()
     {
+        if (attackLock>0)
+        {
+            return;
+        }
         if (attackRestTime>0)
         {
             return;
@@ -354,7 +382,14 @@ public class Warrior : MonoBehaviour
         BattleField.Instance.SendEvent(BattleEventType.DidAttack, new List<Warrior>() { this }, null, msg);
         
     }
-
+    public void Move()
+    {
+        if (moveLock>0)
+        {
+            return;
+        }
+        this.moveState = MoveState.Move;
+    }
     void Update()
     {
         if (pause)
@@ -393,7 +428,7 @@ public class Warrior : MonoBehaviour
                 BattleField.Instance.SendEvent(BattleEventType.DidFinishAttack, new List<Warrior>() { this }, null, msg);
             }
         }
-        else if(moveState!=MoveState.KnockBack&&attackLock==0)
+        else if(moveState!=MoveState.KnockBack)
         {
             if(responders.Count > 0)
             {
@@ -401,24 +436,24 @@ public class Warrior : MonoBehaviour
             }
         }
 
+        if (this.moveState == MoveState.KnockBack)
+        {
+            if (this.rigidbody.velocity.x*dir>0)
+            {
+                this.Move();
+            }
+        }
+
         if (this.moveState == MoveState.Idle&&moveLock==0)
         {
             if (responders.Count == 0 || canAttackMove)
             {
-                this.moveState = MoveState.Move;
+                this.Move();
             }
         }
         else
         {
-            if (this.rigidbody.velocity.x * dir >= 0)
-            {
-                this.moveState = MoveState.Move;
-            }
-            else
-            {
-                this.moveState = MoveState.KnockBack;
-            }
-            if (this.moveState == MoveState.Move && responders.Count > 0 && !canAttackMove)
+            if (this.attackState == AttackState.Attack && !canAttackMove)
             {
                 this.moveState = MoveState.Idle;
             }
@@ -438,8 +473,6 @@ public class Warrior : MonoBehaviour
             }
 
         }
-
-        UpdateAnimation();
 
     }
     void Hit()
