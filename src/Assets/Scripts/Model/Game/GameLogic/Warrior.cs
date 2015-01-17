@@ -279,7 +279,6 @@ public class Warrior : MonoBehaviour
 			animation.state.SetAnimation(0,aniname,loop).timeScale=timeScale;
 		}
 		animationName = aniname;
-		Debug.Log (animation.state.GetCurrent (0)+" "+animation.state.GetCurrent (0).Loop);
     }
     public bool isAttacker;
 
