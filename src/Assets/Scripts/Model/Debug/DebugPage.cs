@@ -44,7 +44,7 @@ public class DebugPage : BasePage
 
     private void OnTitleClick(GameObject go)
     {
-        PageManager.Instance.CloseDialog();
+        PageManager.Instance.HideDialog();
     }
 
     public override void PageWillAppear()
