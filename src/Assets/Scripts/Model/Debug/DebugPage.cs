@@ -14,8 +14,8 @@ public class DebugPage : BasePage
         GameObject topPanel=PageManager.Instance.gameObject.FindChild("TopPanel");
         topPanel.AddChild(button);
         label.SetAnchor(topPanel);
-        label.rightAnchor.relative = 0.9f;
-        label.bottomAnchor.relative = 0.9f;
+        label.rightAnchor.relative = 0.05f;
+        label.bottomAnchor.relative = 0.95f;
         UIEventListener.Get(button).onClick = OnDebugButtonClick;
         
     }
