@@ -20,7 +20,7 @@ public class GamePage : BasePage
     void Awake()
     {
         scrollView = gameObject.FindChild("ScrollView").GetComponent<UIPanel>();
-
+        
     }
     void Update()
     {

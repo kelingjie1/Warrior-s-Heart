@@ -1,15 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using game_proto;
 
-public class WarriorBagManager : MonoBehaviour {
+public class WarriorBagManager 
+{
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    static WarriorBagManager m_instance;
+    public static WarriorBagManager Instance
+    {
+        get
+        {
+            if (m_instance == null)
+            {
+                m_instance = new WarriorBagManager();
+            }
+            return m_instance;
+        }
+    }
+
+    public List<WarriorItem> warriorItemList;
+
+    public void GetItemListFromServer()
+    {
+
+    }
 }
