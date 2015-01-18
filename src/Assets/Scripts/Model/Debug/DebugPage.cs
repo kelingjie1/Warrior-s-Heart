@@ -7,7 +7,7 @@ public class DebugPage : BasePage
     {
         GameObject button = new GameObject();
         UILabel label = button.AddComponent<UILabel>();
-        label.trueTypeFont = ResourceManager.Load("Prefab/BaseLabel").GetComponent<UILabel>().trueTypeFont;
+        label.trueTypeFont = Global.Arial;
         label.text = "DEBUG";
         label.pivot = UIWidget.Pivot.TopLeft;
         NGUITools.AddWidgetCollider(button);
@@ -45,6 +45,17 @@ public class DebugPage : BasePage
     private void OnTitleClick(GameObject go)
     {
         PageManager.Instance.CloseDialog();
+    }
+
+    public override void PageWillAppear()
+    {
+        base.PageWillAppear();
+        Time.timeScale = 0;
+    }
+    public override void PageDidDisappear()
+    {
+        base.PageDidDisappear();
+        Time.timeScale = 1;
     }
 
 

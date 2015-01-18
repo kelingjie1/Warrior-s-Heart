@@ -3,9 +3,11 @@ using System.Collections;
 
 public class Global
 {
-
+    
     public static bool alreadySetupWhenAwake = false;
     public static bool alreadySetupWhenStart = false;
+
+    public static Font Arial;
     public static void SceneAwake()
     {
         if (!alreadySetupWhenAwake)
@@ -28,6 +30,9 @@ public class Global
     static void SetupOnceWhenAwake()
     {
         NetworkManager.Instance.useFakeData = true;
+        UILabel label=ResourceManager.Load("Prefab/BaseLabel").GetComponent<UILabel>();
+        Arial = label.trueTypeFont;
+        GameObject.Destroy(label.gameObject);
     }
 
     static void SetupEverySceneWhenAwake()
