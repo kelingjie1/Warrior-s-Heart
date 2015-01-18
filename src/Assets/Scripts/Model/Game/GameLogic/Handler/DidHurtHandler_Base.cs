@@ -17,16 +17,8 @@ public class DidHurtHandler_Base : BattleEventHandler
             warrior.hp -= msg.physicalDamage;
             if (warrior.hp<0)
             {
-                if (warrior.isAttacker)
-                {
-                    BattleField.Instance.AttackerList.Remove(warrior);
-                }
-                else
-                {
-                    BattleField.Instance.DefenderList.Remove(warrior);
-                }
-                BattleField.Instance.JudgeWin();
-                GameObject.Destroy(warrior.gameObject);
+                warrior.Die();
+
             }
         }
         return null;

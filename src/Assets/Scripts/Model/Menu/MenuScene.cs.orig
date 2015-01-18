@@ -9,8 +9,12 @@ public class MenuScene : MonoBehaviour
     }
 	void Start()
 	{
+<<<<<<< HEAD
+		PageManager.Instance.ShowPage(UIItemBagPage.Instance);
+=======
         Global.SceneStart();
 		PageManager.Instance.ShowPage(UIMainMenuPage.Instance);
+>>>>>>> 85741174749aed1ecf5dd39a7ed93da3a9056ef9
 	}
 
     void Update()

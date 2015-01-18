@@ -1,15 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
+using game_proto;
+using System.Collections.Generic;
+public class ItemBagManager
+{
+    static ItemBagManager m_instance;
+    public static ItemBagManager Instance
+    {
+        get
+        {
+            if (m_instance == null)
+            {
+                m_instance = new ItemBagManager();
+            }
+            return m_instance;
+        }
+    }
 
-public class ItemBagManager : MonoBehaviour {
+    public List<BagItem> bagItemList;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public void GetItemListFromServer()
+    {
+   
+        
+    }
 }

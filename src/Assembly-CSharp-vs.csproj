@@ -58,6 +58,7 @@
      <Compile Include="Assets\Scripts\Core\Event\EventManager.cs" />
      <Compile Include="Assets\Scripts\Core\Manager\PageManager.cs" />
      <Compile Include="Assets\Scripts\Core\Manager\ResourceManager.cs" />
+     <Compile Include="Assets\Scripts\Core\Network\FakeDataHandler.cs" />
      <Compile Include="Assets\Scripts\Core\Network\FakeDataManager.cs" />
      <Compile Include="Assets\Scripts\Core\Network\IPacketHandler.cs" />
      <Compile Include="Assets\Scripts\Core\Network\NetworkManager.cs" />
@@ -150,6 +151,7 @@
      <Compile Include="Assets\Scripts\Core\Network\ProtobuffNet\SubItemToken.cs" />
      <Compile Include="Assets\Scripts\Core\Network\ProtobuffNet\WireType.cs" />
      <Compile Include="Assets\Scripts\Core\Network\RegisterHandler.cs" />
+     <Compile Include="Assets\Scripts\Model\Debug\DebugPage.cs" />
      <Compile Include="Assets\Scripts\Model\Game\GameLogic\Ammo.cs" />
      <Compile Include="Assets\Scripts\Model\Game\GameLogic\BattleEventHandler.cs" />
      <Compile Include="Assets\Scripts\Model\Game\GameLogic\BattleEventType.cs" />
@@ -170,7 +172,9 @@
      <Compile Include="Assets\Scripts\Model\Game\GamePage.cs" />
      <Compile Include="Assets\Scripts\Model\Game\GameScene.cs" />
      <Compile Include="Assets\Scripts\Model\Game\ScorePage.cs" />
+     <Compile Include="Assets\Scripts\Model\Game\WarriorBattlePanel.cs" />
      <Compile Include="Assets\Scripts\Model\Logic\Config.cs" />
+     <Compile Include="Assets\Scripts\Model\Logic\Global.cs" />
      <Compile Include="Assets\Scripts\Model\Logic\ItemBagManager.cs" />
      <Compile Include="Assets\Scripts\Model\Logic\Setting.cs" />
      <Compile Include="Assets\Scripts\Model\Logic\WarriorBagManager.cs" />

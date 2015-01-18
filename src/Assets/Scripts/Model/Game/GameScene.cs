@@ -9,13 +9,18 @@ public class GameScene : MonoBehaviour
     {
         Application.LoadLevel("Game");
     }
+    void Awake()
+    {
+        Global.SceneAwake();
+    }
 	void Start ()
     {
+        Global.SceneStart();
         PageManager.Instance.ShowPage(GamePage.Instance);
 	}
 
     void Update()
     {
-        EventManager.Instance.Update();
+        Global.Update();
     }
 }
