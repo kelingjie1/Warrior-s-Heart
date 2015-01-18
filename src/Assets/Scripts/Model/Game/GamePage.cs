@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GamePage : BasePage 
 {
@@ -17,6 +18,7 @@ public class GamePage : BasePage
     }
 
     UIPanel scrollView;
+    public List<WarriorBattlePanel> warriorBattlePanelList = new List<WarriorBattlePanel>();
     void Awake()
     {
         scrollView = gameObject.FindChild("ScrollView").GetComponent<UIPanel>();
@@ -41,6 +43,14 @@ public class GamePage : BasePage
     {
          
         BattleField.Instance.StartBattle();
+
+        for (int i = 0; i < BattleField.Instance.AttackerList.Count; i++)
+        {
+            WarriorBattlePanel panel = WarriorBattlePanel.Create();
+            this.gameObject.AddChild(panel.gameObject);
+            panel.transform.localPosition = new Vector3(-Screen.width / 2 + i * 200 + 100, -Screen.height / 2 + 100, 0);
+            warriorBattlePanelList.Add(panel);
+        }
     }
 
     

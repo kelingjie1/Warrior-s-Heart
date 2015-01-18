@@ -149,7 +149,27 @@ public class Warrior : MonoBehaviour
     public float guardingDistance;
 
     //当前属性
-    public float hp;
+    float m_hp;
+    public float hp
+    {
+        get
+        {
+            return m_hp;
+        }
+        set
+        {
+            m_hp = value;
+            if (isAttacker)
+            {
+                int id = BattleField.Instance.AttackerList.IndexOf(this);
+                if (id>=0)
+                {
+                    GamePage.Instance.warriorBattlePanelList[id].HPBar.value = this.hp / this.maxHP;
+                }
+                
+            }
+        }
+    }
     public float attackSpeed;
     
     //状态
@@ -389,6 +409,20 @@ public class Warrior : MonoBehaviour
             return;
         }
         this.moveState = MoveState.Move;
+    }
+
+    public void Die()
+    {
+        if (isAttacker)
+        {
+            BattleField.Instance.AttackerList.Remove(this);
+        }
+        else
+        {
+            BattleField.Instance.DefenderList.Remove(this);
+        }
+        BattleField.Instance.JudgeWin();
+        GameObject.Destroy(gameObject);
     }
     void Update()
     {
