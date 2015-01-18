@@ -164,16 +164,22 @@ public class Warrior : MonoBehaviour
                 int id = BattleField.Instance.AttackerList.IndexOf(this);
                 if (id>=0)
                 {
-                    GamePage.Instance.warriorBattlePanelList[id].HPBar.value = this.hp / this.maxHP;
+                    GamePage.Instance.attackerBattlePanelList[id].HPBar.value = this.hp / this.maxHP;
                 }
-                
+            }
+            else
+            {
+                int id = BattleField.Instance.DefenderList.IndexOf(this);
+                if (id >= 0)
+                {
+                    GamePage.Instance.defenderBattlePanelList[id].HPBar.value = this.hp / this.maxHP;
+                }
             }
         }
     }
     public float attackSpeed;
     
     //状态
-	public string animationName = "";
     public float hitRestTime;
     public float attackRestTime;
     AttackState m_attackState;

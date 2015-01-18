@@ -18,7 +18,8 @@ public class GamePage : BasePage
     }
 
     UIPanel scrollView;
-    public List<WarriorBattlePanel> warriorBattlePanelList = new List<WarriorBattlePanel>();
+    public List<WarriorBattlePanel> attackerBattlePanelList = new List<WarriorBattlePanel>();
+    public List<WarriorBattlePanel> defenderBattlePanelList = new List<WarriorBattlePanel>();
     void Awake()
     {
         scrollView = gameObject.FindChild("ScrollView").GetComponent<UIPanel>();
@@ -49,7 +50,15 @@ public class GamePage : BasePage
             WarriorBattlePanel panel = WarriorBattlePanel.Create();
             this.gameObject.AddChild(panel.gameObject);
             panel.transform.localPosition = new Vector3(-Screen.width / 2 + i * 200 + 100, -Screen.height / 2 + 100, 0);
-            warriorBattlePanelList.Add(panel);
+            attackerBattlePanelList.Add(panel);
+        }
+
+        for (int i = 0; i < BattleField.Instance.DefenderList.Count; i++)
+        {
+            WarriorBattlePanel panel = WarriorBattlePanel.Create();
+            this.gameObject.AddChild(panel.gameObject);
+            panel.transform.localPosition = new Vector3(Screen.width / 2 - i * 200 - 100, -Screen.height / 2 + 100, 0);
+            defenderBattlePanelList.Add(panel);
         }
     }
 
