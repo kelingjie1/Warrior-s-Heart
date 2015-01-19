@@ -14,25 +14,24 @@ public class MapData
     public List<WarriorData> warriorDataList = new List<WarriorData>();
 }
 [Serializable]
+public class AnimationInfo
+{
+    public string name;
+    public float duration;
+}
+[Serializable]
 public class WarriorTemplate
 {
-    public string image;
+    public string name;
+    public string catogory;
+    public string imageName;
     public int width;
     public int height;
-    public WarriorTemplate()
-    {
-
-    }
-    public WarriorTemplate(string path)
-    {
-        XmlDocument doc = new XmlDocument();
-        doc.Load(path);
-        XmlElement root = doc.DocumentElement;
-        XmlElement pic = (XmlElement)root.GetElementsByTagName("PicInfo").Item(0);
-        image = ((XmlElement)root.GetElementsByTagName("PicPath").Item(0)).InnerText;
-        width = int.Parse(((XmlElement)root.GetElementsByTagName("PicXSize").Item(0)).InnerText);
-        height = int.Parse(((XmlElement)root.GetElementsByTagName("PicYSize").Item(0)).InnerText);
-    }
+    public int colliderWidth;
+    public int colliderHeight;
+    public int colliderCenterX;
+    public int colliderCentY;
+    public SerializableDictionary<string, AnimationInfo> animationDic = new SerializableDictionary<string, AnimationInfo>();
 }
 public class ObjDataBase
 {
