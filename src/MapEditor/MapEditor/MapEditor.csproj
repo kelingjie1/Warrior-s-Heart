@@ -68,7 +68,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MyData.cs" />
+    <Compile Include="MapData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

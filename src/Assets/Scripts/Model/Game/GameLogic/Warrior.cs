@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
 using Spine;
+using game_proto;
 public enum AttackState
 {
     None,
@@ -17,16 +18,45 @@ public enum MoveState
 
 public class Warrior : MonoBehaviour
 {
-    public WarriorAttribute attribute = new WarriorAttribute();
-
-
+    WarriorItem warriorItem;
 
     //属性
+    public float power
+    {
+        get
+        {
+            return warriorItem.power + warriorItem.power_grow * warriorItem.power_point;
+        }
+    }
+    public float agility
+    {
+        get
+        {
+            return warriorItem.agility + warriorItem.agility_grow * warriorItem.agility_point;
+        }
+    }
+    public float strong
+    {
+        get
+        {
+            return warriorItem.strong + warriorItem.strong_grow * warriorItem.strong_point;
+        }
+    }
+
+    public float intelligence
+    {
+        get
+        {
+            return warriorItem.intelligence + warriorItem.intelligence_grow * warriorItem.intelligence_point;
+        }
+    }
+
+
     public float knockback
     {
         get
         {
-            float v = attribute.power;
+            float v = power;
             return v * knockbackMultiple + knockbackAdd;
         }
     }
@@ -37,7 +67,7 @@ public class Warrior : MonoBehaviour
     {
         get
         {
-            float v = attribute.power / 20;
+            float v = power / 20;
             return v * antiKnockbackMultiple + antiKnockbackAdd;
         }
     }
@@ -48,7 +78,7 @@ public class Warrior : MonoBehaviour
     {
         get
         {
-            float v = attribute.power * 2 + 50;
+            float v = power * 2 + 50;
             return v * physicalAttackMultiple + physicalAttackAdd;
         }
     }
@@ -59,7 +89,7 @@ public class Warrior : MonoBehaviour
     {
         get
         {
-            float v = attribute.strong / 2;
+            float v = strong / 2;
             return v * physicalDefenceMultiple + physicalDefenceAdd;
         }
     }
@@ -70,7 +100,7 @@ public class Warrior : MonoBehaviour
     {
         get
         {
-            float v = attribute.intelligence;
+            float v = intelligence;
             return v * magicAttackMultiple + magicAttackAdd;
         }
     }
@@ -81,7 +111,7 @@ public class Warrior : MonoBehaviour
     {
         get
         {
-            float v = attribute.intelligence / 2;
+            float v = intelligence / 2;
             return v * magicDefenceMultiple + magicDefenceAdd;
         }
     }
@@ -92,7 +122,7 @@ public class Warrior : MonoBehaviour
     {
         get
         {
-            return attribute.template.hitDelay / AttackSpeedMultiple;
+            return warriorData.template.hitDelay / AttackSpeedMultiple;
         }
     }
     public float attackInterval
@@ -108,7 +138,7 @@ public class Warrior : MonoBehaviour
     {
         get
         {
-            float v = 500 + attribute.strong * 20;
+            float v = 500 + strong * 20;
             return v * maxHPMultiple + maxHPAdd;
         }
     }
@@ -119,7 +149,7 @@ public class Warrior : MonoBehaviour
     {
         get
         {
-            float v = 1 + attribute.agility / 20;
+            float v = 1 + agility / 20;
             return v * maxMoveSpeedMultiple + maxMoveSpeedAdd;
         }
     }
@@ -130,7 +160,7 @@ public class Warrior : MonoBehaviour
     {
         get
         {
-            float v = 10 + attribute.agility;
+            float v = 10 + agility;
             return v * accelerationMultiple + accelerationAdd;
         }
     }
@@ -141,7 +171,7 @@ public class Warrior : MonoBehaviour
     {
         get
         {
-            return attribute.template.attackDistance;
+            return warriorData.template.attackDistance;
         }
     }
 
@@ -178,7 +208,8 @@ public class Warrior : MonoBehaviour
         }
     }
     public float attackSpeed;
-    
+
+    public bool isAttacker;
     //状态
     public float hitRestTime;
     public float attackRestTime;
@@ -289,49 +320,47 @@ public class Warrior : MonoBehaviour
         }
 		
 	}
-
-    public void ReadFromXML(XmlElement item)
+    WarriorData m_warriorData;
+    public WarriorData warriorData
     {
-        name = item.Name;
-        isAttacker = bool.Parse(item.GetAttribute("IsAttacker"));
-        attribute.template = new WarriorTemplate(Config.WarriorPath + item.GetAttribute("WarriorTemplate"));
-        transform.localPosition = new Vector3(int.Parse(item.GetAttribute("X")), BattleField.Instance.floorHeight+100, -10);
-        attribute.powerPoint = int.Parse(item.GetAttribute("PowerPoint"));
-        attribute.agilityPoint = int.Parse(item.GetAttribute("AgilityPoint"));
-        attribute.strongPoint = int.Parse(item.GetAttribute("StrongPoint"));
-        attribute.intelligencePoint = int.Parse(item.GetAttribute("IntelligencePoint"));
-
-        guardingDistance = int.Parse(item.GetAttribute("GuardingDistance"));
-
-        if (attribute.template.category.Equals("Fighter"))
+        get
         {
-            canAttackMove = true;
-
-            this.FindHitTargetHandler.Add(new FindHitTargetHandler_Base());
-            DidFinishAttackHandler_Melee_Base didfinishattack = new DidFinishAttackHandler_Melee_Base();
-            didfinishattack.owner = this;
-            BattleField.Instance.RegisterEvent(BattleEventType.DidFinishAttack, didfinishattack);
+            return m_warriorData;
         }
-        else
+        set
         {
-            canAttackMove = false;
+            m_warriorData = value;
+            name = m_warriorData.name;
+            isAttacker = m_warriorData.isAttacker;
+            transform.localPosition = new Vector3(warriorData.x, BattleField.Instance.mapData.floorHeight + 100, -10);
 
-            this.FindHitTargetHandler.Add(new FindHitTargetHandler_Base());
-            DidFinishAttackHandler_Remote_Base didfinishattack = new DidFinishAttackHandler_Remote_Base();
-            didfinishattack.owner = this;
-            BattleField.Instance.RegisterEvent(BattleEventType.DidFinishAttack, didfinishattack);
+            if (warriorData.template.category.Equals("Fighter"))
+            {
+                canAttackMove = true;
+
+                this.FindHitTargetHandler.Add(new FindHitTargetHandler_Base());
+                DidFinishAttackHandler_Melee_Base didfinishattack = new DidFinishAttackHandler_Melee_Base();
+                didfinishattack.owner = this;
+                BattleField.Instance.RegisterEvent(BattleEventType.DidFinishAttack, didfinishattack);
+            }
+            else
+            {
+                canAttackMove = false;
+
+                this.FindHitTargetHandler.Add(new FindHitTargetHandler_Base());
+                DidFinishAttackHandler_Remote_Base didfinishattack = new DidFinishAttackHandler_Remote_Base();
+                didfinishattack.owner = this;
+                BattleField.Instance.RegisterEvent(BattleEventType.DidFinishAttack, didfinishattack);
+            }
+
+            SkeletonAnimation animation = this.GetComponent<SkeletonAnimation>();
+            //"Animation/" + template.category + "_skel"
+            animation.skeletonDataAsset = Resources.Load("Animation/" + warriorData.template.category + "_skel") as SkeletonDataAsset;
+            animation.Reset();
+            Reset();
+
         }
-
-        SkeletonAnimation animation = this.GetComponent<SkeletonAnimation>();
-        //"Animation/" + attribute.template.category + "_skel"
-        animation.skeletonDataAsset = Resources.Load("Animation/" + attribute.template.category + "_skel") as SkeletonDataAsset;
-        animation.Reset();
-        Reset();
-
-
     }
-    public bool isAttacker;
-
 
     public static Warrior Create()
     {

@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Xml.Serialization;
+using System.IO;
 
 public class UIChapterPage : BasePage 
 {
@@ -25,7 +27,9 @@ public class UIChapterPage : BasePage
 
 
 		//chapterData
-		FileLoader.SaveXml(ChapterDataMgr.m_sConfigFile, ChapterDataMgr.Instance, typeof(ChapterDataMgr));
+        XmlSerializer xs = new XmlSerializer(typeof(BagDataMrg));
+        FileStream fs = new FileStream(Config.BaseDataPath + ChapterDataMgr.m_sConfigFile, FileMode.OpenOrCreate);
+        xs.Serialize(fs, ChapterDataMgr.Instance);
 
 		foreach (Section chapter in ChapterDataMgr.Instance.chapters)
 		{

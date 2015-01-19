@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Xml.Serialization;
 using System.Collections.Generic;
+using System.IO;
 
 [XmlRootAttribute("root", Namespace = "abc.abc", IsNullable = false)]
 public class ChapterDataMgr
@@ -20,7 +21,9 @@ public class ChapterDataMgr
 		{
 			if (m_instance == null)
 			{
-				m_instance = (ChapterDataMgr)FileLoader.LoadXML(m_sConfigFile, typeof(ChapterDataMgr));
+                XmlSerializer xs = new XmlSerializer(typeof(BagDataMrg));
+                FileStream fs = new FileStream(Config.BaseDataPath + m_sConfigFile, FileMode.Open);
+                m_instance = xs.Deserialize(fs) as ChapterDataMgr;
 				if (m_instance == null)
 				{
 					Debug.Log("Empty config.");

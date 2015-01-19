@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System.Xml;
+using System.Xml.Serialization;
 using DG.Tweening;
+using System.IO;
 
 // public delegate void BattleEventDelegate(BattleEventDefine define, List<Warrior> sponsors = null, List<Warrior> responders = null, object param0 = null, object param1 = null, object param2 = null, object param3 = null);
 class EventHandlerComparer : IComparer<BattleEventHandler>
@@ -39,8 +40,7 @@ public class BattleField : MonoBehaviour
     public List<Ammo> DefenderAmmoList;
     public List<GameObject> trashList;
 
-    public int width = 960;
-    public int floorHeight;
+    public MapData mapData;
 
 
     public BoxCollider floorCollider;
@@ -112,33 +112,27 @@ public class BattleField : MonoBehaviour
     void LoadMap()
     {
         string path = Config.MapPath + "1-1";
-        XmlDocument doc = new XmlDocument();
-        doc.Load(path);
-        XmlElement root = doc.DocumentElement;
-        XmlElement ele = root.GetElementsByTagName("Width").Item(0) as XmlElement;
-        width = int.Parse(ele.InnerText);
-        ele = root.GetElementsByTagName("FloorHeight").Item(0) as XmlElement;
-        floorHeight = int.Parse(ele.InnerText);
-        floorCollider.center = new Vector3(width / 2, floorHeight / 2, 0);
-        floorCollider.size = new Vector3(width, floorHeight, 100);
+        XmlSerializer xs = new XmlSerializer(typeof(MapData));
+        FileStream fs = new FileStream(path, FileMode.Open);
+        MapData mapData = xs.Deserialize(fs) as MapData;
+        floorCollider.center = new Vector3(mapData.width / 2, mapData.floorHeight / 2, 0);
+        floorCollider.size = new Vector3(mapData.width, mapData.floorHeight, 100);
         leftWallCollider.center = new Vector2(-5, Screen.height / 2);
-        rightWallCollider.center = new Vector2(width + 5, Screen.height / 2);
-        XmlElement adornmentNode = root.GetElementsByTagName("Adornment").Item(0) as XmlElement;
-        foreach (XmlElement item in adornmentNode.ChildNodes)
+        rightWallCollider.center = new Vector2(mapData.width + 5, Screen.height / 2);
+        foreach (AdornmentData adormentData in mapData.adormentDataList)
         {
             UITexture obj = CreateAdorment();
-            obj.name = item.Name;
-            obj.mainTexture = ResourceManager.LoadTexture(Config.ImagePath + item.GetAttribute("Image"));
-            obj.transform.localPosition = new Vector3(int.Parse(item.GetAttribute("X")), int.Parse(item.GetAttribute("Y")), 0);
-            obj.width = int.Parse(item.GetAttribute("Width"));
-            obj.height = int.Parse(item.GetAttribute("Height"));
+            obj.name = adormentData.name;
+            obj.mainTexture = ResourceManager.LoadTexture(Config.ImagePath + adormentData.image);
+            obj.transform.localPosition = new Vector3(adormentData.x, adormentData.y, 0);
+            obj.width = adormentData.width;
+            obj.height = adormentData.height;
         }
-        XmlElement warriorNode = root.GetElementsByTagName("Warrior").Item(0) as XmlElement;
-        foreach (XmlElement item in warriorNode.ChildNodes)
+        foreach (WarriorData warriorData in mapData.warriorDataList)
         {
             Warrior warrior = Warrior.Create();
             this.gameObject.AddChild(warrior.gameObject);
-            warrior.ReadFromXML(item);
+            warrior.warriorData = warriorData;
             if (warrior.isAttacker)
             {
                 AttackerList.Add(warrior);

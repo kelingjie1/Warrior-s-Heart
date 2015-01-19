@@ -175,14 +175,14 @@ namespace MapEditor
             FileStream fs = new FileStream(path, FileMode.Open);
             MapData mapData = xs.Deserialize(fs) as MapData;
             mapWidth.Text = mapData.width.ToString();
-            mapFloorHeight.Text = mapData.floorheight.ToString();
-            foreach (Adornment adornment in mapData.adormentList)
+            mapFloorHeight.Text = mapData.floorHeight.ToString();
+            foreach (AdornmentData adornment in mapData.adormentList)
             {
                 Image obj = createObj();
                 obj.Tag = adornment;
                 UpdateUI(obj);
             }
-            foreach (Warrior warrior in mapData.warriorList)
+            foreach (WarriorData warrior in mapData.warriorList)
             {
                 Image obj = createObj();
                 obj.Tag = warrior;
@@ -201,7 +201,7 @@ namespace MapEditor
             foreach (XmlElement item in adornmentNode.ChildNodes)
             {
                 Image obj = createObj();
-                Adornment adornment = new Adornment();
+                AdornmentData adornment = new AdornmentData();
                 obj.Tag = adornment;
                 adornment.name = item.Name;
                 adornment.image = item.GetAttribute("Image");
@@ -216,7 +216,7 @@ namespace MapEditor
             foreach (XmlElement item in warriorNode.ChildNodes)
             {
                 Image obj = createObj();
-                Warrior warrior = new Warrior();
+                WarriorData warrior = new WarriorData();
                 obj.Tag = warrior;
                 warrior.name = item.Name;
                 bool.TryParse(item.GetAttribute("IsAttacker"), out warrior.isAttacker);
@@ -266,7 +266,7 @@ namespace MapEditor
                 return;
             }
             Image obj = chooseObj as Image;
-            ObjBase ob = obj.Tag as ObjBase;
+            ObjDataBase ob = obj.Tag as ObjDataBase;
             if (ob.locked)
             {
                 return;
@@ -277,8 +277,8 @@ namespace MapEditor
             mousePos = e.GetPosition(null);
 
 
-            Adornment adornment = obj.Tag as Adornment;
-            Warrior warrior = obj.Tag as Warrior;
+            AdornmentData adornment = obj.Tag as AdornmentData;
+            WarriorData warrior = obj.Tag as WarriorData;
             if (adornment != null)
             {
                 obj.SetValue(Canvas.LeftProperty, xPos);
@@ -311,8 +311,8 @@ namespace MapEditor
         void obj_DragDelta(object sender, DragDeltaEventArgs e)
         {
             Image obj = sender as Image;
-            Adornment adornment = obj.Tag as Adornment;
-            Warrior warrior = obj.Tag as Warrior;
+            AdornmentData adornment = obj.Tag as AdornmentData;
+            WarriorData warrior = obj.Tag as WarriorData;
             if (adornment != null)
             {
                 Canvas.SetLeft(obj, Canvas.GetLeft(obj) + e.HorizontalChange);
@@ -332,7 +332,7 @@ namespace MapEditor
         private void createAdornment(object sender, RoutedEventArgs e)
         {
             Image obj = createObj();
-            Adornment adornment = new Adornment();
+            AdornmentData adornment = new AdornmentData();
             obj.Tag = adornment;
             UpdateUI(obj);
         }
@@ -340,7 +340,7 @@ namespace MapEditor
         private void createWarrior(object sender, RoutedEventArgs e)
         {
             Image obj = createObj();
-            Warrior warrior = new Warrior();
+            WarriorData warrior = new WarriorData();
             obj.Tag = warrior;
             UpdateUI(obj);
         }
@@ -351,8 +351,8 @@ namespace MapEditor
             {
                 return;
             }
-            Adornment adornment = obj.Tag as Adornment;
-            Warrior warrior = obj.Tag as Warrior;
+            AdornmentData adornment = obj.Tag as AdornmentData;
+            WarriorData warrior = obj.Tag as WarriorData;
             if (adornment != null)
             {
                 adornment.name = adornmentName.Text;
@@ -377,8 +377,8 @@ namespace MapEditor
 
         void UpdateUI(Image obj)
         {
-            Adornment adornment = obj.Tag as Adornment;
-            Warrior warrior = obj.Tag as Warrior;
+            AdornmentData adornment = obj.Tag as AdornmentData;
+            WarriorData warrior = obj.Tag as WarriorData;
             if (adornment != null)
             {
                 obj.Height = adornment.height;
@@ -519,9 +519,9 @@ namespace MapEditor
             if (dialog.ShowDialog() == true)
             {
                 warriorTemplate.Text = GetRelativePath(warriorDir.Text, dialog.FileName);
-                if (chooseObj != null && chooseObj.Tag as Warrior != null)
+                if (chooseObj != null && chooseObj.Tag as WarriorData != null)
                 {
-                    Warrior warrior = chooseObj.Tag as Warrior;
+                    WarriorData warrior = chooseObj.Tag as WarriorData;
                     warrior.path = warriorTemplate.Text;
                     warrior.template = new WarriorTemplate(dialog.FileName);
                 }
@@ -536,9 +536,9 @@ namespace MapEditor
             if (dialog.ShowDialog() == true)
             {
                 adornmentImage.Text = GetRelativePath(imageDir.Text, dialog.FileName);
-                if (chooseObj!=null&&chooseObj.Tag as Adornment!=null)
+                if (chooseObj!=null&&chooseObj.Tag as AdornmentData!=null)
                 {
-                    Adornment adornment = chooseObj.Tag as Adornment;
+                    AdornmentData adornment = chooseObj.Tag as AdornmentData;
                     adornment.image = adornmentImage.Text;
                     chooseObj.Source = new BitmapImage(new Uri(dialog.FileName));
                 }
@@ -550,7 +550,7 @@ namespace MapEditor
             
             if (chooseObj!=null)
             {
-                ObjBase ob = chooseObj.Tag as ObjBase;
+                ObjDataBase ob = chooseObj.Tag as ObjDataBase;
                 ob.locked = (bool)(sender as CheckBox).IsChecked;
             }
         }
@@ -560,7 +560,7 @@ namespace MapEditor
             UpdateData(chooseObj);
             MapData mapData = new MapData();
             mapData.width = int.Parse(mapWidth.Text);
-            mapData.floorheight = int.Parse(mapFloorHeight.Text);
+            mapData.floorHeight = int.Parse(mapFloorHeight.Text);
 
             foreach (UIElement ele in map.Children)
             {
@@ -569,9 +569,9 @@ namespace MapEditor
                 {
                     continue;
                 }
-                else if (obj.Tag as Adornment != null)
+                else if (obj.Tag as AdornmentData != null)
                 {
-                    Adornment adornment = obj.Tag as Adornment;
+                    AdornmentData adornment = obj.Tag as AdornmentData;
                     mapData.adormentList.Add(adornment);
                 }
             }
@@ -582,9 +582,9 @@ namespace MapEditor
                 {
                     continue;
                 }
-                else if (obj.Tag as Warrior != null)
+                else if (obj.Tag as WarriorData != null)
                 {
-                    Warrior warrior = obj.Tag as Warrior;
+                    WarriorData warrior = obj.Tag as WarriorData;
                     mapData.warriorList.Add(warrior);
 
                 }

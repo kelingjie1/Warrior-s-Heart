@@ -27,9 +27,9 @@ public class GamePage : BasePage
     }
     void Update()
     {
-        if (scrollView.transform.localPosition.x < Screen.width/2 - BattleField.Instance.width)
+        if (scrollView.transform.localPosition.x < Screen.width/2 - BattleField.Instance.mapData.width)
         {
-            scrollView.transform.localPosition = new Vector3(Screen.width / 2 - BattleField.Instance.width, -Screen.height/2, 0);
+            scrollView.transform.localPosition = new Vector3(Screen.width / 2 - BattleField.Instance.mapData.width, -Screen.height / 2, 0);
         }
         if (scrollView.transform.localPosition.x > -Screen.width/2)
         {

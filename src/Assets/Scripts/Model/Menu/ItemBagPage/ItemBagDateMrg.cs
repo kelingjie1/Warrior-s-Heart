@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
+using System.IO;
 
 
 public class ItemBagDataMrg : BagItems 
@@ -15,7 +17,9 @@ public class ItemBagDataMrg : BagItems
 		{
 			if (m_instance == null)
 			{
-				m_instance = (ItemBagDataMrg)FileLoader.LoadXML(m_sConfigFile, typeof(ItemBagDataMrg));
+                XmlSerializer xs = new XmlSerializer(typeof(BagDataMrg));
+                FileStream fs = new FileStream(Config.BaseDataPath + m_sConfigFile, FileMode.Open);
+				m_instance = xs.Deserialize(fs) as ItemBagDataMrg;
 				if (m_instance == null)
 				{
 					Debug.Log("Empty config.");
@@ -54,7 +58,9 @@ public class ItemBagDataMrg : BagItems
 	{
 
 		Debug.Log("Save Xml.");
-		FileLoader.SaveXml(m_sConfigFile, m_instance, typeof(ItemBagDataMrg));
+        XmlSerializer xs = new XmlSerializer(typeof(ItemBagDataMrg));
+        FileStream fs = new FileStream(Config.BaseDataPath + m_sConfigFile, FileMode.OpenOrCreate);
+        xs.Serialize(fs, this);
 	}
 
 
