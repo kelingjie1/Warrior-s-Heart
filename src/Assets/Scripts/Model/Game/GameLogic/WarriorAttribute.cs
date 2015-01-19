@@ -37,9 +37,9 @@ public class WarriorAttribute
     public WarriorTemplate template;
     public int level;
     public int powerPoint;
+    public int agilityPoint;
     public int strongPoint;
     public int intelligencePoint;
-    public int agilityPoint;
     public float power
     {
         get

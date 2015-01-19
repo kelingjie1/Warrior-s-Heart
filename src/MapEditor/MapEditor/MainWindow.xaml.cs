@@ -16,6 +16,7 @@ using System.IO;
 using Microsoft.Win32;
 using System.Windows.Controls.Primitives;
 using System.Xml;
+using System.Xml.Serialization;
 
 namespace MapEditor
 {
@@ -170,6 +171,24 @@ namespace MapEditor
                 return;
             }
             map.Children.Clear();
+            XmlSerializer xs = new XmlSerializer(typeof(MapData));
+            FileStream fs = new FileStream(path, FileMode.Open);
+            MapData mapData = xs.Deserialize(fs) as MapData;
+            mapWidth.Text = mapData.width.ToString();
+            mapFloorHeight.Text = mapData.floorheight.ToString();
+            foreach (Adornment adornment in mapData.adormentList)
+            {
+                Image obj = createObj();
+                obj.Tag = adornment;
+                UpdateUI(obj);
+            }
+            foreach (Warrior warrior in mapData.warriorList)
+            {
+                Image obj = createObj();
+                obj.Tag = warrior;
+                UpdateUI(obj);
+            }
+            return;
             XmlDocument doc = new XmlDocument();
             doc.Load(path);
             XmlElement root = doc.DocumentElement;
@@ -539,19 +558,10 @@ namespace MapEditor
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             UpdateData(chooseObj);
-            XmlDocument doc = new XmlDocument();
-            XmlElement element;
-            XmlElement root = doc.CreateElement("Root");
-            doc.AppendChild(root);
-            element = doc.CreateElement("Width");
-            element.InnerText = mapWidth.Text;
-            root.AppendChild(element);
-            element = doc.CreateElement("FloorHeight");
-            element.InnerText = mapFloorHeight.Text;
-            root.AppendChild(element);
-            ///////////////////////////////////////////
-            XmlElement adornmentNode = doc.CreateElement("Adornment");
-            root.AppendChild(adornmentNode);
+            MapData mapData = new MapData();
+            mapData.width = int.Parse(mapWidth.Text);
+            mapData.floorheight = int.Parse(mapFloorHeight.Text);
+
             foreach (UIElement ele in map.Children)
             {
                 Image obj = ele as Image;
@@ -562,37 +572,9 @@ namespace MapEditor
                 else if (obj.Tag as Adornment != null)
                 {
                     Adornment adornment = obj.Tag as Adornment;
-                    XmlElement node = doc.CreateElement(adornment.name);
-                    adornmentNode.AppendChild(node);
-
-                    XmlAttribute attr;
-                    attr = doc.CreateAttribute("Image");
-                    node.Attributes.Append(attr);
-                    attr.Value = adornment.image;
-
-                    attr = doc.CreateAttribute("X");
-                    node.Attributes.Append(attr);
-                    attr.Value = adornment.x.ToString();
-
-                    attr = doc.CreateAttribute("Y");
-                    node.Attributes.Append(attr);
-                    attr.Value = adornment.y.ToString();
-
-                    attr = doc.CreateAttribute("Width");
-                    node.Attributes.Append(attr);
-                    attr.Value = adornment.width.ToString();
-
-                    attr = doc.CreateAttribute("Height");
-                    node.Attributes.Append(attr);
-                    attr.Value = adornment.height.ToString();
-
-                    attr = doc.CreateAttribute("Locked");
-                    node.Attributes.Append(attr);
-                    attr.Value = adornment.locked.ToString();
+                    mapData.adormentList.Add(adornment);
                 }
             }
-            XmlElement warriorNode = doc.CreateElement("Warrior");
-            root.AppendChild(warriorNode);
             foreach (UIElement ele in map.Children)
             {
                 Image obj = ele as Image;
@@ -603,48 +585,11 @@ namespace MapEditor
                 else if (obj.Tag as Warrior != null)
                 {
                     Warrior warrior = obj.Tag as Warrior;
-                    XmlElement node = doc.CreateElement(warrior.name);
-                    warriorNode.AppendChild(node);
-
-                    XmlAttribute attr;
-                    attr = doc.CreateAttribute("IsAttacker");
-                    node.Attributes.Append(attr);
-                    attr.Value = warrior.isAttacker.ToString();
-
-                    attr = doc.CreateAttribute("WarriorTemplate");
-                    node.Attributes.Append(attr);
-                    attr.Value = warrior.path;
-
-                    attr = doc.CreateAttribute("X");
-                    node.Attributes.Append(attr);
-                    attr.Value = warrior.x.ToString();
-
-                    attr = doc.CreateAttribute("GuardingDistance");
-                    node.Attributes.Append(attr);
-                    attr.Value = warrior.guardingDistance.ToString();
-
-                    attr = doc.CreateAttribute("PowerPoint");
-                    node.Attributes.Append(attr);
-                    attr.Value = warrior.powerPoint.ToString();
-
-                    attr = doc.CreateAttribute("AgilityPoint");
-                    node.Attributes.Append(attr);
-                    attr.Value = warrior.agilityPoint.ToString();
-
-                    attr = doc.CreateAttribute("StrongPoint");
-                    node.Attributes.Append(attr);
-                    attr.Value = warrior.strongPoint.ToString();
-
-                    attr = doc.CreateAttribute("IntelligencePoint");
-                    node.Attributes.Append(attr);
-                    attr.Value = warrior.intelligencePoint.ToString();
-
-                    attr = doc.CreateAttribute("Locked");
-                    node.Attributes.Append(attr);
-                    attr.Value = warrior.locked.ToString();
+                    mapData.warriorList.Add(warrior);
 
                 }
             }
+            
             if (currentFilePath.Text.Equals(""))
             {
                 SaveFileDialog dialog = new SaveFileDialog();
@@ -655,7 +600,9 @@ namespace MapEditor
                 }
                 currentFilePath.Text = dialog.FileName;
             }
-            doc.Save(currentFilePath.Text);
+            FileStream fs = new FileStream(currentFilePath.Text, FileMode.OpenOrCreate);
+            XmlSerializer xs = new XmlSerializer(typeof(MapData));
+            xs.Serialize(fs, mapData);
         }
 
         private void isAttacker_Checked(object sender, RoutedEventArgs e)

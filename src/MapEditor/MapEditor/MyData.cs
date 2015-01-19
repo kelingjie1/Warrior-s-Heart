@@ -4,13 +4,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Serialization;
 namespace MapEditor
 {
+    [Serializable]
+    public class MapData
+    {
+        public int floorheight;
+        public int width;
+        public List<Adornment> adormentList = new List<Adornment>();
+        public List<Warrior> warriorList = new List<Warrior>();
+    }
+    [Serializable]
     public class WarriorTemplate
     {
         public string image;
         public int width;
         public int height;
+        public WarriorTemplate()
+        {
+
+        }
         public WarriorTemplate(string path)
         {
             XmlDocument doc = new XmlDocument();
@@ -26,6 +40,7 @@ namespace MapEditor
     {
         public bool locked;
     }
+    [Serializable]
     public class Warrior : ObjBase
     {
         public string name;
@@ -44,6 +59,7 @@ namespace MapEditor
             x = 100;
         }
     }
+    [Serializable]
     public class Adornment : ObjBase
     {
         public string name;
