@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ItemBagDataMrg xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <bagItemList>
+    <BagItem>
+      <id>0</id>
+      <name>琛 [0]</name>
+      <Desc>JIAXUE</Desc>
+      <picPath>0</picPath>
+    </BagItem>
+    <BagItem>
+      <id>1</id>
+      <name>琛 [1]</name>
+      <Desc>JIAXUE</Desc>
+      <picPath>1</picPath>
+    </BagItem>
+  </bagItemList>
+</ItemBagDataMrg>

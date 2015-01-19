@@ -10,23 +10,15 @@ public class DidHurtHandler_Base : BattleEventHandler
         HurtEventMessage msg = param0 as HurtEventMessage;
         Debug.Log(sponsors[0].name + " hurt " + responders[0].name + ":" + msg.physicalDamage);
         Vector3 pos = responders[0].transform.localPosition;
-        pos.y += responders[0].GetComponent<UISprite>().height;
+        pos.y += 100;
         BattleField.Instance.ShowMessage("-" + (int)msg.physicalDamage, pos, Color.red);
         foreach (Warrior warrior in responders)
         {
             warrior.hp -= msg.physicalDamage;
             if (warrior.hp<0)
             {
-                if (warrior.isAttacker)
-                {
-                    BattleField.Instance.AttackerList.Remove(warrior);
-                }
-                else
-                {
-                    BattleField.Instance.DefenderList.Remove(warrior);
-                }
-                BattleField.Instance.JudgeWin();
-                GameObject.Destroy(warrior.gameObject);
+                warrior.Die();
+
             }
         }
         return null;

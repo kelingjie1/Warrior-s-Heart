@@ -26,4 +26,19 @@ public class UIEntryDialog : BasePage {
 	{
 		PageManager.Instance.CloseDialog();
 	}
+
+	public Sence SectionData
+	{
+		get {
+			return m_section;
+		}
+		set {
+			m_section = value;
+
+			gameObject.FindChild("ChapterName").GetComponent<UILabel>().text = m_section.title;
+			gameObject.FindChild("ChapterDifficulty").GetComponent<UILabel>().text = m_section.type;
+		}
+	}
+
+	private Sence m_section= new Sence();
 }

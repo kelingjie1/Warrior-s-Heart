@@ -45,7 +45,7 @@ public sealed partial class NetworkManager
 			return instance;
 		}
 	}
-
+    public bool useFakeData;
 	private NetworkManager ()
 	{
 		m_WebClient.UploadDataCompleted += new UploadDataCompletedEventHandler(OnUploadDataCompleted);
@@ -66,9 +66,16 @@ public sealed partial class NetworkManager
 	}
 	public void Send(IExtensible msg)
 	{
-		Send(ProtoManager.Serialize (msg));
+        if (useFakeData)
+        {
+            FakeDataManager.Instance.GetFakeDataAsync(msg);
+        }
+        else
+        {
+            Send(ProtoManager.Serialize(msg));
+        }
 	}
-	public void Send(byte[] packet)
+	void Send(byte[] packet)
 	{
 		if (m_ServerUri == null)
 		{
@@ -85,7 +92,8 @@ public sealed partial class NetworkManager
 		try
 		{
 			Debug.Log ("Send packet:" + System.Text.Encoding.Default.GetString (packet));
-			m_WebClient.UploadDataAsync(m_ServerUri, packet);
+            m_WebClient.UploadDataAsync(m_ServerUri, packet);
+			
 			//EventManager.Instance.DispatchEvent(Event.EventDefine.ConnectStart);
 		}
 		catch (Exception e)

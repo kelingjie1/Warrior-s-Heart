@@ -3,15 +3,18 @@ using System.Collections;
 
 public class LoginScene : MonoBehaviour 
 {
+    void Awake()
+    {
+        Global.SceneAwake();
+    }
     void Start()
     {
+        Global.SceneStart();
         PageManager.Instance.ShowPage(LogoPage.Instance);
     }
 
     void Update()
     {
-        EventManager.Instance.Update();
-		// Network should be global
-		NetworkManager.Instance.Update ();
+        Global.Update();
     }
 }

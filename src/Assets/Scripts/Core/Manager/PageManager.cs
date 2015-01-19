@@ -61,6 +61,9 @@ public class PageManager : MonoBehaviour
 		m_nextPage = page;
 		
 		this.gameObject.AddChild(page.gameObject);
+        UIPanel panel = page.GetComponent<UIPanel>();
+        panel.SetAnchor(Camera.main.gameObject);
+        panel.updateAnchors = UIRect.AnchorUpdate.OnEnable;
 		if (m_currentPage)
 		{
 			m_currentPage.PageWillDisappear();

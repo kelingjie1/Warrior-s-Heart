@@ -16,7 +16,7 @@ public class BuffGiddy : Buff
         UISpriteAnimation animation = go.AddComponent<UISpriteAnimation>();
         animation.framesPerSecond = 20;
         warrior.gameObject.AddChild(go);
-        go.transform.localPosition = new Vector3(0, warrior.GetComponent<UISprite>().height + 10, 0);
+        go.transform.localPosition = new Vector3(0, 110, 0);
         warrior.attackState = AttackState.None;
         if (warrior.moveState == MoveState.Move)
         {

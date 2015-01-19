@@ -38,9 +38,8 @@ public class LoginModel
 		package.body = ProtoManager.Serialize (request);
 		package.type = (int)MessageType.kMsgLoginReq;
 
-		byte[] buffer = ProtoManager.Serialize (package);
 		// request.Version   = GameInfo.Version;
-		NetworkManager.Instance.Send(buffer);
+        NetworkManager.Instance.Send(package);
 	}
 
 	public void DownloadResource()
@@ -60,10 +59,9 @@ public class LoginModel
 		package.header = header;
 		package.body = ProtoManager.Serialize (request);
 		package.type = (int)MessageType.kMsgUpdateAppReq;
-		
-		byte[] buffer = ProtoManager.Serialize (package);
+	
 		// request.Version   = GameInfo.Version;
-		NetworkManager.Instance.Send(buffer);
+        NetworkManager.Instance.Send(package);
 	}
 
 	/************************************************************

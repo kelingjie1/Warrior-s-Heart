@@ -1,0 +1,1 @@
+允许build.bat，会根据proto文件夹下面的以.proto为后缀的文件生成源文件到cs目录

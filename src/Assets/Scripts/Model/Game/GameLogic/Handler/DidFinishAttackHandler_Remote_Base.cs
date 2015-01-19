@@ -12,7 +12,7 @@ public class DidFinishAttackHandler_Remote_Base : BattleEventHandler
         }
         Ammo ammo = Ammo.Create();
         BattleField.Instance.gameObject.AddChild(ammo.gameObject);
-        ammo.transform.localPosition = sponsors[0].transform.localPosition + new Vector3(0, 40, 0);
+        ammo.transform.localPosition = sponsors[0].transform.localPosition + new Vector3(0, 0, 0);
         int dir = 0;
         //忽视本方碰撞
         List<Warrior> warriorlist;

@@ -8,6 +8,6 @@
   </Adornment>
   <Warrior>
     <l1 IsAttacker="True" WarriorTemplate="Fighter" X="100" GuardingDistance="0" PowerPoint="15" AgilityPoint="4" StrongPoint="12" IntelligencePoint="7" Locked="False" />
-    <r1 IsAttacker="False" WarriorTemplate="Arrow" X="653" GuardingDistance="50" PowerPoint="15" AgilityPoint="4" StrongPoint="12" IntelligencePoint="7" Locked="False" />
+    <r1 IsAttacker="False" WarriorTemplate="Archer" X="653" GuardingDistance="50" PowerPoint="15" AgilityPoint="4" StrongPoint="12" IntelligencePoint="7" Locked="False" />
   </Warrior>
 </Root>

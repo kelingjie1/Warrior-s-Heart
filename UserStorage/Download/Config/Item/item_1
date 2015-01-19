@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="abc.abc">
+  <AllItems>
+    <Item>
+	<Id>1</Id>
+ 	<Name>血瓶</Name>
+  	<PicPath>Texture\icon\Arrow.png</PicPath>
+  	<Desc>能一次性恢复50点生命值</Desc>
+    </Item>
+
+    <Item>
+ 	<Id>2</Id>
+	<Name>蓝瓶</Name>
+  	<PicPath>Texture\icon\Arrow.png</PicPath>
+  	<Desc>能一次性恢复50点魔法值</Desc>
+    </Item>
+  </AllItems>	
+</ root>
