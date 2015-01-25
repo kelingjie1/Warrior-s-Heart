@@ -31,7 +31,7 @@ public class LoginPage : BasePage
 	// Event
     void OnQQLoginButtonClick(GameObject go)
     {	
-		LoginModel.Instance.DownloadResource ();
+		LoginModel.Instance.LoginToServer();
     }
 
     void OnWXLoginButtonClick(GameObject go)

@@ -42,6 +42,14 @@ enum MessageType
 	kMsgLoginRsp           = 2;
 	kMsgUpdateAppReq       = 3;
 	kMsgUpdateAppRsp       = 4;
+	kMsgGetUserReq         = 5;
+	kMsgGetUserRsp         = 6;
+	kMsgGetStartFightReq   = 7;
+	kMsgGetStartFightRsp   = 8;
+	kMsgEndBattleReq       = 9;
+	kMsgEndBattleRsp       = 10;
+	kMsgGetAllInfoReq      = 11;
+	kMsgGetAllInfoRsp      = 12;
 }
 
 // user info defination

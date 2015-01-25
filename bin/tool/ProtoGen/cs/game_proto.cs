@@ -787,7 +787,31 @@ namespace game_proto
       kMsgUpdateAppReq = 3,
             
       [global::ProtoBuf.ProtoEnum(Name=@"kMsgUpdateAppRsp", Value=4)]
-      kMsgUpdateAppRsp = 4
+      kMsgUpdateAppRsp = 4,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"kMsgGetUserReq", Value=5)]
+      kMsgGetUserReq = 5,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"kMsgGetUserRsp", Value=6)]
+      kMsgGetUserRsp = 6,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"kMsgGetStartFightReq", Value=7)]
+      kMsgGetStartFightReq = 7,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"kMsgGetStartFightRsp", Value=8)]
+      kMsgGetStartFightRsp = 8,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"kMsgEndBattleReq", Value=9)]
+      kMsgEndBattleReq = 9,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"kMsgEndBattleRsp", Value=10)]
+      kMsgEndBattleRsp = 10,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"kMsgGetAllInfoReq", Value=11)]
+      kMsgGetAllInfoReq = 11,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"kMsgGetAllInfoRsp", Value=12)]
+      kMsgGetAllInfoRsp = 12
     }
   
     [global::ProtoBuf.ProtoContract(Name=@"LoginChannel")]

@@ -14,6 +14,11 @@ public class LoginServerRspHandler : IPacketHandler
 	{
 		RspPackage response = ProtoManager.Deserialize<RspPackage>(data);
 		Debug.Log("LoginServerRsp type:" + Convert.ToString(response.type));
-		EventManager.Instance.SendEvent(EventDefine.LoginServerComplete, 0, response);
+		if (response.type == (int)MessageType.kMsgLoginRsp) {
+			LoginRsp rsp = ProtoManager.Deserialize<LoginRsp> (response.body);
+			EventManager.Instance.SendEvent (EventDefine.LoginServerComplete, 0, rsp);
+		} else {
+			Debug.Log ("unkown reponse type");
+		}
 	}
 }

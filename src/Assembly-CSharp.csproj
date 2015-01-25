@@ -19,7 +19,7 @@
 	<DebugType>full</DebugType>
 	<Optimize>false</Optimize>
 	<OutputPath>Temp\bin\Debug\</OutputPath>
-	<DefineConstants>DEBUG;TRACE;UNITY_4_5_2;UNITY_4_5;UNITY_STANDALONE_WIN;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_WP8SUPPORT;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN</DefineConstants>
+	<DefineConstants>DEBUG;TRACE;UNITY_4_5_2;UNITY_4_5;UNITY_STANDALONE_WIN;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_WP8SUPPORT;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE;UNITY_PRO_LICENSE</DefineConstants>
 	<ErrorReport>prompt</ErrorReport>
 	<WarningLevel>4</WarningLevel>
 	<NoWarn>0169</NoWarn>
@@ -39,10 +39,10 @@
 	<Reference Include="System.Core" />
 	<Reference Include="System.Xml.Linq" />
 	<Reference Include="UnityEngine">
-	  <HintPath>E:/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>D:/software/Unity3D/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>E:/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>D:/software/Unity3D/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
@@ -58,8 +58,11 @@
      <Compile Include="Assets\Scripts\Core\Event\EventManager.cs" />
      <Compile Include="Assets\Scripts\Core\Manager\PageManager.cs" />
      <Compile Include="Assets\Scripts\Core\Manager\ResourceManager.cs" />
+     <Compile Include="Assets\Scripts\Core\Network\AutoGen\game_proto.cs" />
      <Compile Include="Assets\Scripts\Core\Network\FakeDataHandler.cs" />
      <Compile Include="Assets\Scripts\Core\Network\FakeDataManager.cs" />
+     <Compile Include="Assets\Scripts\Core\Network\Handler\LoginServerRspHandler.cs" />
+     <Compile Include="Assets\Scripts\Core\Network\Handler\UpdateAppRspHandler.cs" />
      <Compile Include="Assets\Scripts\Core\Network\IPacketHandler.cs" />
      <Compile Include="Assets\Scripts\Core\Network\NetworkManager.cs" />
      <Compile Include="Assets\Scripts\Core\Network\ProtoManager.cs" />
@@ -166,9 +169,9 @@
      <Compile Include="Assets\Scripts\Model\Game\GameLogic\Handler\DidKnockHandler_Base.cs" />
      <Compile Include="Assets\Scripts\Model\Game\GameLogic\Handler\DidKnockWallHandler.cs" />
      <Compile Include="Assets\Scripts\Model\Game\GameLogic\Handler\FindHitTarget_Base.cs" />
+     <Compile Include="Assets\Scripts\Model\Game\GameLogic\MapData.cs" />
      <Compile Include="Assets\Scripts\Model\Game\GameLogic\Skill.cs" />
      <Compile Include="Assets\Scripts\Model\Game\GameLogic\Warrior.cs" />
-     <Compile Include="Assets\Scripts\Model\Game\GameLogic\WarriorAttribute.cs" />
      <Compile Include="Assets\Scripts\Model\Game\GamePage.cs" />
      <Compile Include="Assets\Scripts\Model\Game\GameScene.cs" />
      <Compile Include="Assets\Scripts\Model\Game\ScorePage.cs" />
@@ -178,9 +181,6 @@
      <Compile Include="Assets\Scripts\Model\Logic\ItemBagManager.cs" />
      <Compile Include="Assets\Scripts\Model\Logic\Setting.cs" />
      <Compile Include="Assets\Scripts\Model\Logic\WarriorBagManager.cs" />
-     <Compile Include="Assets\Scripts\Model\Logic\game_proto.cs" />
-     <Compile Include="Assets\Scripts\Model\Login\Handler\LoginServerRspHandler.cs" />
-     <Compile Include="Assets\Scripts\Model\Login\Handler\UpdateAppRspHandler.cs" />
      <Compile Include="Assets\Scripts\Model\Login\LoginModel.cs" />
      <Compile Include="Assets\Scripts\Model\Login\LoginPage.cs" />
      <Compile Include="Assets\Scripts\Model\Login\LoginScene.cs" />
@@ -192,7 +192,6 @@
      <Compile Include="Assets\Scripts\Model\Menu\BagPage\UISortedLabel.cs" />
      <Compile Include="Assets\Scripts\Model\Menu\ChapterPage\ChapterData.cs" />
      <Compile Include="Assets\Scripts\Model\Menu\ChapterPage\ChapterDataMgr.cs" />
-     <Compile Include="Assets\Scripts\Model\Menu\ChapterPage\FileLoader.cs" />
      <Compile Include="Assets\Scripts\Model\Menu\ChapterPage\UIChapterEntryPoint.cs" />
      <Compile Include="Assets\Scripts\Model\Menu\ChapterPage\UIChapterPage.cs" />
      <Compile Include="Assets\Scripts\Model\Menu\ChapterPage\UIEntryDialog.cs" />
@@ -465,13 +464,13 @@
      <None Include="Assets\ThirdLib\Spine\spine-unity\Shaders\SkeletonLit.shader" />
      <None Include="Assets\ThirdLib\NGUI\Examples\Resources\Localization.txt" />
  <Reference Include="ICSharpCode.SharpZipLib">
- <HintPath>E:/Warrior-s-Heart/src/Assets/ThirdLib/ICSharpCode.SharpZipLib.dll</HintPath>
+ <HintPath>F:/game/workspace/Warrior-s-Heart/src/Assets/ThirdLib/ICSharpCode.SharpZipLib.dll</HintPath>
  </Reference>
  <Reference Include="DOTween">
- <HintPath>E:/Warrior-s-Heart/src/Assets/ThirdLib/DOTween/DOTween.dll</HintPath>
+ <HintPath>F:/game/workspace/Warrior-s-Heart/src/Assets/ThirdLib/DOTween/DOTween.dll</HintPath>
  </Reference>
  <Reference Include="Antlr3.Runtime">
- <HintPath>E:/Warrior-s-Heart/src/Assets/ThirdLib/Evaluant.Calculator/bin/Antlr3.Runtime.dll</HintPath>
+ <HintPath>F:/game/workspace/Warrior-s-Heart/src/Assets/ThirdLib/Evaluant.Calculator/bin/Antlr3.Runtime.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

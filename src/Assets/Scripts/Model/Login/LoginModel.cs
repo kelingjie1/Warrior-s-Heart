@@ -23,45 +23,21 @@ public class LoginModel
 	 ************************************************************/
 	public void LoginToServer()
 	{	
-		// header
-		ReqHeader header = new ReqHeader ();
-		header.mobile_info = SystemInfo.operatingSystem;
-
-		// body
 		LoginReq request = new LoginReq();
 		request.channel = (int)LoginChannel.kChannelTypeQQ;
 		request.device = SystemInfo.deviceUniqueIdentifier;
-
-		// package
-		ReqPackage package = new ReqPackage ();
-		package.header = header;
-		package.body = ProtoManager.Serialize (request);
-		package.type = (int)MessageType.kMsgLoginReq;
-
-		// request.Version   = GameInfo.Version;
-        NetworkManager.Instance.Send(package);
+		request.token  = "hello";
+		NetworkManager.Instance.Send(request);
 	}
 
 	public void DownloadResource()
-	{
-		// header
-		ReqHeader header = new ReqHeader ();
-		header.mobile_info = SystemInfo.operatingSystem;
-		
-		// body
+	{		
 		UpdateAppReq request = new UpdateAppReq();
 		request.app_version  = "1.0";
 		request.config_version = "1.0";
 		request.resource_version = "1.0";
-
-		// package
-		ReqPackage package = new ReqPackage ();
-		package.header = header;
-		package.body = ProtoManager.Serialize (request);
-		package.type = (int)MessageType.kMsgUpdateAppReq;
-	
 		// request.Version   = GameInfo.Version;
-        NetworkManager.Instance.Send(package);
+        NetworkManager.Instance.Send(request);
 	}
 
 	/************************************************************
@@ -70,6 +46,8 @@ public class LoginModel
 	void OnLoginServerSuccess(EventDefine type, System.Object param, System.Object param2, System.Object param3, System.Object param4)
 	{
 		EventManager.Instance.UnRegisterEvent(EventDefine.ErrorCodeReply, OnErrorCodeReply);
+		LoginRsp response = (LoginRsp)param;
+		Debug.Log ("login user_id:" + response.uid + " session_key:" + response.session_key);
 		Application.LoadLevel("Menu");
 	}
 
@@ -103,10 +81,7 @@ public class LoginModel
 			string download_path =  downloadFolder + "Config.zip";
 			Debug.Log("save_path:" + download_path);
 			DownloadTool.StartDownload(download_path, response.config_url, OnDownloadCallback);
-		}
-
-		// begin to login to server
-		// LoginModel.Instance.LoginToServer();
+		}		
 	}
 
 	/****************************************************
@@ -166,8 +141,7 @@ public class LoginModel
 				string directoryName = downloadFolder + Path.GetDirectoryName(theEntry.Name);
 				string fileName      = Path.GetFileName(theEntry.Name);
 				string fullPath      = directoryName + "/" + fileName;
-				Debug.Log("Unzip path:" + fullPath);
-				
+			
 				// create directory
 				if (directoryName.Length > 0)
 				{

@@ -343,10 +343,10 @@ namespace game_proto
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"StaticItem")]
-  public partial class StaticItem : global::ProtoBuf.IExtensible
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"BagItem")]
+  public partial class BagItem : global::ProtoBuf.IExtensible
   {
-    public StaticItem() {}
+    public BagItem() {}
     
     private string _ref_id = "";
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"ref_id", DataFormat = global::ProtoBuf.DataFormat.Default)]
@@ -363,40 +363,6 @@ namespace game_proto
     {
       get { return _count; }
       set { _count = value; }
-    }
-    private global::ProtoBuf.IExtension extensionObject;
-    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-  }
-  
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"BagItem")]
-  public partial class BagItem : global::ProtoBuf.IExtensible
-  {
-    public BagItem() {}
-    
-    private int _type = default(int);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"type", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int type
-    {
-      get { return _type; }
-      set { _type = value; }
-    }
-    private game_proto.WarriorItem _warrior_item = null;
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"warrior_item", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(null)]
-    public game_proto.WarriorItem warrior_item
-    {
-      get { return _warrior_item; }
-      set { _warrior_item = value; }
-    }
-    private game_proto.StaticItem _static_item = null;
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"static_item", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(null)]
-    public game_proto.StaticItem static_item
-    {
-      get { return _static_item; }
-      set { _static_item = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
@@ -821,18 +787,31 @@ namespace game_proto
       kMsgUpdateAppReq = 3,
             
       [global::ProtoBuf.ProtoEnum(Name=@"kMsgUpdateAppRsp", Value=4)]
-      kMsgUpdateAppRsp = 4
-    }
-  
-    [global::ProtoBuf.ProtoContract(Name=@"BagType")]
-    public enum BagType
-    {
+      kMsgUpdateAppRsp = 4,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"kStaticItemType", Value=1)]
-      kStaticItemType = 1,
+      [global::ProtoBuf.ProtoEnum(Name=@"kMsgGetUserReq", Value=5)]
+      kMsgGetUserReq = 5,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"kWarriorType", Value=2)]
-      kWarriorType = 2
+      [global::ProtoBuf.ProtoEnum(Name=@"kMsgGetUserRsp", Value=6)]
+      kMsgGetUserRsp = 6,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"kMsgGetStartFightReq", Value=7)]
+      kMsgGetStartFightReq = 7,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"kMsgGetStartFightRsp", Value=8)]
+      kMsgGetStartFightRsp = 8,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"kMsgEndBattleReq", Value=9)]
+      kMsgEndBattleReq = 9,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"kMsgEndBattleRsp", Value=10)]
+      kMsgEndBattleRsp = 10,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"kMsgGetAllInfoReq", Value=11)]
+      kMsgGetAllInfoReq = 11,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"kMsgGetAllInfoRsp", Value=12)]
+      kMsgGetAllInfoRsp = 12
     }
   
     [global::ProtoBuf.ProtoContract(Name=@"LoginChannel")]

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using ProtoBuf;
+using game_proto;
 
 public sealed partial class NetworkManager
 {
@@ -66,14 +67,24 @@ public sealed partial class NetworkManager
 	}
 	public void Send(IExtensible msg)
 	{
-        if (useFakeData)
-        {
-            FakeDataManager.Instance.GetFakeDataAsync(msg);
-        }
-        else
-        {
-            Send(ProtoManager.Serialize(msg));
-        }
+        //if (useFakeData)
+        //{
+        //    FakeDataManager.Instance.GetFakeDataAsync(msg);
+        //}
+        //else
+        //{
+			// header
+			ReqHeader header = new ReqHeader ();
+			header.mobile_info = SystemInfo.operatingSystem;
+
+			// package
+			ReqPackage package = new ReqPackage ();
+			package.header = header;
+			package.body = ProtoManager.Serialize (msg);
+			Debug.Log("msg_type:" + msg.GetType());
+			package.type = GetMsgType(msg.GetType().ToString());
+		    Send(ProtoManager.Serialize(package));
+        //}
 	}
 	void Send(byte[] packet)
 	{
@@ -144,9 +155,31 @@ public sealed partial class NetworkManager
 					continue;
 				}
 
+				Debug.Log("ret type:" + netPacket.Opcode);
 				m_PacketHandlers[netPacket.Opcode].Handle(netPacket.Data);
 			}
 		}
+	}
+
+	private int GetMsgType(string msg_type)
+	{
+		int ret_type = 0;
+	switch(msg_type)
+		{
+		case "game_proto.UpdateAppReq":
+			ret_type = (int)MessageType.kMsgUpdateAppReq;
+			break;
+		case "game_proto.LoginReq":
+			ret_type = (int)MessageType.kMsgLoginReq;
+			break;
+		case "game_proto.GetAllInfoReq":
+			ret_type = (int)MessageType.kMsgGetAllInfoReq;
+			break;
+		default:
+			ret_type = -1;
+			break;
+		}
+			return ret_type;
 	}
 
 	private void RegisterHandler(IPacketHandler handler)
@@ -158,6 +191,7 @@ public sealed partial class NetworkManager
 			return;
 		}
 
+		Debug.Log ("regiser opcode:" + opcode);
 		m_PacketHandlers.Add(opcode, handler);
 	}
 
@@ -168,6 +202,7 @@ public sealed partial class NetworkManager
 		{
 			String opcodeStr = m_WebClient.ResponseHeaders.Get(OPCODE_KEY);
 			Int32.TryParse(opcodeStr, out opcode);
+			Debug.Log ("return opcode:" + opcodeStr);
 		}
 
 		lock (m_PacketQueue)
