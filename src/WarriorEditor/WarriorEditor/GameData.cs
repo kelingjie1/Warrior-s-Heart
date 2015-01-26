@@ -66,7 +66,7 @@ public class WarriorData : ObjDataBase
 {
     public string name;
     public bool isAttacker;
-    public WarriorTemplate template;
+    public string template;
     public float x;
     public string path;
     public float guardingDistance;
@@ -74,6 +74,7 @@ public class WarriorData : ObjDataBase
     public int agilityPoint;
     public int strongPoint;
     public int intelligencePoint;
+    
     public WarriorData()
     {
         name = "unname";
