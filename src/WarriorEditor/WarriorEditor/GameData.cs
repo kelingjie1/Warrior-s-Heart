@@ -18,6 +18,15 @@ public class AnimationInfo
 {
     public string name;
     public float duration;
+    public AnimationInfo()
+    {
+
+    }
+    public AnimationInfo(string animationname,float animationduration)
+    {
+        name = animationname;
+        duration = animationduration;
+    }
 }
 [Serializable]
 public class WarriorTemplate
@@ -32,7 +41,21 @@ public class WarriorTemplate
     public float colliderCenterX;
     public float colliderCenterY;
     public SerializableDictionary<string, AnimationInfo> animationDic = new SerializableDictionary<string, AnimationInfo>();
-    public List<string> skillList;
+    public float hitDelay;
+    public string knockbackExpression;
+    public string antiKnockbackExpression;
+    public string physicalAttackExpression;
+    public string physicalDefenceExpression;
+    public string magicAttackExpression;
+    public string magicDefenceExpression;
+    public string attackSpeedExpression;
+    public string maxHPExpression;
+    public string maxMoveSpeedExpression;
+    public string accelerationExpression;
+    public string attackDistanceExpression;
+    public List<string> skillList = new List<string>();
+
+    
 }
 public class ObjDataBase
 {

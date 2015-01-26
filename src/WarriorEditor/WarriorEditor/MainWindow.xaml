@@ -15,8 +15,8 @@
         <TextBox x:Name="height" HorizontalAlignment="Left" Height="23" Margin="161,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="57"/>
         <TextBox x:Name="colliderWidth" HorizontalAlignment="Left" Height="23" Margin="98,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="57"/>
         <TextBox x:Name="colliderHeight" HorizontalAlignment="Left" Height="23" Margin="161,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="57"/>
-        <TextBox x:Name="colliderCenterY" HorizontalAlignment="Left" Height="23" Margin="98,162,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="57"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="161,162,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="57"/>
+        <TextBox x:Name="colliderCenterX" HorizontalAlignment="Left" Height="23" Margin="98,162,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="57"/>
+        <TextBox x:Name="colliderCenterY" HorizontalAlignment="Left" Height="23" Margin="161,162,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="57"/>
         <Image HorizontalAlignment="Left" Height="178" Margin="10,190,0,0" VerticalAlignment="Top" Width="208"/>
         <Label Content="attack" HorizontalAlignment="Left" Margin="254,8,0,0" VerticalAlignment="Top"/>
         <Label Content="move" HorizontalAlignment="Left" Margin="254,33,0,0" VerticalAlignment="Top"/>
@@ -28,7 +28,7 @@
         <TextBox x:Name="moveTime" HorizontalAlignment="Left" Height="23" Margin="330,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="90"/>
         <TextBox x:Name="knockbackTime" HorizontalAlignment="Left" Height="23" Margin="330,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="90"/>
         <TextBox x:Name="idleTime" HorizontalAlignment="Left" Height="23" Margin="330,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="90"/>
-        <TextBox x:Name="spellBeginTime" HorizontalAlignment="Left" Height="23" Margin="330,132,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="90"/>
+        <TextBox x:Name="spellbeginTime" HorizontalAlignment="Left" Height="23" Margin="330,132,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="90"/>
         <TextBox x:Name="spellendTime" HorizontalAlignment="Left" Height="23" Margin="330,156,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="90"/>
         <Button Content="resource" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Width="75"/>
         <Label Content="knockback" HorizontalAlignment="Left" Margin="254,266,0,0" VerticalAlignment="Top"/>
@@ -48,7 +48,7 @@
         <Label Content="attackSpeed" HorizontalAlignment="Left" Margin="254,435,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="attackSpeedExpression" HorizontalAlignment="Left" Height="23" Margin="350,438,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Label Content="maxHP" HorizontalAlignment="Left" Margin="254,463,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="maxHP" HorizontalAlignment="Left" Height="23" Margin="350,466,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="maxHPExpression" HorizontalAlignment="Left" Height="23" Margin="350,466,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Label Content="maxMoveSpeed" HorizontalAlignment="Left" Margin="254,491,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="maxMoveSpeedExpression" HorizontalAlignment="Left" Height="23" Margin="350,494,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Label Content="acceleration" HorizontalAlignment="Left" Margin="474,266,0,0" VerticalAlignment="Top"/>
@@ -58,7 +58,7 @@
         <Label Content="skillList" HorizontalAlignment="Left" Margin="549,321,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="skillList" HorizontalAlignment="Left" Height="165" Margin="475,352,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="215" AcceptsReturn="True"/>
         <Button Content="保存" HorizontalAlignment="Left" Margin="668,36,0,0" VerticalAlignment="Top" Width="75" Height="26" Click="Save_Click"/>
-        <Button Content="打开" HorizontalAlignment="Left" Margin="668,5,0,0" VerticalAlignment="Top" Width="75" Height="26"/>
+        <Button Content="打开" HorizontalAlignment="Left" Margin="668,5,0,0" VerticalAlignment="Top" Width="75" Height="26" Click="Open_Click"/>
         <Label Content="hitDelay" HorizontalAlignment="Left" Margin="254,201,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="dieTime" HorizontalAlignment="Left" Height="23" Margin="330,182,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="90"/>
         <TextBox x:Name="filePath" HorizontalAlignment="Left" Height="23" Margin="543,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>

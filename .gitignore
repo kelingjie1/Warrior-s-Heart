@@ -8,6 +8,8 @@ src/MapEditor/MapEditor/bin
 src/MapEditor/MapEditor/obj
 src/MapEditorOld/MapEditor/bin
 src/MapEditorOld/MapEditor/obj
+src/WarriorEditor/WarriorEditor/bin
+src/WarriorEditor/WarriorEditor/obj
 src/UnityVS.*
 src/src-csharp.sln
 src/src.sln
