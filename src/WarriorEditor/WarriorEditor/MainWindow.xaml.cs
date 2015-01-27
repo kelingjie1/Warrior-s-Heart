@@ -145,6 +145,11 @@ namespace WarriorEditor
             maxMoveSpeedExpression.Text = wt.maxMoveSpeedExpression;
             accelerationExpression.Text = wt.accelerationExpression;
             attackDistanceExpression.Text = wt.attackDistanceExpression;
+            skillList.Text = "";
+            foreach (string skillname in wt.skillList)
+            {
+                skillList.Text += skillname + "\n";
+            }
         }
 
 

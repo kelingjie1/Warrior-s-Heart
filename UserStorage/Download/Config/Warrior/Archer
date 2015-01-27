@@ -5,8 +5,8 @@
   <resource>Archer</resource>
   <width>100</width>
   <height>100</height>
-  <colliderWidth>0</colliderWidth>
-  <colliderHeight>0</colliderHeight>
+  <colliderWidth>100</colliderWidth>
+  <colliderHeight>100</colliderHeight>
   <colliderCenterX>0</colliderCenterX>
   <colliderCenterY>0</colliderCenterY>
   <animationDic>
@@ -28,7 +28,7 @@
       <value>
         <AnimationInfo>
           <name>move</name>
-          <duration>1</duration>
+          <duration>0.1</duration>
         </AnimationInfo>
       </value>
     </SerializableDictionary>
@@ -88,17 +88,19 @@
       </value>
     </SerializableDictionary>
   </animationDic>
-  <hitDelay>1</hitDelay>
+  <hitDelay>0.6</hitDelay>
   <knockbackExpression>pow</knockbackExpression>
   <antiKnockbackExpression>pow</antiKnockbackExpression>
-  <physicalAttackExpression>pow</physicalAttackExpression>
-  <physicalDefenceExpression>pow</physicalDefenceExpression>
-  <magicAttackExpression>pow</magicAttackExpression>
-  <magicDefenceExpression>pow</magicDefenceExpression>
-  <attackSpeedExpression>pow</attackSpeedExpression>
-  <maxHPExpression>pow</maxHPExpression>
-  <maxMoveSpeedExpression>pow</maxMoveSpeedExpression>
-  <accelerationExpression>pow</accelerationExpression>
-  <attackDistanceExpression>100</attackDistanceExpression>
-  <skillList />
+  <physicalAttackExpression>50+pow</physicalAttackExpression>
+  <physicalDefenceExpression>10+str/2</physicalDefenceExpression>
+  <magicAttackExpression>int</magicAttackExpression>
+  <magicDefenceExpression>int/2</magicDefenceExpression>
+  <attackSpeedExpression>1</attackSpeedExpression>
+  <maxHPExpression>500+str*4</maxHPExpression>
+  <maxMoveSpeedExpression>3</maxMoveSpeedExpression>
+  <accelerationExpression>10</accelerationExpression>
+  <attackDistanceExpression>1000</attackDistanceExpression>
+  <skillList>
+    <string>IamArcher</string>
+  </skillList>
 </WarriorTemplate>

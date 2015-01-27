@@ -17,7 +17,7 @@
       <value>
         <AnimationInfo>
           <name>attack</name>
-          <duration>1</duration>
+          <duration>0.2</duration>
         </AnimationInfo>
       </value>
     </SerializableDictionary>
@@ -28,7 +28,7 @@
       <value>
         <AnimationInfo>
           <name>move</name>
-          <duration>1</duration>
+          <duration>0.1</duration>
         </AnimationInfo>
       </value>
     </SerializableDictionary>
@@ -88,17 +88,19 @@
       </value>
     </SerializableDictionary>
   </animationDic>
-  <hitDelay>1</hitDelay>
-  <knockbackExpression>pow</knockbackExpression>
-  <antiKnockbackExpression>pow</antiKnockbackExpression>
+  <hitDelay>0.1</hitDelay>
+  <knockbackExpression>60+pow</knockbackExpression>
+  <antiKnockbackExpression>10+pow</antiKnockbackExpression>
   <physicalAttackExpression>50+pow</physicalAttackExpression>
   <physicalDefenceExpression>10+str/2</physicalDefenceExpression>
   <magicAttackExpression>int</magicAttackExpression>
   <magicDefenceExpression>int/2</magicDefenceExpression>
-  <attackSpeedExpression>10</attackSpeedExpression>
+  <attackSpeedExpression>1</attackSpeedExpression>
   <maxHPExpression>500+str*4</maxHPExpression>
-  <maxMoveSpeedExpression>10</maxMoveSpeedExpression>
-  <accelerationExpression>10</accelerationExpression>
-  <attackDistanceExpression>100</attackDistanceExpression>
-  <skillList />
+  <maxMoveSpeedExpression>5</maxMoveSpeedExpression>
+  <accelerationExpression>50</accelerationExpression>
+  <attackDistanceExpression>200</attackDistanceExpression>
+  <skillList>
+    <string>IamFighter</string>
+  </skillList>
 </WarriorTemplate>

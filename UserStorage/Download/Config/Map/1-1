@@ -31,7 +31,55 @@
       <name>unname</name>
       <isAttacker>false</isAttacker>
       <template>Fighter</template>
-      <x>790</x>
+      <x>1519</x>
+      <guardingDistance>0</guardingDistance>
+      <powerPoint>0</powerPoint>
+      <agilityPoint>0</agilityPoint>
+      <strongPoint>0</strongPoint>
+      <intelligencePoint>0</intelligencePoint>
+    </WarriorData>
+    <WarriorData>
+      <locked>false</locked>
+      <name>unname</name>
+      <isAttacker>true</isAttacker>
+      <template>Archer</template>
+      <x>141</x>
+      <guardingDistance>0</guardingDistance>
+      <powerPoint>0</powerPoint>
+      <agilityPoint>0</agilityPoint>
+      <strongPoint>0</strongPoint>
+      <intelligencePoint>0</intelligencePoint>
+    </WarriorData>
+    <WarriorData>
+      <locked>false</locked>
+      <name>unname</name>
+      <isAttacker>true</isAttacker>
+      <template>Fighter</template>
+      <x>340</x>
+      <guardingDistance>0</guardingDistance>
+      <powerPoint>0</powerPoint>
+      <agilityPoint>0</agilityPoint>
+      <strongPoint>0</strongPoint>
+      <intelligencePoint>0</intelligencePoint>
+    </WarriorData>
+    <WarriorData>
+      <locked>false</locked>
+      <name>unname</name>
+      <isAttacker>false</isAttacker>
+      <template>Fighter</template>
+      <x>1619</x>
+      <guardingDistance>0</guardingDistance>
+      <powerPoint>0</powerPoint>
+      <agilityPoint>0</agilityPoint>
+      <strongPoint>0</strongPoint>
+      <intelligencePoint>0</intelligencePoint>
+    </WarriorData>
+    <WarriorData>
+      <locked>false</locked>
+      <name>unname</name>
+      <isAttacker>false</isAttacker>
+      <template>Fighter</template>
+      <x>1701</x>
       <guardingDistance>0</guardingDistance>
       <powerPoint>0</powerPoint>
       <agilityPoint>0</agilityPoint>

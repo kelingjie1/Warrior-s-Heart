@@ -201,8 +201,7 @@ public class Warrior : MonoBehaviour
             m_hp = value;
             if (isAttacker)
             {
-                int id = BattleField.Instance.AttackerList.IndexOf(this);
-                if (id>=0)
+                if (id >= 0 && id<GamePage.Instance.attackerBattlePanelList.Count)
                 {
                     GamePage.Instance.attackerBattlePanelList[id].HPBar.value = this.hp / this.maxHP;
                 }
@@ -210,7 +209,7 @@ public class Warrior : MonoBehaviour
             else
             {
                 int id = BattleField.Instance.DefenderList.IndexOf(this);
-                if (id >= 0)
+                if (id >= 0 && id < GamePage.Instance.defenderBattlePanelList.Count)
                 {
                     GamePage.Instance.defenderBattlePanelList[id].HPBar.value = this.hp / this.maxHP;
                 }
@@ -220,6 +219,7 @@ public class Warrior : MonoBehaviour
 
     public bool isAttacker;
     //状态
+    public int id;
     public float hitRestTime;
     public float attackRestTime;
     AttackState m_attackState;
@@ -241,7 +241,7 @@ public class Warrior : MonoBehaviour
             if (m_attackState==AttackState.Attack)
             {
                 Spine.Animation ani = data.FindAnimation("attack");
-                animation.state.SetAnimation(1, ani, false).TimeScale = template.animationDic["idle"].duration / ani.Duration * attackSpeed;
+                animation.state.SetAnimation(1, ani, false).TimeScale = ani.Duration / template.animationDic["attack"].duration * attackSpeed;
             }
             else
             {
@@ -274,17 +274,17 @@ public class Warrior : MonoBehaviour
             if (m_moveState == MoveState.Idle)
             {
                 Spine.Animation ani = data.FindAnimation("idle");
-                animation.state.SetAnimation(0, ani, true).TimeScale = template.animationDic["idle"].duration / ani.Duration * attackSpeed;
+                animation.state.SetAnimation(0, ani, true).TimeScale = ani.Duration / template.animationDic["idle"].duration;
             }
             else if (m_moveState == MoveState.Move)
             {
                 Spine.Animation ani = data.FindAnimation("move");
-                animation.state.SetAnimation(0, ani, true).TimeScale = template.animationDic["idle"].duration / ani.Duration * attackSpeed;
+                animation.state.SetAnimation(0, ani, true).TimeScale = ani.Duration / template.animationDic["move"].duration * Math.Abs(rigidbody.velocity.x);
             }
             else if (m_moveState == MoveState.KnockBack)
             {
-                Spine.Animation ani = data.FindAnimation("knockback");
-                animation.state.SetAnimation(0, ani, false).TimeScale = template.animationDic["idle"].duration / ani.Duration * attackSpeed;
+                Spine.Animation ani = data.FindAnimation("move");
+                animation.state.SetAnimation(0, ani, true).TimeScale = ani.Duration / template.animationDic["move"].duration * Math.Abs(rigidbody.velocity.x);
             }
         }
     }
@@ -292,6 +292,7 @@ public class Warrior : MonoBehaviour
     public bool isNearWall;
     List<Buff> buffList = new List<Buff>();
     List<Buff> removeBuffList = new List<Buff>();
+    List<Skill> skillList = new List<Skill>();
     public OrderedList<BattleEventHandler> FindHitTargetHandler = new OrderedList<BattleEventHandler>();
     public OrderedList<BattleEventHandler> FinishAttackHandler = new OrderedList<BattleEventHandler>();
     public int dir
@@ -364,23 +365,19 @@ public class Warrior : MonoBehaviour
             BoxCollider collider = this.GetComponent<BoxCollider>();
             collider.size = new Vector3(template.colliderWidth, template.colliderHeight, 100);
             collider.center = new Vector3(template.colliderCenterX, template.colliderCenterY, 0);
-            if (template.name=="Fighter")
-            {
-                canAttackMove = true;
 
-                this.FindHitTargetHandler.Add(new FindHitTargetHandler_Base());
-                DidFinishAttackHandler_Melee_Base didfinishattack = new DidFinishAttackHandler_Melee_Base();
-                didfinishattack.owner = this;
-                BattleField.Instance.RegisterEvent(BattleEventType.DidFinishAttack, didfinishattack);
-            }
-            else
+            foreach(string skillname in template.skillList)
             {
-                canAttackMove = false;
-
-                this.FindHitTargetHandler.Add(new FindHitTargetHandler_Base());
-                DidFinishAttackHandler_Remote_Base didfinishattack = new DidFinishAttackHandler_Remote_Base();
-                didfinishattack.owner = this;
-                BattleField.Instance.RegisterEvent(BattleEventType.DidFinishAttack, didfinishattack);
+                Type type = Type.GetType(skillname);
+                Skill skill = type.Assembly.CreateInstance(skillname) as Skill;
+                if (skill!=null)
+                {
+                    AddSkill(skill);
+                }
+                else
+                {
+                    Debug.LogError("Skill Class:" + skillname + "  not found");
+                }
             }
 
             warriorItem = new WarriorItem();
@@ -414,7 +411,17 @@ public class Warrior : MonoBehaviour
 
         
     }
+    public void AddSkill(Skill skill)
+    {
+        skillList.Add(skill);
+        skill.Attach(this);
+    }
 
+    public void RemoveSkill(Skill skill)
+    {
+        skillList.Remove(skill);
+        skill.Detach();
+    }
     public void AddBuff(Buff buff)
     {
         buffList.Add(buff);
@@ -507,7 +514,7 @@ public class Warrior : MonoBehaviour
                 BattleField.Instance.SendEvent(BattleEventType.DidFinishAttack, new List<Warrior>() { this }, null, msg);
             }
         }
-        else if(moveState!=MoveState.KnockBack)
+        else if(moveState!=MoveState.KnockBack||canAttackMove)
         {
             if(responders.Count > 0)
             {
@@ -552,7 +559,13 @@ public class Warrior : MonoBehaviour
             }
 
         }
-
+        if (m_moveState == MoveState.Move || m_moveState == MoveState.KnockBack)
+        {
+            SkeletonAnimation animation = this.GetComponent<SkeletonAnimation>();
+            SkeletonData data = animation.state.Data.SkeletonData;
+            Spine.Animation ani = data.FindAnimation("move");
+            animation.state.GetCurrent(0).TimeScale = ani.Duration / template.animationDic["move"].duration * Math.Abs(rigidbody.velocity.x);
+        }
     }
     void Hit()
     {

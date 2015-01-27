@@ -147,37 +147,27 @@ public class BattleField : MonoBehaviour
 
         /////////////////////////////////////////////////////////////////////////////////
 
-//         for (int i = 0; i < 2; i++)
-//         {
-//             Warrior attacker = Warrior.Create();
-//             this.gameObject.AddChild(attacker.gameObject);
-//             attacker.transform.localPosition = new Vector3(50 + i * 20, 82, 0);
-//             attacker.isAttacker = true;
-//             attacker.name = "attacker" + i;
-//             AttackerList.Add(attacker);
-//         }
-//         AttackerList[0].TestMelee();
-//         AttackerList[1].TestRemote();
+
+    }
+    
+    public void StartBattle()
+    {
+        this.SendEvent(BattleEventType.WillStartBattle);
+        //TEST///////////////////////
+        LoadMap();
+
         for (int i = 0; i < AttackerList.Count; i++)
         {
+            AttackerList[i].id = i;
             for (int j = i + 1; j < AttackerList.Count; j++)
             {
                 Physics.IgnoreCollision(AttackerList[i].collider, AttackerList[j].collider);
             }
         }
 
-//         for (int i = 0; i < 2; i++)
-//         {
-//             Warrior defender = Warrior.Create();
-//             this.gameObject.AddChild(defender.gameObject);
-//             defender.transform.localPosition = new Vector3(Screen.width - 50 - i * 20, 82, 0);
-//             defender.name = "defender" + i;
-//             DefenderList.Add(defender);
-//         }
-//         DefenderList[0].TestMelee();
-//         DefenderList[1].TestRemote();
         for (int i = 0; i < DefenderList.Count; i++)
         {
+            DefenderList[i].id = i;
             for (int j = i + 1; j < DefenderList.Count; j++)
             {
                 Physics.IgnoreCollision(DefenderList[i].collider, DefenderList[j].collider);
@@ -189,13 +179,7 @@ public class BattleField : MonoBehaviour
         {
             defender.transform.localScale = new Vector3(-1, 1, 1);
         }
-    }
-    
-    public void StartBattle()
-    {
-        this.SendEvent(BattleEventType.WillStartBattle);
-        //TEST///////////////////////
-        LoadMap();
+
         DidHitHandler_Base didhitbase = new DidHitHandler_Base();
         this.RegisterEvent(BattleEventType.DidHit, didhitbase);
         DidKnockHandler_Base didknockbase = new DidKnockHandler_Base();
