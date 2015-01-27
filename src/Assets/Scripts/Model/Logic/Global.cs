@@ -29,7 +29,7 @@ public class Global
 
     static void SetupOnceWhenAwake()
     {
-        NetworkManager.Instance.useFakeData = true;
+        NetworkManager.Instance.useFakeData = false;
         WarriorTemplateManager.Instance.path = Config.WarriorPath;
         UILabel label=ResourceManager.Load("Prefab/BaseLabel").GetComponent<UILabel>();
         Arial = label.trueTypeFont;

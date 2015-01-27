@@ -95,7 +95,7 @@
   <physicalDefenceExpression>10+str/2</physicalDefenceExpression>
   <magicAttackExpression>int</magicAttackExpression>
   <magicDefenceExpression>int/2</magicDefenceExpression>
-  <attackSpeedExpression>1</attackSpeedExpression>
+  <attackSpeedExpression>10</attackSpeedExpression>
   <maxHPExpression>500+str*4</maxHPExpression>
   <maxMoveSpeedExpression>10</maxMoveSpeedExpression>
   <accelerationExpression>10</accelerationExpression>

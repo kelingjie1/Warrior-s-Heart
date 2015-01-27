@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using ProtoBuf;
 using game_proto;
 
+public delegate void NetworkResponseDelegate(int opcode,byte[] data);
 public sealed partial class NetworkManager
 {
 	private class NetPacket
@@ -30,7 +31,7 @@ public sealed partial class NetworkManager
 	private String m_SessionId = String.Empty;
 	private WebClient m_WebClient = new WebClient();
 	private Queue m_PacketQueue = Queue.Synchronized(new Queue());
-	private IDictionary<Int32, IPacketHandler> m_PacketHandlers = new Dictionary<Int32, IPacketHandler>();
+    Dictionary<int,List<NetworkResponseDelegate>> m_delegateDic = new Dictionary<int,List<NetworkResponseDelegate>>();
 
 	// single instance
 	private static NetworkManager instance = null;
@@ -149,14 +150,20 @@ public sealed partial class NetworkManager
 					continue;
 				}
 
-				if (!m_PacketHandlers.ContainsKey(netPacket.Opcode))
+                if (!m_delegateDic.ContainsKey(netPacket.Opcode) || m_delegateDic[netPacket.Opcode].Count==0)
 				{
 					Debug.LogWarning("Network: A valid packet found (OPCODE=" + netPacket.Opcode + "), but there is no handler, you must forget RegisterHandler!");
 					continue;
 				}
-
-				Debug.Log("ret type:" + netPacket.Opcode);
-				m_PacketHandlers[netPacket.Opcode].Handle(netPacket.Data);
+                else
+                {
+                    Debug.Log("ret type:" + netPacket.Opcode);
+                    foreach (NetworkResponseDelegate func in m_delegateDic[netPacket.Opcode])
+                    {
+                        func(netPacket.Opcode, netPacket.Data);
+                    }
+                }
+				
 			}
 		}
 	}
@@ -182,18 +189,21 @@ public sealed partial class NetworkManager
 			return ret_type;
 	}
 
-	private void RegisterHandler(IPacketHandler handler)
+	public void RegisterHandler(int opcode,NetworkResponseDelegate func)
 	{
-		Int32 opcode = handler.GetOpcode();
-		if (m_PacketHandlers.ContainsKey(opcode))
+        if (!m_delegateDic.ContainsKey(opcode))
 		{
-			Debug.LogWarning("Network: Exist same handler (OPCODE=" + opcode + ") already!");
-			return;
+            m_delegateDic.Add(opcode, new List<NetworkResponseDelegate>());
 		}
-
+        List<NetworkResponseDelegate> delegateList = m_delegateDic[opcode];
+        delegateList.Add(func);
 		Debug.Log ("regiser opcode:" + opcode);
-		m_PacketHandlers.Add(opcode, handler);
 	}
+    public void UnRegisterHandler(int opcode,NetworkResponseDelegate func)
+    {
+        List<NetworkResponseDelegate> delegateList = m_delegateDic[opcode];
+        delegateList.Remove(func);
+    }
 
 	private void OnUploadDataCompleted(object sender, UploadDataCompletedEventArgs args)
 	{
