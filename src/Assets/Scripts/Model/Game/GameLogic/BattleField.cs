@@ -114,7 +114,8 @@ public class BattleField : MonoBehaviour
         string path = Config.MapPath + "1-1";
         XmlSerializer xs = new XmlSerializer(typeof(MapData));
         FileStream fs = new FileStream(path, FileMode.Open);
-        MapData mapData = xs.Deserialize(fs) as MapData;
+        mapData = xs.Deserialize(fs) as MapData;
+        fs.Close();
         floorCollider.center = new Vector3(mapData.width / 2, mapData.floorHeight / 2, 0);
         floorCollider.size = new Vector3(mapData.width, mapData.floorHeight, 100);
         leftWallCollider.center = new Vector2(-5, Screen.height / 2);

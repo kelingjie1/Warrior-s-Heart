@@ -1,70 +1,90 @@
 <?xml version="1.0"?>
 <MapData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <floorheight>60</floorheight>
+  <floorHeight>320</floorHeight>
   <width>2000</width>
-  <adormentList>
-    <Adornment>
+  <adormentDataList>
+    <AdornmentData>
       <locked>true</locked>
       <name>unname</name>
-      <image>Texture\background\battlebackground.jpg</image>
+      <image>Texture\background\bbg_fall_bridge.jpg</image>
       <x>1000</x>
       <y>320</y>
       <width>2000</width>
       <height>640</height>
-    </Adornment>
-    <Adornment>
+    </AdornmentData>
+  </adormentDataList>
+  <warriorDataList>
+    <WarriorData>
       <locked>false</locked>
       <name>unname</name>
-      <image>Texture\icon\0m.png</image>
-      <x>403</x>
-      <y>313</y>
-      <width>100</width>
-      <height>100</height>
-    </Adornment>
-    <Adornment>
-      <locked>false</locked>
-      <name>unname</name>
-      <image>Texture\icon\0m.png</image>
-      <x>188</x>
-      <y>467</y>
-      <width>100</width>
-      <height>100</height>
-    </Adornment>
-  </adormentList>
-  <warriorList>
-    <Warrior>
-      <locked>false</locked>
-      <name>l1</name>
       <isAttacker>true</isAttacker>
-      <template>
-        <image>Texture\icon\Fighter.png</image>
-        <width>120</width>
-        <height>130</height>
-      </template>
+      <template>Archer</template>
       <x>100</x>
-      <path>Fighter</path>
       <guardingDistance>0</guardingDistance>
-      <powerPoint>15</powerPoint>
-      <agilityPoint>4</agilityPoint>
-      <strongPoint>12</strongPoint>
-      <intelligencePoint>7</intelligencePoint>
-    </Warrior>
-    <Warrior>
+      <powerPoint>0</powerPoint>
+      <agilityPoint>0</agilityPoint>
+      <strongPoint>0</strongPoint>
+      <intelligencePoint>0</intelligencePoint>
+    </WarriorData>
+    <WarriorData>
       <locked>false</locked>
-      <name>r1</name>
+      <name>unname</name>
+      <isAttacker>true</isAttacker>
+      <template>Wizard</template>
+      <x>233</x>
+      <guardingDistance>0</guardingDistance>
+      <powerPoint>0</powerPoint>
+      <agilityPoint>0</agilityPoint>
+      <strongPoint>0</strongPoint>
+      <intelligencePoint>0</intelligencePoint>
+    </WarriorData>
+    <WarriorData>
+      <locked>false</locked>
+      <name>unname</name>
+      <isAttacker>true</isAttacker>
+      <template>Fighter</template>
+      <x>375</x>
+      <guardingDistance>0</guardingDistance>
+      <powerPoint>0</powerPoint>
+      <agilityPoint>0</agilityPoint>
+      <strongPoint>0</strongPoint>
+      <intelligencePoint>0</intelligencePoint>
+    </WarriorData>
+    <WarriorData>
+      <locked>false</locked>
+      <name>unname</name>
       <isAttacker>false</isAttacker>
-      <template>
-        <image>Texture\icon\Arrow.png</image>
-        <width>120</width>
-        <height>130</height>
-      </template>
-      <x>653</x>
-      <path>Arrow</path>
-      <guardingDistance>50</guardingDistance>
-      <powerPoint>15</powerPoint>
-      <agilityPoint>4</agilityPoint>
-      <strongPoint>12</strongPoint>
-      <intelligencePoint>7</intelligencePoint>
-    </Warrior>
-  </warriorList>
+      <template>Fighter</template>
+      <x>688</x>
+      <guardingDistance>0</guardingDistance>
+      <powerPoint>0</powerPoint>
+      <agilityPoint>0</agilityPoint>
+      <strongPoint>0</strongPoint>
+      <intelligencePoint>0</intelligencePoint>
+    </WarriorData>
+    <WarriorData>
+      <locked>false</locked>
+      <name>unname</name>
+      <isAttacker>false</isAttacker>
+      <template>Wizard</template>
+      <x>828</x>
+      <guardingDistance>0</guardingDistance>
+      <powerPoint>0</powerPoint>
+      <agilityPoint>0</agilityPoint>
+      <strongPoint>0</strongPoint>
+      <intelligencePoint>0</intelligencePoint>
+    </WarriorData>
+    <WarriorData>
+      <locked>false</locked>
+      <name>unname</name>
+      <isAttacker>false</isAttacker>
+      <template>Archer</template>
+      <x>1003</x>
+      <guardingDistance>0</guardingDistance>
+      <powerPoint>0</powerPoint>
+      <agilityPoint>0</agilityPoint>
+      <strongPoint>0</strongPoint>
+      <intelligencePoint>0</intelligencePoint>
+    </WarriorData>
+  </warriorDataList>
 </MapData>

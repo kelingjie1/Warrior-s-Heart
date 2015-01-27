@@ -5,8 +5,8 @@
   <resource>Fighter</resource>
   <width>100</width>
   <height>100</height>
-  <colliderWidth>0</colliderWidth>
-  <colliderHeight>0</colliderHeight>
+  <colliderWidth>100</colliderWidth>
+  <colliderHeight>100</colliderHeight>
   <colliderCenterX>0</colliderCenterX>
   <colliderCenterY>0</colliderCenterY>
   <animationDic>
@@ -91,14 +91,14 @@
   <hitDelay>1</hitDelay>
   <knockbackExpression>pow</knockbackExpression>
   <antiKnockbackExpression>pow</antiKnockbackExpression>
-  <physicalAttackExpression>pow</physicalAttackExpression>
-  <physicalDefenceExpression>pow</physicalDefenceExpression>
-  <magicAttackExpression>pow</magicAttackExpression>
-  <magicDefenceExpression>pow</magicDefenceExpression>
-  <attackSpeedExpression>pow</attackSpeedExpression>
-  <maxHPExpression>pow</maxHPExpression>
-  <maxMoveSpeedExpression>pow</maxMoveSpeedExpression>
-  <accelerationExpression>pow</accelerationExpression>
+  <physicalAttackExpression>50+pow</physicalAttackExpression>
+  <physicalDefenceExpression>10+str/2</physicalDefenceExpression>
+  <magicAttackExpression>int</magicAttackExpression>
+  <magicDefenceExpression>int/2</magicDefenceExpression>
+  <attackSpeedExpression>1</attackSpeedExpression>
+  <maxHPExpression>500+str*4</maxHPExpression>
+  <maxMoveSpeedExpression>10</maxMoveSpeedExpression>
+  <accelerationExpression>10</accelerationExpression>
   <attackDistanceExpression>100</attackDistanceExpression>
   <skillList />
 </WarriorTemplate>

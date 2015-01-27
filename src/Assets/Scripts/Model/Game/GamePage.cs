@@ -49,7 +49,7 @@ public class GamePage : BasePage
         {
             WarriorBattlePanel panel = WarriorBattlePanel.Create();
             this.gameObject.AddChild(panel.gameObject);
-            panel.transform.localPosition = new Vector3(-Screen.width / 2 + i * 200 + 100, -Screen.height / 2 + 100, 0);
+            panel.transform.localPosition = new Vector3(-Screen.width / 2 + i * 150 + 100, -Screen.height / 2 + 100, 0);
             attackerBattlePanelList.Add(panel);
         }
 
@@ -57,7 +57,7 @@ public class GamePage : BasePage
         {
             WarriorBattlePanel panel = WarriorBattlePanel.Create();
             this.gameObject.AddChild(panel.gameObject);
-            panel.transform.localPosition = new Vector3(Screen.width / 2 - i * 200 - 100, -Screen.height / 2 + 100, 0);
+            panel.transform.localPosition = new Vector3(Screen.width / 2 - i * 150 - 100, -Screen.height / 2 + 100, 0);
             defenderBattlePanelList.Add(panel);
         }
     }

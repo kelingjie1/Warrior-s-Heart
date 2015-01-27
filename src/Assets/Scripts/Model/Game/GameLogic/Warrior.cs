@@ -58,7 +58,7 @@ public class Warrior : MonoBehaviour
     {
         get
         {
-            float v = power;
+            float v = CalcExpression(template.knockbackExpression);
             return v * knockbackMultiple + knockbackAdd;
         }
     }
@@ -69,7 +69,7 @@ public class Warrior : MonoBehaviour
     {
         get
         {
-            float v = power / 20;
+            float v = CalcExpression(template.antiKnockbackExpression);
             return v * antiKnockbackMultiple + antiKnockbackAdd;
         }
     }
@@ -80,7 +80,7 @@ public class Warrior : MonoBehaviour
     {
         get
         {
-            float v = power * 2 + 50;
+            float v = CalcExpression(template.physicalAttackExpression);
             return v * physicalAttackMultiple + physicalAttackAdd;
         }
     }
@@ -91,7 +91,7 @@ public class Warrior : MonoBehaviour
     {
         get
         {
-            float v = strong / 2;
+            float v = CalcExpression(template.physicalDefenceExpression);
             return v * physicalDefenceMultiple + physicalDefenceAdd;
         }
     }
@@ -102,7 +102,7 @@ public class Warrior : MonoBehaviour
     {
         get
         {
-            float v = intelligence;
+            float v = CalcExpression(template.magicAttackExpression);
             return v * magicAttackMultiple + magicAttackAdd;
         }
     }
@@ -113,7 +113,7 @@ public class Warrior : MonoBehaviour
     {
         get
         {
-            float v = intelligence / 2;
+            float v = CalcExpression(template.magicDefenceExpression);
             return v * magicDefenceMultiple + magicDefenceAdd;
         }
     }
@@ -124,23 +124,31 @@ public class Warrior : MonoBehaviour
     {
         get
         {
-            return template.hitDelay / AttackSpeedMultiple;
+            return template.hitDelay / attackSpeed;
+        }
+    }
+    public float attackSpeed
+    {
+        get
+        {
+            return CalcExpression(template.attackSpeedExpression);
         }
     }
     public float attackInterval
     {
         get
         {
-            return 1.5f / AttackSpeedMultiple;
+            return 1 / attackSpeed;
         }
     }
+
     public float AttackSpeedMultiple = 1;
 
     public float maxHP
     {
         get
         {
-            float v = 500 + strong * 20;
+            float v = CalcExpression(template.maxHPExpression);
             return v * maxHPMultiple + maxHPAdd;
         }
     }
@@ -151,7 +159,7 @@ public class Warrior : MonoBehaviour
     {
         get
         {
-            float v = 1 + agility / 20;
+            float v = CalcExpression(template.maxMoveSpeedExpression);
             return v * maxMoveSpeedMultiple + maxMoveSpeedAdd;
         }
     }
@@ -162,7 +170,7 @@ public class Warrior : MonoBehaviour
     {
         get
         {
-            float v = 10 + agility;
+            float v = CalcExpression(template.accelerationExpression);
             return v * accelerationMultiple + accelerationAdd;
         }
     }
@@ -173,12 +181,7 @@ public class Warrior : MonoBehaviour
     {
         get
         {
-            Expression exp = new Expression(template.attackDistanceExpression);
-            exp.Parameters["power"] = power;
-            exp.Parameters["agi"] = agility;
-            exp.Parameters["str"] = strong;
-            exp.Parameters["int"] = intelligence;
-            return (float)Convert.ToDouble(exp.Evaluate());
+            return CalcExpression(template.attackDistanceExpression);
         }
     }
 
@@ -214,7 +217,6 @@ public class Warrior : MonoBehaviour
             }
         }
     }
-    public float attackSpeed;
 
     public bool isAttacker;
     //状态
@@ -235,9 +237,11 @@ public class Warrior : MonoBehaviour
             }
             m_attackState = value;
             SkeletonAnimation animation = this.GetComponent<SkeletonAnimation>();
+            SkeletonData data = animation.state.Data.SkeletonData;
             if (m_attackState==AttackState.Attack)
             {
-                animation.state.SetAnimation(1, "attack", false).timeScale = 3;
+                Spine.Animation ani = data.FindAnimation("attack");
+                animation.state.SetAnimation(1, ani, false).TimeScale = template.animationDic["idle"].duration / ani.Duration * attackSpeed;
             }
             else
             {
@@ -266,17 +270,21 @@ public class Warrior : MonoBehaviour
             }
             m_moveState = value;
             SkeletonAnimation animation = this.GetComponent<SkeletonAnimation>();
+            SkeletonData data = animation.state.Data.SkeletonData;
             if (m_moveState == MoveState.Idle)
             {
-                animation.state.SetAnimation(0, "idle", true);
+                Spine.Animation ani = data.FindAnimation("idle");
+                animation.state.SetAnimation(0, ani, true).TimeScale = template.animationDic["idle"].duration / ani.Duration * attackSpeed;
             }
             else if (m_moveState == MoveState.Move)
             {
-                animation.state.SetAnimation(0, "move", true);
+                Spine.Animation ani = data.FindAnimation("move");
+                animation.state.SetAnimation(0, ani, true).TimeScale = template.animationDic["idle"].duration / ani.Duration * attackSpeed;
             }
             else if (m_moveState == MoveState.KnockBack)
             {
-                animation.state.SetAnimation(0, "knockback", false);
+                Spine.Animation ani = data.FindAnimation("knockback");
+                animation.state.SetAnimation(0, ani, false).TimeScale = template.animationDic["idle"].duration / ani.Duration * attackSpeed;
             }
         }
     }
@@ -300,6 +308,17 @@ public class Warrior : MonoBehaviour
             }
         }
     }
+
+    float CalcExpression(string expression)
+    {
+        Expression exp = new Expression(expression);
+        exp.Parameters["pow"] = power;
+        exp.Parameters["agi"] = agility;
+        exp.Parameters["str"] = strong;
+        exp.Parameters["int"] = intelligence;
+        return (float)Convert.ToDouble(exp.Evaluate());
+    }
+
     //满状态
     public void Reset()
     {
@@ -342,6 +361,9 @@ public class Warrior : MonoBehaviour
             isAttacker = m_warriorData.isAttacker;
             template = WarriorTemplateManager.Instance.Get(warriorData.template);
             transform.localPosition = new Vector3(warriorData.x, BattleField.Instance.mapData.floorHeight + template.height, -10);
+            BoxCollider collider = this.GetComponent<BoxCollider>();
+            collider.size = new Vector3(template.colliderWidth, template.colliderHeight, 100);
+            collider.center = new Vector3(template.colliderCenterX, template.colliderCenterY, 0);
             if (template.name=="Fighter")
             {
                 canAttackMove = true;

@@ -18,6 +18,7 @@ public class BagDataMrg : Inventory
                 XmlSerializer xs = new XmlSerializer(typeof(BagDataMrg));
                 FileStream fs = new FileStream(Config.BaseDataPath + m_sConfigFile, FileMode.Open);
                 m_instance = xs.Deserialize(fs) as BagDataMrg;
+                fs.Close();
 				if (m_instance == null)
 				{
 					Debug.Log("Empty config.");
@@ -56,6 +57,7 @@ public class BagDataMrg : Inventory
         XmlSerializer xs=new XmlSerializer(typeof(BagDataMrg));
         FileStream fs = new FileStream(Config.BaseDataPath + m_sConfigFile, FileMode.OpenOrCreate);
         xs.Serialize(fs, this);
+        fs.Close();
 	}
 
 

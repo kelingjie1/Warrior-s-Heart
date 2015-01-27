@@ -30,7 +30,7 @@ public class UIChapterPage : BasePage
         XmlSerializer xs = new XmlSerializer(typeof(BagDataMrg));
         FileStream fs = new FileStream(Config.BaseDataPath + ChapterDataMgr.m_sConfigFile, FileMode.OpenOrCreate);
         xs.Serialize(fs, ChapterDataMgr.Instance);
-
+        fs.Close();
 		foreach (Section chapter in ChapterDataMgr.Instance.chapters)
 		{
 			Debug.Log(chapter.title);

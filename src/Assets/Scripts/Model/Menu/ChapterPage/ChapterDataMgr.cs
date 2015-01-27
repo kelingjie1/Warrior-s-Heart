@@ -24,6 +24,7 @@ public class ChapterDataMgr
                 XmlSerializer xs = new XmlSerializer(typeof(BagDataMrg));
                 FileStream fs = new FileStream(Config.BaseDataPath + m_sConfigFile, FileMode.Open);
                 m_instance = xs.Deserialize(fs) as ChapterDataMgr;
+                fs.Close();
 				if (m_instance == null)
 				{
 					Debug.Log("Empty config.");
