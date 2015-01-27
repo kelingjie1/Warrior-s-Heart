@@ -99,7 +99,7 @@
   <maxHPExpression>500+str*4</maxHPExpression>
   <maxMoveSpeedExpression>5</maxMoveSpeedExpression>
   <accelerationExpression>50</accelerationExpression>
-  <attackDistanceExpression>200</attackDistanceExpression>
+  <attackDistanceExpression>150</attackDistanceExpression>
   <skillList>
     <string>IamFighter</string>
   </skillList>
