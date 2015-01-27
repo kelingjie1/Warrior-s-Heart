@@ -62,13 +62,13 @@ namespace MapEditor
             //否则直接返回strPath2
             return dest;
         }
-        int GameY(int y)
+        float GameY(float y)
         {
-            return (int)map.Height - y;
+            return (float)map.Height - y;
         }
-        int EditorY(int y)
+        float EditorY(float y)
         {
-            return (int)map.Height - y;
+            return (float)map.Height - y;
         }
 
         void SaveSetting()
@@ -100,6 +100,7 @@ namespace MapEditor
             imageDir.Text = ele.InnerText;
             ele = (XmlElement)root.GetElementsByTagName("WarriorDir").Item(0);
             warriorDir.Text = ele.InnerText;
+            WarriorTemplateManager.Instance.path = warriorDir.Text;
             ele = (XmlElement)root.GetElementsByTagName("MapDir").Item(0);
             mapDir.Text = ele.InnerText;
         }
@@ -129,6 +130,7 @@ namespace MapEditor
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 warriorDir.Text = dialog.SelectedPath;
+                WarriorTemplateManager.Instance.path = warriorDir.Text + "\\";
             }
             SaveSetting();
         }
@@ -174,66 +176,19 @@ namespace MapEditor
             XmlSerializer xs = new XmlSerializer(typeof(MapData));
             FileStream fs = new FileStream(path, FileMode.Open);
             MapData mapData = xs.Deserialize(fs) as MapData;
+            fs.Close();
             mapWidth.Text = mapData.width.ToString();
             mapFloorHeight.Text = mapData.floorHeight.ToString();
-            foreach (AdornmentData adornment in mapData.adormentList)
+            foreach (AdornmentData adornment in mapData.adormentDataList)
             {
                 Image obj = createObj();
                 obj.Tag = adornment;
                 UpdateUI(obj);
             }
-            foreach (WarriorData warrior in mapData.warriorList)
+            foreach (WarriorData warrior in mapData.warriorDataList)
             {
                 Image obj = createObj();
                 obj.Tag = warrior;
-                UpdateUI(obj);
-            }
-            return;
-            XmlDocument doc = new XmlDocument();
-            doc.Load(path);
-            XmlElement root = doc.DocumentElement;
-            XmlElement ele = root.GetElementsByTagName("Width").Item(0) as XmlElement;
-            mapWidth.Text = ele.InnerText;
-            ele = root.GetElementsByTagName("FloorHeight").Item(0) as XmlElement;
-            mapFloorHeight.Text = ele.InnerText;
-
-            XmlElement adornmentNode = root.GetElementsByTagName("Adornment").Item(0) as XmlElement;
-            foreach (XmlElement item in adornmentNode.ChildNodes)
-            {
-                Image obj = createObj();
-                AdornmentData adornment = new AdornmentData();
-                obj.Tag = adornment;
-                adornment.name = item.Name;
-                adornment.image = item.GetAttribute("Image");
-                adornment.x = int.Parse(item.GetAttribute("X"));
-                adornment.y = int.Parse(item.GetAttribute("Y"));
-                adornment.width = int.Parse(item.GetAttribute("Width"));
-                adornment.height = int.Parse(item.GetAttribute("Height"));
-                bool.TryParse(item.GetAttribute("Locked"), out adornment.locked);
-                UpdateUI(obj);
-            }
-            XmlElement warriorNode = root.GetElementsByTagName("Warrior").Item(0) as XmlElement;
-            foreach (XmlElement item in warriorNode.ChildNodes)
-            {
-                Image obj = createObj();
-                WarriorData warrior = new WarriorData();
-                obj.Tag = warrior;
-                warrior.name = item.Name;
-                bool.TryParse(item.GetAttribute("IsAttacker"), out warrior.isAttacker);
-                warrior.path = item.GetAttribute("WarriorTemplate");
-                if (!warrior.path.Equals(""))
-                {
-                    warrior.template = new WarriorTemplate(warriorDir.Text + "\\" + warrior.path);
-                }
-                warrior.x = int.Parse(item.GetAttribute("X"));
-                warrior.powerPoint = int.Parse(item.GetAttribute("PowerPoint"));
-                warrior.agilityPoint = int.Parse(item.GetAttribute("AgilityPoint"));
-                warrior.strongPoint = int.Parse(item.GetAttribute("StrongPoint"));
-                warrior.intelligencePoint = int.Parse(item.GetAttribute("IntelligencePoint"));
-
-                warrior.guardingDistance = int.Parse(item.GetAttribute("GuardingDistance"));
-
-                bool.TryParse(item.GetAttribute("Locked"), out warrior.locked);
                 UpdateUI(obj);
             }
 
@@ -334,6 +289,7 @@ namespace MapEditor
             Image obj = createObj();
             AdornmentData adornment = new AdornmentData();
             obj.Tag = adornment;
+            chooseObj = obj;
             UpdateUI(obj);
         }
 
@@ -342,6 +298,7 @@ namespace MapEditor
             Image obj = createObj();
             WarriorData warrior = new WarriorData();
             obj.Tag = warrior;
+            chooseObj = obj;
             UpdateUI(obj);
         }
 
@@ -409,11 +366,12 @@ namespace MapEditor
             }
             else if (warrior != null)
             {
-                if (warrior.template != null)
+                if (!string.IsNullOrEmpty(warrior.template))
                 {
-                    obj.Source = new BitmapImage(new Uri(imageDir.Text + "\\" + warrior.template.image));
-                    obj.Width = warrior.template.width;
-                    obj.Height = warrior.template.height;
+                    WarriorTemplate template = WarriorTemplateManager.Instance.Get(warrior.template);
+                    obj.Source = new BitmapImage(new Uri(imageDir.Text + "\\Warrior\\" + template.resource + ".png"));
+                    obj.Width = template.width;
+                    obj.Height = template.height;
                     if (warrior.isAttacker)
                     {
                         obj.LayoutTransform = new ScaleTransform(1, 1);
@@ -433,7 +391,7 @@ namespace MapEditor
                 {
                     tabControl.SelectedIndex = 1;
                     warriorName.Text = warrior.name;
-                    warriorTemplate.Text = warrior.path;
+                    warriorTemplate.Text = warrior.template;
                     warriorGuardingDistance.Text = warrior.guardingDistance.ToString();
                     warriorX.Text = warrior.x.ToString();
                     warriorPowerPoint.Text = warrior.powerPoint.ToString();
@@ -518,12 +476,11 @@ namespace MapEditor
             dialog.InitialDirectory = (new Uri(warriorDir.Text)).AbsoluteUri;
             if (dialog.ShowDialog() == true)
             {
-                warriorTemplate.Text = GetRelativePath(warriorDir.Text, dialog.FileName);
+                warriorTemplate.Text = dialog.SafeFileName;
                 if (chooseObj != null && chooseObj.Tag as WarriorData != null)
                 {
                     WarriorData warrior = chooseObj.Tag as WarriorData;
-                    warrior.path = warriorTemplate.Text;
-                    warrior.template = new WarriorTemplate(dialog.FileName);
+                    warrior.template = warriorTemplate.Text;
                 }
                 UpdateUI(chooseObj);
             }
@@ -572,7 +529,7 @@ namespace MapEditor
                 else if (obj.Tag as AdornmentData != null)
                 {
                     AdornmentData adornment = obj.Tag as AdornmentData;
-                    mapData.adormentList.Add(adornment);
+                    mapData.adormentDataList.Add(adornment);
                 }
             }
             foreach (UIElement ele in map.Children)
@@ -585,7 +542,7 @@ namespace MapEditor
                 else if (obj.Tag as WarriorData != null)
                 {
                     WarriorData warrior = obj.Tag as WarriorData;
-                    mapData.warriorList.Add(warrior);
+                    mapData.warriorDataList.Add(warrior);
 
                 }
             }
@@ -600,9 +557,10 @@ namespace MapEditor
                 }
                 currentFilePath.Text = dialog.FileName;
             }
-            FileStream fs = new FileStream(currentFilePath.Text, FileMode.OpenOrCreate);
+            FileStream fs = new FileStream(currentFilePath.Text, FileMode.Create);
             XmlSerializer xs = new XmlSerializer(typeof(MapData));
             xs.Serialize(fs, mapData);
+            fs.Close();
         }
 
         private void isAttacker_Checked(object sender, RoutedEventArgs e)

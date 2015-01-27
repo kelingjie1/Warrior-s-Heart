@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <WarriorTemplate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <name>Fighter</name>
-  <catogory>Melee</catogory>
-  <resource>Fighter</resource>
+  <name>Wizard</name>
+  <catogory>Magic</catogory>
+  <resource>Wizard</resource>
   <width>100</width>
   <height>100</height>
   <colliderWidth>0</colliderWidth>

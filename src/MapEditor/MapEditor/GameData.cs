@@ -70,7 +70,6 @@ public class WarriorData : ObjDataBase
     public bool isAttacker;
     public string template;
     public float x;
-    public string path;
     public float guardingDistance;
     public int powerPoint;
     public int agilityPoint;
@@ -118,8 +117,8 @@ public class WarriorTemplateManager
         }
     }
     public string path;
-    Dictionary<string, WarriorTemplate> warriorTemplateDic = new Dictionary<string, WarriorTemplate>();
-    WarriorTemplate Get(string templateName)
+    public Dictionary<string, WarriorTemplate> warriorTemplateDic = new Dictionary<string, WarriorTemplate>();
+    public WarriorTemplate Get(string templateName)
     {
         if (warriorTemplateDic.ContainsKey(templateName))
         {
@@ -130,12 +129,13 @@ public class WarriorTemplateManager
             return LoadFromFile(templateName);
         }
     }
-    WarriorTemplate LoadFromFile(string templateName)
+    public WarriorTemplate LoadFromFile(string templateName)
     {
         XmlSerializer xs = new XmlSerializer(typeof(WarriorTemplate));
-        FileStream fs = new FileStream(path + templateName, FileMode.Open);
+        FileStream fs = new FileStream(path + "\\" + templateName, FileMode.Open);
         WarriorTemplate wt = xs.Deserialize(fs) as WarriorTemplate;
         warriorTemplateDic.Add(wt.name, wt);
+        fs.Close();
         return wt;
     }
 }

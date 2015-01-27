@@ -29,6 +29,20 @@ namespace WarriorEditor
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
+            if (filePath.Text=="")
+            {
+                SaveFileDialog dialog = new SaveFileDialog();
+                dialog.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                if (dialog.ShowDialog()==true)
+                {
+                    filePath.Text = dialog.FileName;
+                }
+                else
+                {
+                    return;
+                }
+            }
+
             WarriorTemplate wt = new WarriorTemplate();
             try
             {
@@ -70,6 +84,7 @@ namespace WarriorEditor
                 XmlSerializer xs = new XmlSerializer(typeof(WarriorTemplate));
                 FileStream fs = new FileStream(filePath.Text, FileMode.Create);
                 xs.Serialize(fs, wt);
+                fs.Close();
             }
             catch (Exception ex)
             {
@@ -100,6 +115,7 @@ namespace WarriorEditor
             XmlSerializer xs = new XmlSerializer(typeof(WarriorTemplate));
             FileStream fs = new FileStream(filePath.Text, FileMode.Open);
             WarriorTemplate wt = xs.Deserialize(fs) as WarriorTemplate;
+            fs.Close();
 
             name.Text = wt.name;
             category.Text = wt.catogory;
