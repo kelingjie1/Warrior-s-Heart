@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Xml;
 using Spine;
 using game_proto;
+using NCalc;
+using System;
 public enum AttackState
 {
     None,
@@ -122,7 +124,7 @@ public class Warrior : MonoBehaviour
     {
         get
         {
-            return warriorData.template.hitDelay / AttackSpeedMultiple;
+            return template.hitDelay / AttackSpeedMultiple;
         }
     }
     public float attackInterval
@@ -171,7 +173,12 @@ public class Warrior : MonoBehaviour
     {
         get
         {
-            return warriorData.template.attackDistance;
+            Expression exp = new Expression(template.attackDistanceExpression);
+            exp.Parameters["power"] = power;
+            exp.Parameters["agi"] = agility;
+            exp.Parameters["str"] = strong;
+            exp.Parameters["int"] = intelligence;
+            return (float)Convert.ToDouble(exp.Evaluate());
         }
     }
 
@@ -320,6 +327,7 @@ public class Warrior : MonoBehaviour
         }
 		
 	}
+    WarriorTemplate template;
     WarriorData m_warriorData;
     public WarriorData warriorData
     {
@@ -332,9 +340,9 @@ public class Warrior : MonoBehaviour
             m_warriorData = value;
             name = m_warriorData.name;
             isAttacker = m_warriorData.isAttacker;
-            transform.localPosition = new Vector3(warriorData.x, BattleField.Instance.mapData.floorHeight + 100, -10);
-
-            if (warriorData.template.category.Equals("Fighter"))
+            template = WarriorTemplateManager.Instance.Get(warriorData.template);
+            transform.localPosition = new Vector3(warriorData.x, BattleField.Instance.mapData.floorHeight + template.height, -10);
+            if (template.name=="Fighter")
             {
                 canAttackMove = true;
 
@@ -353,9 +361,19 @@ public class Warrior : MonoBehaviour
                 BattleField.Instance.RegisterEvent(BattleEventType.DidFinishAttack, didfinishattack);
             }
 
+            warriorItem = new WarriorItem();
+            warriorItem.power_grow = 1;
+            warriorItem.agility_grow = 1;
+            warriorItem.strong_grow = 1;
+            warriorItem.intelligence_grow = 1;
+            warriorItem.power_point = warriorData.powerPoint;
+            warriorItem.agility_point = warriorData.agilityPoint;
+            warriorItem.strong_point = warriorData.strongPoint;
+            warriorItem.intelligence_point = warriorData.intelligencePoint;
+
             SkeletonAnimation animation = this.GetComponent<SkeletonAnimation>();
             //"Animation/" + template.category + "_skel"
-            animation.skeletonDataAsset = Resources.Load("Animation/" + warriorData.template.category + "_skel") as SkeletonDataAsset;
+            animation.skeletonDataAsset = Resources.Load("Animation/" + template.name + "_skel") as SkeletonDataAsset;
             animation.Reset();
             Reset();
 
@@ -367,36 +385,6 @@ public class Warrior : MonoBehaviour
         return ResourceManager.Load("Prefab/Game/Warrior").GetComponent<Warrior>();
     }
 
-//     public void TestMelee()
-//     {
-//         //近战
-//         knockback = 2f;
-//         maxMoveSpeed = 1.0f;
-//         acceleration = 1f;
-//         attackDistance = 100;
-//         hitDelay = 0.3f;
-//         attackInterval = 1;
-//         canAttackMove = true;
-//         this.FindHitTargetHandler.Add(new FindHitTargetHandler_Base());
-//         DidFinishAttackHandler_Melee_Base didfinishattack = new DidFinishAttackHandler_Melee_Base();
-//         didfinishattack.owner = this;
-//         BattleField.Instance.RegisterEvent(BattleEventType.DidFinishAttack, didfinishattack);
-//     }
-//     public void TestRemote()
-//     {
-//         //远程
-//         knockback = 5f;
-//         maxMoveSpeed = 1.0f;
-//         acceleration = 1f;
-//         attackDistance = 700;
-//         hitDelay = 0.3f;
-//         attackInterval = 2;
-//         canAttackMove = false;
-//         this.FindHitTargetHandler.Add(new FindHitTargetHandler_Base());
-//         DidFinishAttackHandler_Remote_Base didfinishattack = new DidFinishAttackHandler_Remote_Base();
-//         didfinishattack.owner = this;
-//         BattleField.Instance.RegisterEvent(BattleEventType.DidFinishAttack, didfinishattack);
-//     }
     void Awake()
     {
 

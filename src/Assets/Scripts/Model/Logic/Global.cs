@@ -30,6 +30,7 @@ public class Global
     static void SetupOnceWhenAwake()
     {
         NetworkManager.Instance.useFakeData = true;
+        WarriorTemplateManager.Instance.path = Config.WarriorPath;
         UILabel label=ResourceManager.Load("Prefab/BaseLabel").GetComponent<UILabel>();
         Arial = label.trueTypeFont;
         GameObject.Destroy(label.gameObject);

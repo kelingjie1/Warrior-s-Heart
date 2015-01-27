@@ -125,8 +125,8 @@ public class BattleField : MonoBehaviour
             obj.name = adormentData.name;
             obj.mainTexture = ResourceManager.LoadTexture(Config.ImagePath + adormentData.image);
             obj.transform.localPosition = new Vector3(adormentData.x, adormentData.y, 0);
-            obj.width = adormentData.width;
-            obj.height = adormentData.height;
+            obj.width = (int)adormentData.width;
+            obj.height = (int)adormentData.height;
         }
         foreach (WarriorData warriorData in mapData.warriorDataList)
         {
