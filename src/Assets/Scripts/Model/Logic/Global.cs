@@ -7,7 +7,36 @@ public class Global
     public static bool alreadySetupWhenAwake = false;
     public static bool alreadySetupWhenStart = false;
 
+
+    //Path
+    public static string StorageDataPath;
+
+    public static string DownloadPath;
+    public static string WarriorPath;
+    public static string ImagePath;
+    public static string MapPath;
+
+    public static string UserDataPath;
+
+
     public static Font Arial;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
     public static void SceneAwake()
     {
         if (!alreadySetupWhenAwake)
@@ -29,11 +58,36 @@ public class Global
 
     static void SetupOnceWhenAwake()
     {
+        if (Config.userLocalResource)
+        {
+            StorageDataPath = Application.dataPath + "/../../UserStorage/";
+        }
+        else
+        {
+            StorageDataPath = Application.persistentDataPath + "/";
+        }
+        DownloadPath = StorageDataPath + "Download/";
+        WarriorPath = DownloadPath + "Config/Warrior/";
+        ImagePath = DownloadPath + "Resources/";
+        MapPath = DownloadPath + "Config/Map/";
+
+
+        UserDataPath = StorageDataPath + "UserData/";
+
+
+
+
+
+
+
         NetworkManager.Instance.useFakeData = false;
-        WarriorTemplateManager.Instance.path = Config.WarriorPath;
+        
         UILabel label=ResourceManager.Load("Prefab/BaseLabel").GetComponent<UILabel>();
         Arial = label.trueTypeFont;
         GameObject.Destroy(label.gameObject);
+
+
+        WarriorTemplateManager.Instance.path = Global.WarriorPath;
     }
 
     static void SetupEverySceneWhenAwake()
@@ -57,10 +111,6 @@ public class Global
         NetworkManager.Instance.Update();
     }
 
-
-    /// <summary>
-    /// ///////////////////////////////////////////////////////////////////////////////////////////////////
-    /// </summary>
 
 
 }

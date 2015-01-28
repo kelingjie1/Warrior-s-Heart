@@ -111,7 +111,7 @@ public class BattleField : MonoBehaviour
     }
     void LoadMap()
     {
-        string path = Config.MapPath + "1-1";
+        string path = Global.MapPath + "1-1";
         XmlSerializer xs = new XmlSerializer(typeof(MapData));
         FileStream fs = new FileStream(path, FileMode.Open);
         mapData = xs.Deserialize(fs) as MapData;
@@ -124,7 +124,7 @@ public class BattleField : MonoBehaviour
         {
             UITexture obj = CreateAdorment();
             obj.name = adormentData.name;
-            obj.mainTexture = ResourceManager.LoadTexture(Config.ImagePath + adormentData.image);
+            obj.mainTexture = ResourceManager.LoadTexture(Global.ImagePath + adormentData.image);
             obj.transform.localPosition = new Vector3(adormentData.x, adormentData.y, 0);
             obj.width = (int)adormentData.width;
             obj.height = (int)adormentData.height;

@@ -9,7 +9,7 @@ public class ItemBagDataMrg : BagItems
 {
 	public static ItemBagDataMrg m_instance;
 	
-	public static string m_sConfigFile = @"Download\Config\Item\AllItem.xml";
+	public static string m_sConfigFile = "Config/Item/AllItem.xml";
 	
 	public static ItemBagDataMrg Instance
 	{
@@ -18,7 +18,7 @@ public class ItemBagDataMrg : BagItems
 			if (m_instance == null)
 			{
                 XmlSerializer xs = new XmlSerializer(typeof(BagDataMrg));
-                FileStream fs = new FileStream(Config.BaseDataPath + m_sConfigFile, FileMode.Open);
+                FileStream fs = new FileStream(Global.DownloadPath + m_sConfigFile, FileMode.Open);
 				m_instance = xs.Deserialize(fs) as ItemBagDataMrg;
                 fs.Close();
 				if (m_instance == null)
@@ -60,7 +60,7 @@ public class ItemBagDataMrg : BagItems
 
 		Debug.Log("Save Xml.");
         XmlSerializer xs = new XmlSerializer(typeof(ItemBagDataMrg));
-        FileStream fs = new FileStream(Config.BaseDataPath + m_sConfigFile, FileMode.OpenOrCreate);
+        FileStream fs = new FileStream(Global.DownloadPath + m_sConfigFile, FileMode.OpenOrCreate);
         xs.Serialize(fs, this);
         fs.Close();
 	}

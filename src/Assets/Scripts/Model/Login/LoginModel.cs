@@ -15,7 +15,6 @@ public class LoginModel
 		EventManager.Instance.RegisterEvent(EventDefine.LoginServerComplete, OnLoginServerSuccess);
 		EventManager.Instance.RegisterEvent(EventDefine.ErrorCodeReply, OnErrorCodeReply);
 		EventManager.Instance.RegisterEvent (EventDefine.UpdateAppComplete, OnUpdateAppRsp);
-		downloadFolder = Application.persistentDataPath + "/";
 	}
 
 	/************************************************************
@@ -71,14 +70,14 @@ public class LoginModel
 
 		// download resource files
 		if (!string.IsNullOrEmpty(response.resource_url)) {
-			string download_path =  downloadFolder + "Resouce.zip";
+			string download_path =  Global.DownloadPath + "Resources.zip";
 			Debug.Log("save_path:" + download_path);
 			DownloadTool.StartDownload(download_path, response.resource_url, OnDownloadCallback);
 		}
 
 		// download config files
 		if (!string.IsNullOrEmpty(response.config_url)) {
-			string download_path =  downloadFolder + "Config.zip";
+			string download_path =  Global.DownloadPath + "Config.zip";
 			Debug.Log("save_path:" + download_path);
 			DownloadTool.StartDownload(download_path, response.config_url, OnDownloadCallback);
 		}		
@@ -89,7 +88,6 @@ public class LoginModel
 	 ****************************************************/
 	public float DownloadPercent { get; set; }
 	public int   DownloadState { get; set; }   // 0:downloading, 1:success, 2:failed
-	string downloadFolder;
 	void OnDownloadCallback(DownloadTool download)
 	{
 		// Downloading
@@ -138,7 +136,7 @@ public class LoginModel
 			ZipEntry theEntry;
 			while ((theEntry = s.GetNextEntry()) != null)
 			{
-				string directoryName = downloadFolder + Path.GetDirectoryName(theEntry.Name);
+				string directoryName = Global.DownloadPath + Path.GetDirectoryName(theEntry.Name);
 				string fileName      = Path.GetFileName(theEntry.Name);
 				string fullPath      = directoryName + "/" + fileName;
 			

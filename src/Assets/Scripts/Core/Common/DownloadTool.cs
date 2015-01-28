@@ -16,6 +16,7 @@ public class DownloadTool
 
 	private DownloadTool(string saveFileName, string url, Action<DownloadTool> callbackUpdate)
 	{
+        Directory.CreateDirectory(Directory.GetParent(saveFileName).FullName);
 		SaveFileName = saveFileName;
 		DownloadUrl  = url;
 		m_updateHandler = callbackUpdate;
@@ -60,19 +61,21 @@ public class DownloadTool
 				m_downloadedSize += nReadSize;
 				m_updateHandler(this);
 			}
-			fs.Close();
-			net_stream.Close();
-			
+            net_stream.Close();
 			IsDone = true;
 			m_updateHandler(this);
 		}
 		catch (Exception ex)
 		{
 			IsDone = true;
-			fs.Close();
 			Error = ex.ToString();
 			m_updateHandler(this);
 		}
+        finally
+        {
+            fs.Close();
+            
+        }
 	}
 	
 	public float Percent

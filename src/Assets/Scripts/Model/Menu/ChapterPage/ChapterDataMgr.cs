@@ -9,7 +9,7 @@ public class ChapterDataMgr
 {
 	private static ChapterDataMgr m_instance;
 
-	public static string m_sConfigFile = @"/Download/Config/Level.xml";
+	public static string m_sConfigFile = "Config/Level.xml";
 
 	[XmlIgnore]
 	private Dictionary<DataType, Dictionary<DataSubType, List<string> > > bagItemClassify 
@@ -21,8 +21,8 @@ public class ChapterDataMgr
 		{
 			if (m_instance == null)
 			{
-                XmlSerializer xs = new XmlSerializer(typeof(BagDataMrg));
-                FileStream fs = new FileStream(Config.BaseDataPath + m_sConfigFile, FileMode.Open);
+                XmlSerializer xs = new XmlSerializer(typeof(ChapterDataMgr));
+                FileStream fs = new FileStream(Global.DownloadPath + m_sConfigFile, FileMode.Open);
                 m_instance = xs.Deserialize(fs) as ChapterDataMgr;
                 fs.Close();
 				if (m_instance == null)

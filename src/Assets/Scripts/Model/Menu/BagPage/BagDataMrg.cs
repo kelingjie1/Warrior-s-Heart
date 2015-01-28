@@ -7,7 +7,7 @@ public class BagDataMrg : Inventory
 {
 	private static BagDataMrg m_instance;
 
-	public static string m_sConfigFile = @"/UserData/user1/inventory.xml";
+    public static string m_sConfigFile = "user1/inventory.xml";
  
 	public static BagDataMrg Instance
 	{
@@ -16,7 +16,7 @@ public class BagDataMrg : Inventory
 			if (m_instance == null)
 			{
                 XmlSerializer xs = new XmlSerializer(typeof(BagDataMrg));
-                FileStream fs = new FileStream(Config.BaseDataPath + m_sConfigFile, FileMode.Open);
+                FileStream fs = new FileStream(Global.UserDataPath + m_sConfigFile, FileMode.Open);
                 m_instance = xs.Deserialize(fs) as BagDataMrg;
                 fs.Close();
 				if (m_instance == null)
@@ -55,7 +55,7 @@ public class BagDataMrg : Inventory
 	{
 		Debug.Log("Save Xml.");
         XmlSerializer xs=new XmlSerializer(typeof(BagDataMrg));
-        FileStream fs = new FileStream(Config.BaseDataPath + m_sConfigFile, FileMode.OpenOrCreate);
+        FileStream fs = new FileStream(Global.UserDataPath + m_sConfigFile, FileMode.OpenOrCreate);
         xs.Serialize(fs, this);
         fs.Close();
 	}
