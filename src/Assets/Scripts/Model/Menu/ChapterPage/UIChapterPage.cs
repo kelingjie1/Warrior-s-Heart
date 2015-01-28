@@ -27,10 +27,6 @@ public class UIChapterPage : BasePage
 
 
 		//chapterData
-//         XmlSerializer xs = new XmlSerializer(typeof(BagDataMrg));
-//         FileStream fs = new FileStream(Global.DownloadPath + ChapterDataMgr.m_sConfigFile, FileMode.OpenOrCreate);
-//         xs.Serialize(fs, ChapterDataMgr.Instance);
-//         fs.Close();
 		foreach (Section chapter in ChapterDataMgr.Instance.chapters)
 		{
 			Debug.Log(chapter.title);
