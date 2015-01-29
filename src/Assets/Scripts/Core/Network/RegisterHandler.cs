@@ -14,8 +14,7 @@ public sealed partial class NetworkManager
 		Debug.Log ("register loginrsp");
         RegisterHandler((int)MessageType.kMsgLoginRsp, LoginServerRspHandler);
 
-		Debug.Log ("register updateapprsp");
-        RegisterHandler((int)MessageType.kMsgUpdateAppRsp, UpdateAppRspHandler);
+        
 	}
 
     void LoginServerRspHandler(int opcode,byte[] data)
@@ -32,18 +31,5 @@ public sealed partial class NetworkManager
             Debug.Log("unkown reponse type");
         }
     }
-    void UpdateAppRspHandler(int opcode,byte[] data)
-    {
-        RspPackage response = ProtoManager.Deserialize<RspPackage>(data);
-        Debug.Log("UpdateAppRsp type:" + Convert.ToString(response.type));
-        if (response.type == (int)MessageType.kMsgUpdateAppRsp)
-        {
-            UpdateAppRsp updateAppRsp = ProtoManager.Deserialize<UpdateAppRsp>(response.body);
-            EventManager.Instance.SendEvent(EventDefine.UpdateAppComplete, 0, updateAppRsp);
-        }
-        else
-        {
-            Debug.Log("unkown reponse type");
-        }
-    }
+
 }

@@ -3,6 +3,7 @@ using System;
 using System.Net;
 using System.IO;
 using System.Threading;
+using UnityEngine;
 
 public class DownloadTool
 {
@@ -61,19 +62,21 @@ public class DownloadTool
 				m_downloadedSize += nReadSize;
 				m_updateHandler(this);
 			}
+            m_downloadedSize = m_totalFileSize;
             net_stream.Close();
 			IsDone = true;
-			m_updateHandler(this);
 		}
 		catch (Exception ex)
 		{
-			IsDone = true;
 			Error = ex.ToString();
-			m_updateHandler(this);
+            Debug.Log(Error);
+			
 		}
         finally
         {
             fs.Close();
+            m_updateHandler(this);
+            
             
         }
 	}

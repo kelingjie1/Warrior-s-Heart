@@ -1,8 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using game_proto;
 using ProtoBuf;
+using System;
+public enum FakeDataManagerMode
+{
+    UseOnlyFakeData,
+    UseFakeDataIfExist,
+}
 
+public delegate NetworkManager.NetPacket HandleReq(IExtensible req);
 public class FakeDataManager 
 {
     static FakeDataManager m_instance;
@@ -17,9 +25,37 @@ public class FakeDataManager
             return m_instance;
         }
     }
-
-    public void GetFakeDataAsync(IExtensible packet)
+    public FakeDataManagerMode mode;
+    public Dictionary<Type, HandleReq> packetDic = new Dictionary<Type, HandleReq>();
+    public bool IsHandlerExist(IExtensible packet)
     {
-        Debug.Log(packet.GetType());
+        Type type = packet.GetType();
+        if (packetDic.ContainsKey(type))
+        {
+            return true;
+        }
+        return false;
+    }
+    public bool SendFakeDataAsync(IExtensible packet)
+    {
+        if (IsHandlerExist(packet))
+        {
+            Type type = packet.GetType();
+            NetworkManager.Instance.AddPacketToQueue(packetDic[type](packet));
+            return true;
+        }
+        if (mode==FakeDataManagerMode.UseFakeDataIfExist)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    public void RegisterRsp(Type type, HandleReq func)
+    {
+        packetDic.Add(type, func);
     }
 }

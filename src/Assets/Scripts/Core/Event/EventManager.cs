@@ -16,9 +16,16 @@ public class EventParam
         Param4 = param4;
     }
 }
+
+public class EventFunction
+{
+    public EventManager.EventFunctionDelegate function;
+    public float SendTime;
+}
 public class EventManager
 {
     public delegate void EventDelegate(EventDefine define, object param1, object param2, object param3, object param4);
+    public delegate void EventFunctionDelegate();
 
     static EventManager instance;
     public static EventManager Instance
@@ -33,6 +40,7 @@ public class EventManager
 
     Dictionary<EventDefine, List<EventDelegate>> EventDic = new Dictionary<EventDefine, List<EventDelegate>>();
     List<EventParam> NextUpdateEvent = new List<EventParam>();
+    List<EventFunction> functionList = new List<EventFunction>();
 
     public void RegisterEvent(EventDefine define, EventDelegate func)
     {
@@ -90,15 +98,39 @@ public class EventManager
         List<EventParam> newNextUpdateEvent = new List<EventParam>();
         for (int i = 0; i < NextUpdateEvent.Count;i++ )
         {
-            if (NextUpdateEvent[i].SendTime <= Time.time)
+            if (NextUpdateEvent[i].SendTime <= Time.deltaTime)
             {
                 DellEvent(NextUpdateEvent[i].Define, NextUpdateEvent[i].Param1, NextUpdateEvent[i].Param2, NextUpdateEvent[i].Param3, NextUpdateEvent[i].Param4);
             }
             else
             {
+                NextUpdateEvent[i].SendTime -= Time.deltaTime;
                 newNextUpdateEvent.Add(NextUpdateEvent[i]);
             }
         }
         NextUpdateEvent = newNextUpdateEvent;
+
+        List<EventFunction> newFunctionList = new List<EventFunction>();
+        for (int i = 0; i < functionList.Count; i++)
+        {
+            if (functionList[i].SendTime<=Time.deltaTime)
+            {
+                functionList[i].function();
+            }
+            else
+            {
+                functionList[i].SendTime -= Time.deltaTime;
+                newFunctionList.Add(functionList[i]);
+            }
+        }
+        functionList = newFunctionList;
+    }
+
+    public void Invoke(EventFunctionDelegate func,float delay=0)
+    {
+       EventFunction eventfunc=new EventFunction();
+        eventfunc.SendTime = delay;
+        eventfunc.function = func;
+        functionList.Add(eventfunc);
     }
 }

@@ -10,7 +10,7 @@ using game_proto;
 public delegate void NetworkResponseDelegate(int opcode,byte[] data);
 public sealed partial class NetworkManager
 {
-	private class NetPacket
+	public class NetPacket
 	{
 		public Boolean Cancelled { get; set; }
 		public Exception Error { get; set; }
@@ -68,12 +68,8 @@ public sealed partial class NetworkManager
 	}
 	public void Send(IExtensible msg)
 	{
-        //if (useFakeData)
-        //{
-        //    FakeDataManager.Instance.GetFakeDataAsync(msg);
-        //}
-        //else
-        //{
+        if (!useFakeData || !FakeDataManager.Instance.SendFakeDataAsync(msg))
+        {
 			// header
 			ReqHeader header = new ReqHeader ();
 			header.mobile_info = SystemInfo.operatingSystem;
@@ -85,7 +81,7 @@ public sealed partial class NetworkManager
 			Debug.Log("msg_type:" + msg.GetType());
 			package.type = GetMsgType(msg.GetType().ToString());
 		    Send(ProtoManager.Serialize(package));
-        //}
+        }
 	}
 	void Send(byte[] packet)
 	{
@@ -158,16 +154,19 @@ public sealed partial class NetworkManager
                 else
                 {
                     Debug.Log("ret type:" + netPacket.Opcode);
-                    foreach (NetworkResponseDelegate func in m_delegateDic[netPacket.Opcode])
-                    {
-                        func(netPacket.Opcode, netPacket.Data);
-                    }
+                    DispatchPacket(netPacket.Opcode, netPacket.Data);
                 }
 				
 			}
 		}
 	}
-
+    public void DispatchPacket(int opcode,byte[] data)
+    {
+        foreach (NetworkResponseDelegate func in m_delegateDic[opcode])
+        {
+            func(opcode, data);
+        }
+    }
 	private int GetMsgType(string msg_type)
 	{
 		int ret_type = 0;
@@ -215,11 +214,16 @@ public sealed partial class NetworkManager
 			Debug.Log ("return opcode:" + opcodeStr);
 		}
 
-		lock (m_PacketQueue)
-		{
-			m_PacketQueue.Enqueue(new NetPacket(args.Cancelled, args.Error, opcode, args.Result));
-		}
+        AddPacketToQueue(new NetPacket(args.Cancelled, args.Error, opcode, args.Result));
 	}
+
+    public void AddPacketToQueue(NetPacket packet)
+    {
+        lock (m_PacketQueue)
+        {
+            m_PacketQueue.Enqueue(packet);
+        }
+    }
 	
 }
 
