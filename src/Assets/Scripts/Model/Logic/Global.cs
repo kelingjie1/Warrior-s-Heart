@@ -102,7 +102,15 @@ public class Global
 
     static void SetupEverySceneWhenStart()
     {
-        DebugPage.CreateDebugButton();
+        if (Config.showDebugButton)
+        {
+            DebugPage.CreateDebugButton();
+        }
+        if (Config.showLogOnScreen)
+        {
+            GameObject go = new GameObject("OutLog");
+            go.AddComponent<OutLog>();
+        }
     }
 
     public static void Update()
