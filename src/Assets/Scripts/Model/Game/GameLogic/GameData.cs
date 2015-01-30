@@ -132,7 +132,7 @@ public class WarriorTemplateManager
     public WarriorTemplate LoadFromFile(string templateName)
     {
         XmlSerializer xs = new XmlSerializer(typeof(WarriorTemplate));
-        FileStream fs = new FileStream(path + "\\" + templateName, FileMode.Open);
+        FileStream fs = new FileStream(path + templateName, FileMode.Open);
         WarriorTemplate wt = xs.Deserialize(fs) as WarriorTemplate;
         warriorTemplateDic.Add(wt.name, wt);
         fs.Close();
