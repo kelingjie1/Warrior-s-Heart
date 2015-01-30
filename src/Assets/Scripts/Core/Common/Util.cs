@@ -85,14 +85,20 @@ public class Util
     }
     public static string ConvertPath(string path)
     {
-#if UNITY_EDITOR
+#if UNITY_EDITOR_WIN
         return path.Replace('/', '\\');
 #elif UNITY_STANDALONE_WIN
         return path.Replace('/', '\\');
+#elif UNITY_EDITOR_OSX
+        return path.Replace('\\', '/');
+#elif UNITY_STANDALONE_OSX
+        return path.Replace('\\', '/');
 #elif UNITY_IPHONE
         return path.Replace('\\', '/');
 #elif UNITY_ANDROID
         return path.Replace('\\', '/');
+#else
+        return path;
 #endif
     }
 }
