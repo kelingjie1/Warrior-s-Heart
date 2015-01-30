@@ -10,108 +10,72 @@ Platform assembly: D:\Warrior-s-Heart\bin\game\win\Warrior_s_heart_Data\Managed\
 Loading D:\Warrior-s-Heart\bin\game\win\Warrior_s_heart_Data\Managed\UnityEngine.dll into Unity Child Domain
 Platform assembly: D:\Warrior-s-Heart\bin\game\win\Warrior_s_heart_Data\Managed\Assembly-CSharp.dll (this message is harmless)
 Loading D:\Warrior-s-Heart\bin\game\win\Warrior_s_heart_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: D:\Warrior-s-Heart\bin\game\win\Warrior_s_heart_Data\Managed\ICSharpCode.SharpZipLib.dll (this message is harmless)
+Loading D:\Warrior-s-Heart\bin\game\win\Warrior_s_heart_Data\Managed\ICSharpCode.SharpZipLib.dll into Unity Child Domain
 Platform assembly: D:\Warrior-s-Heart\bin\game\win\Warrior_s_heart_Data\Managed\DOTween.dll (this message is harmless)
 Loading D:\Warrior-s-Heart\bin\game\win\Warrior_s_heart_Data\Managed\DOTween.dll into Unity Child Domain
 Platform assembly: D:\Warrior-s-Heart\bin\game\win\Warrior_s_heart_Data\Managed\DOTween43.dll (this message is harmless)
 Loading D:\Warrior-s-Heart\bin\game\win\Warrior_s_heart_Data\Managed\DOTween43.dll into Unity Child Domain
-- Completed reload, in  0.117 seconds
+Platform assembly: D:\Warrior-s-Heart\bin\game\win\Warrior_s_heart_Data\Managed\Antlr3.Runtime.dll (this message is harmless)
+Loading D:\Warrior-s-Heart\bin\game\win\Warrior_s_heart_Data\Managed\Antlr3.Runtime.dll into Unity Child Domain
+- Completed reload, in  0.047 seconds
 <RI> Initializing input.
 <RI> Input initialized.
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 Platform assembly: D:\Warrior-s-Heart\bin\game\win\Warrior_s_heart_Data\Managed\System.dll (this message is harmless)
-hit
+register loginrsp
  
 (Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
 
-knock
+regiser opcode:2
  
 (Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
 
-hit
+Platform assembly: D:\Warrior-s-Heart\bin\game\win\Warrior_s_heart_Data\Managed\System.Xml.dll (this message is harmless)
+DOTWEEN :: DOTween auto-initialized with default settings (recycleAllByDefault: False, useSafeMode: True, logBehaviour: ErrorsOnly). Call DOTween.Init before creating your first tween in order to choose the settings yourself
  
 (Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
 
-knock
+You can't place widgets on a layer different than the UIPanel that manages them.
+If you want to move widgets to a different layer, parent them to a new panel instead.
  
 (Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
 
-hit
+regiser opcode:4
  
 (Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
 
-knock
+msg_type:game_proto.UpdateAppReq
  
 (Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
 
-hit
+Send packet:+)Windows 7 Service Pack 1 (6.1.7601) 64bit
+1.01.01.0
  
 (Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
 
-knock
+Platform assembly: D:\Warrior-s-Heart\bin\game\win\Warrior_s_heart_Data\Managed\Mono.Security.dll (this message is harmless)
+return opcode:4
  
 (Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
 
-hit
+ret type:4
  
 (Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
 
-knock
+UpdateAppRsp type:4
  
 (Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
 
-hit
+app_version: config_verson:http://182.254.202.167:8080/download/Config.zip resource_version:http://182.254.202.167:8080/download/Resources.zip
  
 (Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
 
-knock
+save_path:C:/Users/lingtonke/AppData/LocalLow/KLJ/Warrior_s Heart/Download/Resources.zip
  
 (Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
 
-hit
- 
-(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
-
-knock
- 
-(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
-
-hit
- 
-(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
-
-knock
- 
-(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
-
-hit
- 
-(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
-
-knock
- 
-(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
-
-hit
- 
-(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
-
-knock
- 
-(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
-
-hit
- 
-(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
-
-knock
- 
-(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
-
-hit
- 
-(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
-
-knock
+save_path:C:/Users/lingtonke/AppData/LocalLow/KLJ/Warrior_s Heart/Download/Config.zip
  
 (Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
 
