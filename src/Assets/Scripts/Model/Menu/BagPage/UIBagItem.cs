@@ -7,7 +7,7 @@ public class UIBagItem : MonoBehaviour {
 	{
 		get
 		{
-			return ResourceManager.Load("Prefab/Menu/BagPage/BagItem").GetComponent<UIBagItem>();
+			return ResourceManager.LoadGameObject("Prefab/Menu/BagPage/BagItem").GetComponent<UIBagItem>();
 		}
 	}
 

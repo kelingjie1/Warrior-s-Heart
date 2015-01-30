@@ -7,7 +7,7 @@ public class UIEntryDialog : BasePage {
 	{
 		get
 		{
-			return ResourceManager.Load("Prefab/Menu/ChapterPage/EntryDialog").GetComponent<UIEntryDialog>();
+			return ResourceManager.LoadGameObject("Prefab/Menu/ChapterPage/EntryDialog").GetComponent<UIEntryDialog>();
 		}
 	}
 

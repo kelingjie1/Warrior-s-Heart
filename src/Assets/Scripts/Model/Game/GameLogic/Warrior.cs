@@ -392,7 +392,7 @@ public class Warrior : MonoBehaviour
 
             SkeletonAnimation animation = this.GetComponent<SkeletonAnimation>();
             //"Animation/" + template.category + "_skel"
-            animation.skeletonDataAsset = Resources.Load("Animation/" + template.name + "_skel") as SkeletonDataAsset;
+            animation.skeletonDataAsset = ResourceManager.Load("Animation/" + template.name + "_skel") as SkeletonDataAsset;
             animation.Reset();
             Reset();
 
@@ -401,7 +401,7 @@ public class Warrior : MonoBehaviour
 
     public static Warrior Create()
     {
-        return ResourceManager.Load("Prefab/Game/Warrior").GetComponent<Warrior>();
+        return ResourceManager.LoadGameObject("Prefab/Game/Warrior").GetComponent<Warrior>();
     }
 
     void Awake()

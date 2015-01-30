@@ -92,7 +92,7 @@ public class BattleField : MonoBehaviour
 
     public void ShowMessage(string msg, Vector3 position, Color color)
     {
-        UILabel label = ResourceManager.Load("Prefab/Game/BattleLabel").GetComponent<UILabel>();
+        UILabel label = ResourceManager.LoadGameObject("Prefab/Game/BattleLabel").GetComponent<UILabel>();
         BattleField.Instance.gameObject.AddChild(label.gameObject);
         label.transform.localPosition = position;
         label.transform.DOLocalMoveY(position.y + 50, 3).OnComplete(() => OnMessageMoveComplete(label));

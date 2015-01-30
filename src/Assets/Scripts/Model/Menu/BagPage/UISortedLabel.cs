@@ -6,7 +6,7 @@ public class UISortedLabel : MonoBehaviour {
 	{
 		get
 		{
-			return ResourceManager.Load("Prefab/Menu/BagPage/SortedLabel").GetComponent<UISortedLabel>();
+			return ResourceManager.LoadGameObject("Prefab/Menu/BagPage/SortedLabel").GetComponent<UISortedLabel>();
 		}
 	}
 	

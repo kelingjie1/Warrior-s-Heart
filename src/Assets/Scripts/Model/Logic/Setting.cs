@@ -18,7 +18,7 @@ public class Setting
     }
     Setting()
     {
-        TextAsset defaultSettingAsset = Resources.Load("Text/DefaultSetting") as TextAsset;
+        TextAsset defaultSettingAsset = ResourceManager.Load("Text/DefaultSetting") as TextAsset;
         defaultSetting = new SettingReader();
         currentSetting = new SettingReader();
         if (defaultSettingAsset==null)

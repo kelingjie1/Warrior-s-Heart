@@ -11,7 +11,7 @@ public class ShopMenuPage : BasePage {
 		{
 			if (m_instance == null)
 			{
-				m_instance = ResourceManager.Load("Prefab/Menu/ShopMenuPage/ShopMenuPage").GetComponent<ShopMenuPage>();
+				m_instance = ResourceManager.LoadGameObject("Prefab/Menu/ShopMenuPage/ShopMenuPage").GetComponent<ShopMenuPage>();
 			}
 			return m_instance;
 		}

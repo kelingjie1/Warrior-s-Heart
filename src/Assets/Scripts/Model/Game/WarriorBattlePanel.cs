@@ -5,7 +5,7 @@ public class WarriorBattlePanel : MonoBehaviour
 {
     public static WarriorBattlePanel Create()
     {
-        return ResourceManager.Load("Prefab/Game/WarriorBattlePanel").GetComponent<WarriorBattlePanel>();
+        return ResourceManager.LoadGameObject("Prefab/Game/WarriorBattlePanel").GetComponent<WarriorBattlePanel>();
     }
     public UIProgressBar HPBar;
 	void Awake()

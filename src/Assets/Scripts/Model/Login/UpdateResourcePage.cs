@@ -14,7 +14,7 @@ public class UpdateResourcePage : BasePage
         {
             if (m_instance == null)
             {
-                m_instance = ResourceManager.Load("Prefab/Login/UpdateResourcePage").GetComponent<UpdateResourcePage>();
+                m_instance = ResourceManager.LoadGameObject("Prefab/Login/UpdateResourcePage").GetComponent<UpdateResourcePage>();
             }
             return m_instance;
         }

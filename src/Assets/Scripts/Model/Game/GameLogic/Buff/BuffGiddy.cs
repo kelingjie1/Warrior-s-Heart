@@ -10,7 +10,7 @@ public class BuffGiddy : Buff
         base.Attach(warrior);
         go = new GameObject();
         UISprite sprite = go.AddComponent<UISprite>();
-        sprite.atlas = ResourceManager.Load("Animation/giddy").GetComponent<UIAtlas>();
+        sprite.atlas = ResourceManager.LoadGameObject("Animation/giddy").GetComponent<UIAtlas>();
         sprite.spriteName = "0";
         sprite.depth = 20;
         UISpriteAnimation animation = go.AddComponent<UISpriteAnimation>();

@@ -7,7 +7,7 @@ public class UIChapterEntryPoint : MonoBehaviour {
 	{
 		get
 		{
-			return ResourceManager.Load("Prefab/Menu/ChapterPage/ChapterEntryPoint").GetComponent<UIChapterEntryPoint>();
+			return ResourceManager.LoadGameObject("Prefab/Menu/ChapterPage/ChapterEntryPoint").GetComponent<UIChapterEntryPoint>();
 		}
 	}
 

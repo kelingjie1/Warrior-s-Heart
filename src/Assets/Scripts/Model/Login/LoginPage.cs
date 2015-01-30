@@ -11,7 +11,7 @@ public class LoginPage : BasePage
         {
             if (m_instance == null)
             {
-                m_instance = ResourceManager.Load("Prefab/Login/LoginPage").GetComponent<LoginPage>();
+                m_instance = ResourceManager.LoadGameObject("Prefab/Login/LoginPage").GetComponent<LoginPage>();
             }
             return m_instance;
         }

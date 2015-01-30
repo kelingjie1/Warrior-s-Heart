@@ -11,7 +11,7 @@ public class UISectionPage : BasePage
 		{
 			if (m_instance == null)
 			{
-				m_instance = ResourceManager.Load("Prefab/Menu/ChapterPage/SectionPage").GetComponent<UISectionPage>();
+				m_instance = ResourceManager.LoadGameObject("Prefab/Menu/ChapterPage/SectionPage").GetComponent<UISectionPage>();
 			}
 			return m_instance;
 		}

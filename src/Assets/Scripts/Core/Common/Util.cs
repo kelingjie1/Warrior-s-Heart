@@ -83,4 +83,16 @@ public class Util
             }
         }
     }
+    public static string ConvertPath(string path)
+    {
+#if UNITY_EDITOR
+        return path.Replace('/', '\\');
+#elif UNITY_STANDALONE_WIN
+        return path.Replace('/', '\\');
+#elif UNITY_IPHONE
+        return path.Replace('\\', '/');
+#elif UNITY_ANDROID
+        return path.Replace('\\', '/');
+#endif
+    }
 }

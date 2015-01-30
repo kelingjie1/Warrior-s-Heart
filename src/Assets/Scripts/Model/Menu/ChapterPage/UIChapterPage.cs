@@ -12,7 +12,7 @@ public class UIChapterPage : BasePage
 		{
 			if (m_instance == null)
 			{
-				m_instance = ResourceManager.Load("Prefab/Menu/ChapterPage/ChapterPage").GetComponent<UIChapterPage>();
+				m_instance = ResourceManager.LoadGameObject("Prefab/Menu/ChapterPage/ChapterPage").GetComponent<UIChapterPage>();
 			}
 			return m_instance;
 		}

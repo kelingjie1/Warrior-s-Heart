@@ -32,7 +32,7 @@ public class DebugPage : BasePage
         {
             if (m_instance == null)
             {
-                m_instance = ResourceManager.Load("Prefab/DebugPage").GetComponent<DebugPage>();
+                m_instance = ResourceManager.LoadGameObject("Prefab/DebugPage").GetComponent<DebugPage>();
             }
             return m_instance;
         }

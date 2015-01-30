@@ -8,7 +8,7 @@ public class Ammo : MonoBehaviour
     public HitEventMessage msg = new HitEventMessage();
     public static Ammo Create()
     {
-        Ammo ammo = ResourceManager.Load("Prefab/Game/Ammo").GetComponent<Ammo>();
+        Ammo ammo = ResourceManager.LoadGameObject("Prefab/Game/Ammo").GetComponent<Ammo>();
         return ammo;
     }
     void OnCollisionEnter(Collision collision)

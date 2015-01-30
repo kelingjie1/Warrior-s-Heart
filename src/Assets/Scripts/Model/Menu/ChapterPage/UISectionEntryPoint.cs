@@ -6,7 +6,7 @@ public class UISectionEntryPoint : MonoBehaviour {
 	{
 		get
 		{
-			return ResourceManager.Load("Prefab/Menu/ChapterPage/SectionEntryPoint").GetComponent<UISectionEntryPoint>();
+			return ResourceManager.LoadGameObject("Prefab/Menu/ChapterPage/SectionEntryPoint").GetComponent<UISectionEntryPoint>();
 		}
 	}
 

@@ -10,7 +10,7 @@ public class UIMainMenuPage : BasePage
 		{
 			if (m_instance == null)
 			{
-				m_instance = ResourceManager.Load("Prefab/Menu/MainMenuPage/MainMenuPage").GetComponent<UIMainMenuPage>();
+				m_instance = ResourceManager.LoadGameObject("Prefab/Menu/MainMenuPage/MainMenuPage").GetComponent<UIMainMenuPage>();
 			}
 			return m_instance;
 		}

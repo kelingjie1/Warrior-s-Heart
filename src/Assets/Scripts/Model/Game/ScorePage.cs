@@ -10,7 +10,7 @@ public class ScorePage : BasePage
         {
             if (m_instance == null)
             {
-                m_instance = ResourceManager.Load("Prefab/Game/ScorePage").GetComponent<ScorePage>();
+                m_instance = ResourceManager.LoadGameObject("Prefab/Game/ScorePage").GetComponent<ScorePage>();
             }
             return m_instance;
         }

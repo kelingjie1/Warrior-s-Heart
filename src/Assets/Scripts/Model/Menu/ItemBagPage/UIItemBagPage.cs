@@ -10,7 +10,7 @@ public class UIItemBagPage : BasePage {
 		{
 			if (m_instance == null)
 			{
-				m_instance = ResourceManager.Load("Prefab/Menu/ItemBagPage/ItemBagPage").GetComponent<UIItemBagPage>();
+				m_instance = ResourceManager.LoadGameObject("Prefab/Menu/ItemBagPage/ItemBagPage").GetComponent<UIItemBagPage>();
 			}
 			return m_instance;
 		}
