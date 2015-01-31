@@ -14,6 +14,14 @@ public class UIOneItem : MonoBehaviour
     public BagItem m_BagItem;
     //maybe other
 
+    public static UIOneItem Instance
+    {
+        get
+        {
+            return ResourceManager.LoadGameObject("Prefab/Menu/BagPage/BagItem").GetComponent<UIOneItem>();
+        }
+    }
+
 }
 
 
