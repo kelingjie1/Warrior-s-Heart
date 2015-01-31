@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using DG.Tweening;
 public class Global
 {
     
@@ -75,8 +75,8 @@ public class Global
         UserDataPath = StorageDataPath + "UserData/";
 
 
-
-
+        DOTween.Init();
+        
 
 
 

@@ -82,16 +82,16 @@ public class BattleField : MonoBehaviour
 	}
     public void JudgeWin()
     {
+        BattleResult battleResult = new BattleResult();
         if (AttackerList.Count==0)
         {
-            PageManager.Instance.ShowDialog(ScorePage.Instance);
-			Pause();
+            
         }
         else if (DefenderList.Count==0)
         {
-            PageManager.Instance.ShowDialog(ScorePage.Instance);
-			Pause();
+
         }
+        GameManager.Instance.FightEnd(battleResult);
     }
 
     public void ShowMessage(string msg, Vector3 position, Color color)
@@ -109,6 +109,7 @@ public class BattleField : MonoBehaviour
     UITexture CreateAdorment()
     {
         GameObject go = new GameObject();
+        go.layer = 5;
         gameObject.AddChild(go);
         go.AddComponent<UITexture>();
         return go.GetComponent<UITexture>();
@@ -161,7 +162,7 @@ public class BattleField : MonoBehaviour
             this.gameObject.AddChild(warrior.gameObject);
             warrior.InitWithWarriorItem(fightInfo.warriorItemList[i]);
             warrior.isAttacker = true;
-            warrior.transform.localPosition = new Vector3(100+i*100, mapData.floorHeight + warrior.template.height, 0);
+            warrior.transform.localPosition = new Vector3(100+i*100, mapData.floorHeight + warrior.template.height, -10);
             AttackerList.Add(warrior);
         }
     }

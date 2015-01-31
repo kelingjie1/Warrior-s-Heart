@@ -10,7 +10,7 @@ public class FightInfo
 }
 public class BattleResult
 {
-
+    
 }
 public class GameManager 
 {
@@ -25,6 +25,51 @@ public class GameManager
             }
             return m_instance;
         }
+    }
+
+    GameManager()
+    {
+        warriorItemList = new List<WarriorItem>();
+        WarriorItem warriorItem = new WarriorItem();
+        warriorItem.name = "0";
+        warriorItem.ref_id = "Fighter";
+        warriorItem.power_grow = 1;
+        warriorItem.agility_grow = 1;
+        warriorItem.strong_grow = 1;
+        warriorItem.intelligence_grow = 1;
+        warriorItem.power_point = 0;
+        warriorItem.agility_point = 0;
+        warriorItem.strong_point = 0;
+        warriorItem.intelligence_point = 0;
+        warriorItemList.Add(warriorItem);
+
+        warriorItem = new WarriorItem();
+        warriorItem.name = "1";
+        warriorItem.ref_id = "Fighter";
+        warriorItem.power_grow = 1;
+        warriorItem.agility_grow = 1;
+        warriorItem.strong_grow = 1;
+        warriorItem.intelligence_grow = 1;
+        warriorItem.power_point = 0;
+        warriorItem.agility_point = 0;
+        warriorItem.strong_point = 0;
+        warriorItem.intelligence_point = 0;
+        warriorItemList.Add(warriorItem);
+
+        warriorItem = new WarriorItem();
+        warriorItem.name = "2";
+        warriorItem.ref_id = "Archer";
+        warriorItem.power_grow = 1;
+        warriorItem.agility_grow = 1;
+        warriorItem.strong_grow = 1;
+        warriorItem.intelligence_grow = 1;
+        warriorItem.power_point = 0;
+        warriorItem.agility_point = 0;
+        warriorItem.strong_point = 0;
+        warriorItem.intelligence_point = 0;
+        warriorItemList.Add(warriorItem);
+
+        mapList = new List<string>() { "1-1", "1-2" };
     }
 
     public int currentFight;
@@ -43,6 +88,10 @@ public class GameManager
         if (currentFight>=mapList.Count)
         {
             BattleEnd(result);
+        }
+        else
+        {
+            Application.LoadLevel("Game");
         }
     }
 
