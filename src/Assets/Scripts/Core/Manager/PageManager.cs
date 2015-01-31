@@ -32,7 +32,7 @@ public class PageManager : MonoBehaviour
 		}
 	}
 	
-	public float AnimationDuration = 1.0f;
+	public float AnimationDuration = 0.3f;
 	public float AnimationScaleZoomIn = 10.0f;
 	public float AnimationScaleZoomOut = 0.1f;
 	
@@ -83,7 +83,7 @@ public class PageManager : MonoBehaviour
 			if (m_currentPage)
 			{
 				m_currentPage.transform.localPosition=new Vector3(0,0,0);
-				m_currentPage.transform.DOLocalMoveX(Screen.width, AnimationDuration);
+                m_currentPage.transform.DOLocalMoveX(Screen.width, AnimationDuration);
 			}
 			page.transform.localPosition=new Vector3(-Screen.width,0,0);
 			tweener = page.transform.DOLocalMoveX(0, AnimationDuration);

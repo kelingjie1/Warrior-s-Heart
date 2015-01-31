@@ -35,15 +35,6 @@ public class ChapterDataMgr
 				{
 					Debug.Log("Load config.");
 
-					foreach (Section chapter in ChapterDataMgr.Instance.chapters)
-					{
-						Debug.Log(chapter.title);
-
-						foreach (Sence section in chapter.sections)
-						{
-							Debug.Log(section.title);
-						}
-					}
 				}
 			}
 			return m_instance;

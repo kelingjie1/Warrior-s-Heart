@@ -32,16 +32,16 @@ public class UIMainMenuPage : BasePage
 
 	void OnEnterChapterClick(GameObject go)
 	{
-		PageManager.Instance.ShowPage(UIChapterPage.Instance);
+		PageManager.Instance.ShowPage(UIChapterPage.Instance,PageManager.AnimationType.RightToLeft);
 	}
 
 	void OnEnterShopClick(GameObject go)
 	{
-		PageManager.Instance.ShowPage(ShopMenuPage.Instance);
+        PageManager.Instance.ShowPage(ShopMenuPage.Instance, PageManager.AnimationType.RightToLeft);
 	}
 
 	void OnEnterBarracksClick(GameObject go)
 	{
-		PageManager.Instance.ShowPage(UIBagPage.Instance);
+        PageManager.Instance.ShowPage(UIBagPage.Instance, PageManager.AnimationType.RightToLeft);
 	}
 }

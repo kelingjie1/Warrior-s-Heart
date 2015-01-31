@@ -29,7 +29,6 @@ public class UIChapterPage : BasePage
 		//chapterData
 		foreach (Section chapter in ChapterDataMgr.Instance.chapters)
 		{
-			Debug.Log(chapter.title);
 
 			UIChapterEntryPoint item = UIChapterEntryPoint.Instance;
 			gameObject.FindChild("WorldMap").AddChild(item.gameObject);
