@@ -157,6 +157,11 @@ public class UpdateResourcePage : BasePage
         ResourceProgressLabel.text = (int)(progress * 100) + "%";
         ResourceProgressBar.value = progress;
     }
+    public override void PageWillDisappear()
+    {
+        base.PageWillDisappear();
+        NetworkManager.Instance.UnRegisterHandler((int)MessageType.kMsgUpdateAppRsp, UpdateAppRspHandler);
+    }
     void DownloadFinish()
     {
         PageManager.Instance.HideDialog();
