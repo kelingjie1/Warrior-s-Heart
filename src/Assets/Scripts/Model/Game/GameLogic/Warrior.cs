@@ -347,57 +347,67 @@ public class Warrior : MonoBehaviour
         }
 		
 	}
-    WarriorTemplate template;
-    WarriorData m_warriorData;
-    public WarriorData warriorData
+    void LoadTemplate(string path)
     {
-        get
+        template = WarriorTemplateManager.Instance.Get(path);
+        BoxCollider collider = this.GetComponent<BoxCollider>();
+        collider.size = new Vector3(template.colliderWidth, template.colliderHeight, 100);
+        collider.center = new Vector3(template.colliderCenterX, template.colliderCenterY, 0);
+        foreach (string skillname in template.skillList)
         {
-            return m_warriorData;
-        }
-        set
-        {
-            m_warriorData = value;
-            name = m_warriorData.name;
-            isAttacker = m_warriorData.isAttacker;
-            template = WarriorTemplateManager.Instance.Get(warriorData.template);
-            transform.localPosition = new Vector3(warriorData.x, BattleField.Instance.mapData.floorHeight + template.height, -10);
-            BoxCollider collider = this.GetComponent<BoxCollider>();
-            collider.size = new Vector3(template.colliderWidth, template.colliderHeight, 100);
-            collider.center = new Vector3(template.colliderCenterX, template.colliderCenterY, 0);
-
-            foreach(string skillname in template.skillList)
+            Type type = Type.GetType(skillname);
+            Skill skill = type.Assembly.CreateInstance(skillname) as Skill;
+            if (skill != null)
             {
-                Type type = Type.GetType(skillname);
-                Skill skill = type.Assembly.CreateInstance(skillname) as Skill;
-                if (skill!=null)
-                {
-                    AddSkill(skill);
-                }
-                else
-                {
-                    Debug.LogError("Skill Class:" + skillname + "  not found");
-                }
+                AddSkill(skill);
             }
-
-            warriorItem = new WarriorItem();
-            warriorItem.power_grow = 1;
-            warriorItem.agility_grow = 1;
-            warriorItem.strong_grow = 1;
-            warriorItem.intelligence_grow = 1;
-            warriorItem.power_point = warriorData.powerPoint;
-            warriorItem.agility_point = warriorData.agilityPoint;
-            warriorItem.strong_point = warriorData.strongPoint;
-            warriorItem.intelligence_point = warriorData.intelligencePoint;
-
-            SkeletonAnimation animation = this.GetComponent<SkeletonAnimation>();
-            //"Animation/" + template.category + "_skel"
-            animation.skeletonDataAsset = ResourceManager.Load("Animation/" + template.name + "_skel") as SkeletonDataAsset;
-            animation.Reset();
-            Reset();
-
+            else
+            {
+                Debug.LogError("Skill Class:" + skillname + "  not found");
+            }
         }
+        SkeletonAnimation animation = this.GetComponent<SkeletonAnimation>();
+        //"Animation/" + template.category + "_skel"
+        animation.skeletonDataAsset = ResourceManager.Load("Animation/" + template.name + "_skel") as SkeletonDataAsset;
+        animation.Reset();
+        Reset();
     }
+    public void InitWithWarriorData(WarriorData data)
+    {
+        warriorData = data;
+
+        warriorItem = new WarriorItem();
+        warriorItem.name = warriorData.name;
+        warriorItem.ref_id = data.template;
+        warriorItem.power_grow = 1;
+        warriorItem.agility_grow = 1;
+        warriorItem.strong_grow = 1;
+        warriorItem.intelligence_grow = 1;
+        warriorItem.power_point = warriorData.powerPoint;
+        warriorItem.agility_point = warriorData.agilityPoint;
+        warriorItem.strong_point = warriorData.strongPoint;
+        warriorItem.intelligence_point = warriorData.intelligencePoint;
+
+        InitWithWarriorItem(warriorItem);
+
+        isAttacker = warriorData.isAttacker;
+
+        transform.localPosition = new Vector3(warriorData.x, BattleField.Instance.mapData.floorHeight + template.height, -10);
+
+
+        
+    }
+
+    public void InitWithWarriorItem(WarriorItem item)
+    {
+        warriorItem = item;
+        name = item.name;
+        LoadTemplate(item.ref_id);
+        
+    }
+
+    public WarriorTemplate template;
+    public WarriorData warriorData;
 
     public static Warrior Create()
     {

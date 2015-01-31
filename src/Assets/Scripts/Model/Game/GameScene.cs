@@ -5,10 +5,6 @@ using game_proto;
 
 public class GameScene : MonoBehaviour 
 {
-    public static void StartGame(string mapName,List<WarriorItem> warriorItem)
-    {
-        Application.LoadLevel("Game");
-    }
     void Awake()
     {
         Global.SceneAwake();

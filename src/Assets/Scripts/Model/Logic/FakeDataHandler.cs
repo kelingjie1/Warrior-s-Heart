@@ -8,7 +8,7 @@ public class FakeDataHandler
 {
     public static void RegisterAllFakeDataHandler()
     {
-        FakeDataManager.Instance.RegisterRsp(typeof(UpdateAppReq), HandleUpdateAppReq);
+        FakeDataManager.Instance.RegisterRspHandler(typeof(UpdateAppReq), HandleUpdateAppReq);
     }
 
     public static NetworkManager.NetPacket HandleUpdateAppReq(IExtensible data)
