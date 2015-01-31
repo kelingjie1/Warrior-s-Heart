@@ -25,6 +25,11 @@ public class GamePage : BasePage
         scrollView = gameObject.FindChild("ScrollView").GetComponent<UIPanel>();
         
     }
+
+    public override void PageDidDisappear()
+    {
+        GameObject.Destroy(this.gameObject);
+    }
     void Update()
     {
         if (scrollView.transform.localPosition.x < Screen.width/2 - BattleField.Instance.mapData.width)

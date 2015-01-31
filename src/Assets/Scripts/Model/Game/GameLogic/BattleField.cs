@@ -85,13 +85,13 @@ public class BattleField : MonoBehaviour
         BattleResult battleResult = new BattleResult();
         if (AttackerList.Count==0)
         {
-            
+            GameManager.Instance.FightEnd(battleResult);
         }
         else if (DefenderList.Count==0)
         {
-
+            GameManager.Instance.FightEnd(battleResult);
         }
-        GameManager.Instance.FightEnd(battleResult);
+        
     }
 
     public void ShowMessage(string msg, Vector3 position, Color color)

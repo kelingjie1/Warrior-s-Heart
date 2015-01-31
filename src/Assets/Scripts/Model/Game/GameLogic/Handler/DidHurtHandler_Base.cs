@@ -8,7 +8,7 @@ public class DidHurtHandler_Base : BattleEventHandler
     {
         
         HurtEventMessage msg = param0 as HurtEventMessage;
-        Debug.Log(sponsors[0].name + " hurt " + responders[0].name + ":" + msg.physicalDamage);
+        //Debug.Log(sponsors[0].name + " hurt " + responders[0].name + ":" + msg.physicalDamage);
         Vector3 pos = responders[0].transform.localPosition;
         pos.y += 100;
         BattleField.Instance.ShowMessage("-" + (int)msg.physicalDamage, pos, Color.red);

@@ -11,7 +11,7 @@ public class DidHitHandler_Base : BattleEventHandler
         {
             return null;
         }
-        Debug.Log(sponsors[0].name + " hit " + responders[0].name);
+        //Debug.Log(sponsors[0].name + " hit " + responders[0].name);
         List<Warrior> nextResponders = new List<Warrior>();
         KnockEventMessage knockmsg = new KnockEventMessage();
         knockmsg.KnockStrength = 0;
