@@ -4,7 +4,9 @@ using game_proto;
 using System;
 using System.IO;
 using System.Threading;
-
+using BestHTTP;
+using BestHTTP.Caching;
+using System.Collections.Generic;
 public class UpdateResourcePage : BasePage 
 {
     static UpdateResourcePage m_instance;
@@ -25,6 +27,7 @@ public class UpdateResourcePage : BasePage
     UIProgressBar ConfigProgressBar;
     UILabel ResourceProgressLabel;
     UIProgressBar ResourceProgressBar;
+    FileStream resourceStream;
 
     int downloadPhase;
     void Awake()
@@ -66,7 +69,14 @@ public class UpdateResourcePage : BasePage
             {
                 string download_path = Global.DownloadPath + "Resources.zip";
                 Debug.Log("save_path:" + download_path);
-                DownloadTool.StartDownload(download_path, rsp.resource_url, OnResourceDownloadCallback);
+                HTTPRequest request = new HTTPRequest(new Uri(rsp.resource_url), ResourceDownloadFinish);
+                resourceStream = File.OpenWrite(Global.DownloadPath + "Resources.zip");
+                request.SetRangeHeader((int)resourceStream.Length);
+                request.OnProgress = ResourceDownloadProgress;
+                request.UseStreaming = true;
+                request.StreamFragmentSize = 1024*100;
+                
+                HTTPManager.SendRequest(request);
             }
             else
             {
@@ -79,6 +89,7 @@ public class UpdateResourcePage : BasePage
                 string download_path = Global.DownloadPath + "Config.zip";
                 Debug.Log("save_path:" + download_path);
                 DownloadTool.StartDownload(download_path, rsp.config_url, OnConfigDownloadCallback);
+                
             }	
             else
             {
@@ -90,7 +101,32 @@ public class UpdateResourcePage : BasePage
             Debug.Log("unkown reponse type");
         }
     }
-
+    void ResourceDownloadProgress(HTTPRequest request, int downloaded, int length)
+    {
+        ResourceProgressLabel.text = downloaded + "/" + length;
+        ResourceProgressBar.value = downloaded / (float)length;
+    }
+    void ResourceDownloadFinish(HTTPRequest req, HTTPResponse resp)
+    {
+        List<byte[]> list = resp.GetStreamedFragments();
+        if (list != null)
+        {
+            foreach (byte[] data in list)
+            {
+                resourceStream.Write(data,0,data.Length);
+            }
+            
+        }
+        if (resp.IsStreamingFinished)
+        {
+            Debug.Log("success");
+            resourceStream.Close();
+            Util.Unzip(Global.DownloadPath + "Resources.zip");
+            File.Delete(Global.DownloadPath + "Resources.zip");
+            EventManager.Instance.Invoke(DownloadFinish);
+        }
+        
+    }
     void OnConfigDownloadCallback(DownloadTool download)
     {
         // Downloading

@@ -51,9 +51,6 @@ public sealed partial class NetworkManager
 	private NetworkManager ()
 	{
 		m_WebClient.UploadDataCompleted += new UploadDataCompletedEventHandler(OnUploadDataCompleted);
-
-		// register event
-		RegisterAllHandler();
 	}
 
 	public void SetServerUrl(String url)

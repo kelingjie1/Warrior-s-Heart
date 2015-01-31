@@ -12,9 +12,10 @@ public class LoginModel
 {
 	private void Init()
 	{
-		EventManager.Instance.RegisterEvent(EventDefine.LoginServerComplete, OnLoginServerSuccess);
+        NetworkManager.Instance.RegisterHandler((int)MessageType.kMsgLoginRsp, LoginServerRspHandler);
 		EventManager.Instance.RegisterEvent(EventDefine.ErrorCodeReply, OnErrorCodeReply);
 	}
+
 
 	/************************************************************
 	 ************       logic functions    **********************
@@ -32,13 +33,15 @@ public class LoginModel
 	/************************************************************
 	 ************       event callback    ***********************
 	 ************************************************************/
-	void OnLoginServerSuccess(EventDefine type, System.Object param, System.Object param2, System.Object param3, System.Object param4)
-	{
-		EventManager.Instance.UnRegisterEvent(EventDefine.ErrorCodeReply, OnErrorCodeReply);
-		LoginRsp response = (LoginRsp)param;
-		Debug.Log ("login user_id:" + response.uid + " session_key:" + response.session_key);
-		Application.LoadLevel("Menu");
-	}
+
+    void LoginServerRspHandler(int opcode, byte[] data)
+    {
+        RspPackage response = ProtoManager.Deserialize<RspPackage>(data);
+        LoginRsp rsp = ProtoManager.Deserialize<LoginRsp>(response.body);
+        Debug.Log("LoginServerRsp type:" + Convert.ToString(response.type));
+        Debug.Log("login user_id:" + rsp.uid + " session_key:" + rsp.session_key);
+        Application.LoadLevel("Menu");
+    }
 
 	void OnErrorCodeReply(EventDefine type, System.Object param, System.Object param2, System.Object param3, System.Object param4)
 	{
