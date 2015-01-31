@@ -483,6 +483,7 @@ public class Warrior : MonoBehaviour
         {
             BattleField.Instance.DefenderList.Remove(this);
         }
+        hp = 0;
         BattleField.Instance.JudgeWin();
         GameObject.Destroy(gameObject);
     }

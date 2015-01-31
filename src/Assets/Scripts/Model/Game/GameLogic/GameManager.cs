@@ -98,6 +98,7 @@ public class GameManager
     public void BattleEnd(BattleResult result)
     {
         battleResult = result;
+        PageManager.Instance.ShowPage(ScorePage.Instance);
     }
     
 
