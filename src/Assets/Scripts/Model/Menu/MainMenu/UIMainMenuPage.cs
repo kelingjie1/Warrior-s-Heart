@@ -22,6 +22,7 @@ public class UIMainMenuPage : BasePage
 		UIEventListener.Get(gameObject.FindChild ("EnterChapter")).onClick = OnEnterChapterClick;
 		UIEventListener.Get(gameObject.FindChild ("EnterShop")).onClick = OnEnterShopClick;
 		UIEventListener.Get(gameObject.FindChild ("EnterBarracks")).onClick = OnEnterBarracksClick;
+        gameObject.GetComponent<UIPanel>().clipping = UIDrawCall.Clipping.SoftClip;
 	}
 
 	void OnEnterChapterClick(GameObject go)

@@ -59,14 +59,15 @@ public class PageManager : MonoBehaviour
 		Tweener tweener = null;
 		
 		m_nextPage = page;
-		
 		this.gameObject.AddChild(page.gameObject);
         UIPanel panel = page.GetComponent<UIPanel>();
-        panel.SetAnchor(Camera.main.gameObject);
-        panel.updateAnchors = UIRect.AnchorUpdate.OnEnable;
+        panel.clipOffset = new Vector2(0, 0);
+        panel.SetRect(0, 0, Screen.width, Screen.height);
 		if (m_currentPage)
 		{
 			m_currentPage.PageWillDisappear();
+            UIPanel currntpanel = m_currentPage.GetComponent<UIPanel>();
+            currntpanel.clipOffset = new Vector2(0, 0);
 		}
 		page.PageWillAppear();
 		switch (type)
@@ -82,7 +83,7 @@ public class PageManager : MonoBehaviour
 		case AnimationType.LeftToRight:
 			if (m_currentPage)
 			{
-				m_currentPage.transform.localPosition=new Vector3(0,0,0);
+                m_currentPage.transform.localPosition = new Vector3(0, 0, 0);
                 m_currentPage.transform.DOLocalMoveX(Screen.width, AnimationDuration);
 			}
 			page.transform.localPosition=new Vector3(-Screen.width,0,0);
