@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using DG.Tweening;
 using System.IO;
+using game_proto;
 
 // public delegate void BattleEventDelegate(BattleEventDefine define, List<Warrior> sponsors = null, List<Warrior> responders = null, object param0 = null, object param1 = null, object param2 = null, object param3 = null);
 class EventHandlerComparer : IComparer<BattleEventHandler>
@@ -34,6 +35,9 @@ public class BattleField : MonoBehaviour
             return m_instance;
         }
     }
+
+    public FightInfo fightInfo;
+
     public List<Warrior> AttackerList;
     public List<Warrior> DefenderList;
     public List<Ammo> AttackerAmmoList;
@@ -78,16 +82,16 @@ public class BattleField : MonoBehaviour
 	}
     public void JudgeWin()
     {
+        BattleResult battleResult = new BattleResult();
         if (AttackerList.Count==0)
         {
-            PageManager.Instance.ShowDialog(ScorePage.Instance);
-			Pause();
+            
         }
         else if (DefenderList.Count==0)
         {
-            PageManager.Instance.ShowDialog(ScorePage.Instance);
-			Pause();
+
         }
+        GameManager.Instance.FightEnd(battleResult);
     }
 
     public void ShowMessage(string msg, Vector3 position, Color color)
@@ -105,13 +109,14 @@ public class BattleField : MonoBehaviour
     UITexture CreateAdorment()
     {
         GameObject go = new GameObject();
+        go.layer = 5;
         gameObject.AddChild(go);
         go.AddComponent<UITexture>();
         return go.GetComponent<UITexture>();
     }
     void LoadMap()
     {
-        string path = Global.MapPath + "1-1";
+        string path = Global.MapPath + fightInfo.mapName;
         XmlSerializer xs = new XmlSerializer(typeof(MapData));
         FileStream fs = new FileStream(path, FileMode.Open);
         mapData = xs.Deserialize(fs) as MapData;
@@ -133,7 +138,7 @@ public class BattleField : MonoBehaviour
         {
             Warrior warrior = Warrior.Create();
             this.gameObject.AddChild(warrior.gameObject);
-            warrior.warriorData = warriorData;
+            warrior.InitWithWarriorData(warriorData);
             if (warrior.isAttacker)
             {
                 AttackerList.Add(warrior);
@@ -149,14 +154,22 @@ public class BattleField : MonoBehaviour
 
 
     }
-    
-    public void StartBattle()
+    public void InitBattleQueue()
     {
-        this.SendEvent(BattleEventType.WillStartBattle);
-        //TEST///////////////////////
-        LoadMap();
+        for (int i = 0; i < fightInfo.warriorItemList.Count;i++ )
+        {
+            Warrior warrior = Warrior.Create();
+            this.gameObject.AddChild(warrior.gameObject);
+            warrior.InitWithWarriorItem(fightInfo.warriorItemList[i]);
+            warrior.isAttacker = true;
+            warrior.transform.localPosition = new Vector3(100+i*100, mapData.floorHeight + warrior.template.height, -10);
+            AttackerList.Add(warrior);
+        }
+    }
 
-        for (int i = 0; i < AttackerList.Count; i++)
+    public void AdjustCollisionAndDir()
+    {
+         for (int i = 0; i < AttackerList.Count; i++)
         {
             AttackerList[i].id = i;
             for (int j = i + 1; j < AttackerList.Count; j++)
@@ -174,12 +187,14 @@ public class BattleField : MonoBehaviour
             }
         }
 
-        ///////////////////////////////
         foreach (Warrior defender in DefenderList)
         {
             defender.transform.localScale = new Vector3(-1, 1, 1);
         }
+    }
 
+    void InitBaseEvent()
+    {
         DidHitHandler_Base didhitbase = new DidHitHandler_Base();
         this.RegisterEvent(BattleEventType.DidHit, didhitbase);
         DidKnockHandler_Base didknockbase = new DidKnockHandler_Base();
@@ -188,7 +203,17 @@ public class BattleField : MonoBehaviour
         this.RegisterEvent(BattleEventType.DidHurt, didhurtbase);
         DidKnockWallHandler didknockwall = new DidKnockWallHandler();
         this.RegisterEvent(BattleEventType.DidKnockWall, didknockwall);
-        /////////////////////////
+    }
+    public void StartBattle()
+    {
+        this.SendEvent(BattleEventType.WillStartBattle);
+        fightInfo = GameManager.Instance.GetCurrentFightInfo();
+        LoadMap();
+        InitBattleQueue();
+        AdjustCollisionAndDir();
+        InitBaseEvent();
+
+
         this.SendEvent(BattleEventType.DidStartBattle);
     }
 

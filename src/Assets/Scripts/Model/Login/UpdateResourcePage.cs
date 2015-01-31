@@ -70,7 +70,7 @@ public class UpdateResourcePage : BasePage
             }
             else
             {
-
+                downloadPhase++;
             }
 
             // download config files
@@ -80,6 +80,10 @@ public class UpdateResourcePage : BasePage
                 Debug.Log("save_path:" + download_path);
                 DownloadTool.StartDownload(download_path, rsp.config_url, OnConfigDownloadCallback);
             }	
+            else
+            {
+                downloadPhase++;
+            }
         }
         else
         {
@@ -98,11 +102,7 @@ public class UpdateResourcePage : BasePage
             {
                 Util.Unzip(download.SaveFileName);
                 File.Delete(download.SaveFileName);
-                downloadPhase++;
-                if (downloadPhase>=2)
-                {
-                    EventManager.Instance.Invoke(DownloadFinish);
-                }
+                EventManager.Instance.Invoke(DownloadFinish);
 
             }
             else // Failed
@@ -129,11 +129,7 @@ public class UpdateResourcePage : BasePage
             {
                 Util.Unzip(download.SaveFileName);
                 File.Delete(download.SaveFileName);
-                downloadPhase++;
-                if (downloadPhase >= 2)
-                {
-                    EventManager.Instance.Invoke(DownloadFinish);
-                }
+                EventManager.Instance.Invoke(DownloadFinish);
             }
             else // Failed
             {
@@ -157,8 +153,25 @@ public class UpdateResourcePage : BasePage
         ResourceProgressLabel.text = (int)(progress * 100) + "%";
         ResourceProgressBar.value = progress;
     }
+    public override void PageWillDisappear()
+    {
+        base.PageWillDisappear();
+        NetworkManager.Instance.UnRegisterHandler((int)MessageType.kMsgUpdateAppRsp, UpdateAppRspHandler);
+    }
+    public override void PageDidDisappear()
+    {
+        base.PageDidDisappear();
+        GameObject.Destroy(this.gameObject);
+    }
     void DownloadFinish()
     {
-        PageManager.Instance.HideDialog();
+        
+        downloadPhase++;
+        Debug.Log("DownloadFinish:" + downloadPhase);
+        if (downloadPhase >= 2)
+        {
+            PageManager.Instance.HideDialog(PageManager.AnimationType.MiddleZoomOut);
+        }
+        
     }
 }

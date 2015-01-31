@@ -162,8 +162,8 @@ public class PageManager : MonoBehaviour
 		m_currentDialog = m_nextDialog;
 		m_currentDialog.PageDidAppear();
 	}
-	
-	public void ShowDialog(BasePage dialog, AnimationType type = AnimationType.NULL)
+
+    public Tweener ShowDialog(BasePage dialog, AnimationType type = AnimationType.NULL)
 	{
 		Tweener tweener = null;
 		
@@ -177,8 +177,9 @@ public class PageManager : MonoBehaviour
 		this.gameObject.AddChild(dialog.gameObject);
 		if (m_currentDialog)
 		{
-			m_currentPage.PageWillDisappear();
+            m_currentDialog.PageWillDisappear();
 			m_currentDialog.transform.localPosition = new Vector3 (0, -Screen.height, 0);
+            m_currentDialog.PageDidDisappear();
 		}
 		dialog.PageWillAppear();
 		
@@ -222,15 +223,62 @@ public class PageManager : MonoBehaviour
 		{
 			tweener.OnComplete(DialogAnimationFinish);
 		}
+
+        return tweener;
 	}
-	
-	public void HideDialog()
+
+    public void HideDialog(AnimationType type = AnimationType.NULL)
 	{
-		if (m_currentDialog) 
+		if (!m_currentDialog) 
 		{
-			m_currentDialog.transform.localPosition = new Vector3 (0, -Screen.height, 0);
+            return;
 		}
-		DialogAnimationFinish();
+
+        Tweener tweener = null;
+
+        m_currentDialog.PageWillDisappear();
+        m_currentDialog.transform.localPosition = new Vector3(0, -Screen.height, 0);
+
+        switch (type)
+        {
+            case AnimationType.NULL:
+                m_currentDialog.transform.localPosition = new Vector3(0, 0, 0);
+                DialogAnimationFinish();
+                break;
+            case AnimationType.LeftToRight:
+                m_currentDialog.transform.localPosition = new Vector3(0, 0, 0);
+                tweener = m_currentDialog.transform.DOLocalMoveX(Screen.width, AnimationDuration);
+                break;
+            case AnimationType.RightToLeft:
+                m_currentDialog.transform.localPosition = new Vector3(0, 0, 0);
+                tweener = m_currentDialog.transform.DOLocalMoveX(-Screen.width, AnimationDuration);
+                break;
+            case AnimationType.TopToBottom:
+                m_currentDialog.transform.localPosition = new Vector3(0, 0, 0);
+                tweener = m_currentDialog.transform.DOLocalMoveY(-Screen.height, AnimationDuration);
+                break;
+            case AnimationType.BottomToTop:
+                m_currentDialog.transform.localPosition = new Vector3(0, 0, 0);
+                tweener = m_currentDialog.transform.DOLocalMoveY(Screen.height, AnimationDuration);
+                break;
+            case AnimationType.MiddleZoomIn:
+                m_currentDialog.transform.localPosition = new Vector3(0, 0, 0);
+                m_currentDialog.transform.localScale = new Vector3(1, 1, 1);
+                tweener = m_currentDialog.transform.DOScale(new Vector3(AnimationScaleZoomIn, AnimationScaleZoomIn, 1), AnimationDuration);
+                break;
+            case AnimationType.MiddleZoomOut:
+                m_currentDialog.transform.localPosition = new Vector3(0, 0, 0);
+                m_currentDialog.transform.localScale = new Vector3(1, 1, 1);
+                tweener = m_currentDialog.transform.DOScale(new Vector3(AnimationScaleZoomOut, AnimationScaleZoomOut, 1), AnimationDuration);
+                break;
+            default:
+                break;
+        }
+
+        if (tweener != null)
+        {
+            tweener.OnComplete(DialogAnimationFinish);
+        }
 	}
 
 	public void CloseDialog()

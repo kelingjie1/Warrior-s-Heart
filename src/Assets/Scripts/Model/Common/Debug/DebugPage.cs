@@ -6,6 +6,7 @@ public class DebugPage : BasePage
     public static void CreateDebugButton()
     {
         GameObject button = new GameObject();
+        button.layer = 5;
         UILabel label = button.AddComponent<UILabel>();
         label.trueTypeFont = Global.Arial;
         label.text = "DEBUG";

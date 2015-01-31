@@ -26,7 +26,7 @@ public class LoginPage : BasePage
 	public override void PageDidAppear()
     {
  	    base.PageDidAppear();
-        PageManager.Instance.ShowDialog(UpdateResourcePage.Instance);
+        PageManager.Instance.ShowDialog(UpdateResourcePage.Instance, PageManager.AnimationType.MiddleZoomOut);
     }
 
 	// Event

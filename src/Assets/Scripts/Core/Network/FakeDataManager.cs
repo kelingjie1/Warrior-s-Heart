@@ -54,8 +54,14 @@ public class FakeDataManager
         }
     }
 
-    public void RegisterRsp(Type type, HandleReq func)
+    public void RegisterRspHandler(Type ReqType, HandleReq func)
     {
-        packetDic.Add(type, func);
+        packetDic.Add(ReqType, func);
     }
+
+    public void UnRegisterRspHandler(Type ReqType)
+    {
+        packetDic.Remove(ReqType);
+    }
+
 }

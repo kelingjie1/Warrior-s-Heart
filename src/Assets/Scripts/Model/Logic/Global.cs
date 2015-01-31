@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using DG.Tweening;
 public class Global
 {
     
@@ -60,7 +60,7 @@ public class Global
     {
         if (Config.userLocalResource)
         {
-            StorageDataPath = Application.dataPath + "/../../UserStorage/";
+            StorageDataPath = Application.dataPath + "../../../UserStorage/";
         }
         else
         {
@@ -75,8 +75,8 @@ public class Global
         UserDataPath = StorageDataPath + "UserData/";
 
 
-
-
+        DOTween.Init();
+        
 
 
 
