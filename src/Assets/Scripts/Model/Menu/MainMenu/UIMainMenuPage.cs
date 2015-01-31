@@ -22,13 +22,7 @@ public class UIMainMenuPage : BasePage
 		UIEventListener.Get(gameObject.FindChild ("EnterChapter")).onClick = OnEnterChapterClick;
 		UIEventListener.Get(gameObject.FindChild ("EnterShop")).onClick = OnEnterShopClick;
 		UIEventListener.Get(gameObject.FindChild ("EnterBarracks")).onClick = OnEnterBarracksClick;
-        UIEventListener.Get(gameObject.FindChild("HeroButton")).onClick = OnHeroButtonClick;
 	}
-
-    private void OnHeroButtonClick(GameObject go)
-    {
-        PageManager.Instance.ShowPage(UIBagPage.Instance);
-    }
 
 	void OnEnterChapterClick(GameObject go)
 	{

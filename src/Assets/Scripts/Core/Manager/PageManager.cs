@@ -32,9 +32,9 @@ public class PageManager : MonoBehaviour
 		}
 	}
 	
-	public float AnimationDuration = 0.3f;
-	public float AnimationScaleZoomIn = 10.0f;
-	public float AnimationScaleZoomOut = 0.1f;
+	public static float AnimationDuration = 0.3f;
+    public static float AnimationScaleZoomIn = 10.0f;
+    public static float AnimationScaleZoomOut = 0.1f;
 	
 	void Awake()
 	{
@@ -54,7 +54,7 @@ public class PageManager : MonoBehaviour
 	public void ShowPage(BasePage page, AnimationType type = AnimationType.NULL)
 	{
 		//切换页面把当前的对话框关闭
-		CloseDialog();
+		HideDialog();
 
 		Tweener tweener = null;
 		
