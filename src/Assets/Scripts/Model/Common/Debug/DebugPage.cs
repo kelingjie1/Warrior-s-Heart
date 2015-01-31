@@ -10,13 +10,12 @@ public class DebugPage : BasePage
         UILabel label = button.AddComponent<UILabel>();
         label.trueTypeFont = Global.Arial;
         label.text = "DEBUG";
-        label.pivot = UIWidget.Pivot.TopLeft;
+        label.pivot = UIWidget.Pivot.BottomLeft;
+        label.depth = 1000;
         NGUITools.AddWidgetCollider(button);
         GameObject topPanel=PageManager.Instance.gameObject.FindChild("TopPanel");
         topPanel.AddChild(button);
-        label.SetAnchor(topPanel);
-        label.rightAnchor.relative = 0.05f;
-        label.bottomAnchor.relative = 0.95f;
+        label.transform.localPosition = new Vector3(-Screen.width / 2, -Screen.height / 2, 0);
         UIEventListener.Get(button).onClick = OnDebugButtonClick;
         
     }
@@ -33,7 +32,7 @@ public class DebugPage : BasePage
         {
             if (m_instance == null)
             {
-                m_instance = ResourceManager.LoadGameObject("Prefab/DebugPage").GetComponent<DebugPage>();
+                m_instance = ResourceManager.LoadGameObject("Prefab/Common/DebugPage").GetComponent<DebugPage>();
             }
             return m_instance;
         }

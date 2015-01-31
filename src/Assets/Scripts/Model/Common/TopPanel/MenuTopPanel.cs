@@ -14,7 +14,7 @@ public class MenuTopPanel : MonoBehaviour
 
     private void OnBarButtonClick(GameObject go)
     {
-        RightBar.active = !RightBar.active;
+        RightBar.SetActive(!RightBar.activeSelf);
     }
 
     private void OnBackButtonClick(GameObject go)

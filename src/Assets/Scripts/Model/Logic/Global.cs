@@ -82,7 +82,7 @@ public class Global
 
         NetworkManager.Instance.useFakeData = false;
         
-        UILabel label=ResourceManager.LoadGameObject("Prefab/BaseLabel").GetComponent<UILabel>();
+        UILabel label=ResourceManager.LoadGameObject("Prefab/Common/BaseLabel").GetComponent<UILabel>();
         Arial = label.trueTypeFont;
         GameObject.Destroy(label.gameObject);
 
