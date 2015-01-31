@@ -60,7 +60,7 @@ public class Global
     {
         if (Config.userLocalResource)
         {
-            StorageDataPath = Application.dataPath + "/../../UserStorage/";
+            StorageDataPath = Application.dataPath + "../../UserStorage/";
         }
         else
         {
