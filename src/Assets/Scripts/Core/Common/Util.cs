@@ -37,7 +37,7 @@ public class Util
         obj.transform.localScale = new Vector3(1, 1, 1);
         obj.transform.localPosition = new Vector3(0, 0, 0);
     }
-    public static void Unzip(string filepath)
+    public static void Unzip(string filepath,string targetDir)
     {
         if (!File.Exists(filepath))
         {
@@ -50,7 +50,7 @@ public class Util
             ZipEntry theEntry;
             while ((theEntry = s.GetNextEntry()) != null)
             {
-                string directoryName = Global.DownloadPath + Path.GetDirectoryName(theEntry.Name);
+                string directoryName = targetDir + Path.GetDirectoryName(theEntry.Name);
                 string fileName = Path.GetFileName(theEntry.Name);
                 string fullPath = directoryName + "/" + fileName;
 
