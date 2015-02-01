@@ -14,7 +14,11 @@ public class ItemBagDataMrg
     //list 数据 map 数据 都有同一个数据
 	public XmlBagItems m_XmlBagItems;
     public Dictionary<string, XmlBagItem> m_XmlBagItemsDic = new Dictionary<string, XmlBagItem>();
-	
+
+	public XmlBagItem FindXmlBagItemById(string ItemId)
+    {
+        return m_XmlBagItemsDic[ItemId];
+    }
 
 	public ItemBagDataMrg()
 	{
@@ -25,7 +29,7 @@ public class ItemBagDataMrg
 		XmlSerializer xs = new XmlSerializer(typeof(XmlBagItems));
 		FileStream fs = new FileStream(Global.DownloadPath + m_sConfigFile, FileMode.Open);
 		m_XmlBagItems = xs.Deserialize(fs) as XmlBagItems;
-        // m_XmlBagItems = null;
+        //m_XmlBagItems = null;
 		fs.Close();
 		if (m_XmlBagItems == null) 
 		{

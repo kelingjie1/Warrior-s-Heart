@@ -4,34 +4,21 @@ using System.Collections.Generic;
 using game_proto;
 
 //ui 数据结构 用户数据拉取回来以后直接放到这
-public class UIOneItem : MonoBehaviour
-{
-    public UIOneItem()
-    {
-        m_BagItem = new BagItem();
-    }
-    //协议数据结构
-    public BagItem m_BagItem;
-    //maybe other
 
-    public static UIOneItem Instance
-    {
-        get
-        {
-            return ResourceManager.LoadGameObject("Prefab/Menu/BagPage/BagItem").GetComponent<UIOneItem>();
-        }
-    }
-
-}
 
 
 public class UIItemBagPage : BasePage {
 
+
     static UIItemBagPage m_instance;
+    
+    //物品UI数据
+    Dictionary<string, UIOneItem> m_UIAllItemsByIdDic;
 
-    Dictionary<string, UIOneItem> m_UIAllItemsByIdDic = new Dictionary<string, UIOneItem>();
-	
-
+    //xml配置数据
+    ItemBagDataMrg m_XMLItemDataMrg;
+    //控制变量
+    public CATEGROYTYPE m_SelectCategoryIndex = CATEGROYTYPE.CATEGORY_TYEP_ALL;
 	public static UIItemBagPage Instance
 	{
 		get
@@ -44,26 +31,47 @@ public class UIItemBagPage : BasePage {
 		}
 	}
 
+
+    public void RefreshSurface()
+    {
+        foreach (KeyValuePair<string, UIOneItem> oneItem in m_UIAllItemsByIdDic)
+        {
+            string ItemID = oneItem.Key;
+            XmlBagItem stXmlBagItem = m_XMLItemDataMrg.FindXmlBagItemById(ItemID);
+            gameObject.FindChild("ItemBagList").AddChild(oneItem.Value.gameObject);
+            oneItem.Value.gameObject.transform.localPosition = new Vector3(0, 0, 0);
+            
+        }
+
+        //刷新界面
+        gameObject.FindChild("ItemBagList").GetComponent<UIGrid>().Reposition();
+        gameObject.FindChild("ItemBagList").GetComponent<UIScrollView>().ResetPosition();
+
+        //SetCurrentItem(current_choose_item);
+    }
+
 	void Awake()
 	{
-        //xml配置数据
-        ItemBagDataMrg m_test = ItemBagDataMrg.Instance;
-
+  
+        m_XMLItemDataMrg = ItemBagDataMrg.Instance;
+        m_UIAllItemsByIdDic = new Dictionary<string, UIOneItem>();
 
 		//test data
         List<UIOneItem> Items = new List<UIOneItem>();
-        UIOneItem stUIOneItem = new UIOneItem();
-        stUIOneItem.m_BagItem.ref_id = "1";
+        UIOneItem stUIOneItem = UIOneItem.Instance;
+        stUIOneItem.m_BagItem.ref_id = "0";
         stUIOneItem.m_BagItem.count = 10;
         Items.Add(stUIOneItem);
-        stUIOneItem = new UIOneItem();
-        stUIOneItem.m_BagItem.ref_id = "2";
+        stUIOneItem = UIOneItem.Instance;
+        stUIOneItem.m_BagItem.ref_id = "1";
         stUIOneItem.m_BagItem.count = 11;
         Items.Add(stUIOneItem);
         foreach (UIOneItem i in Items) 
 		{
             m_UIAllItemsByIdDic.Add(i.m_BagItem.ref_id, i);
 		}
+
+        RefreshSurface();
 
 
 	}
