@@ -6,6 +6,7 @@
       <name>血 [0]</name>
       <Desc>JIAXUE</Desc>
       <picPath>0</picPath>
+      <CategoryType>CATEGORY_TYEP_ALL</CategoryType>
       <itemType>ITEMBAG_TYPE_MATERIAL</itemType>
     </XmlBagItem>
     <XmlBagItem>
@@ -13,6 +14,7 @@
       <name>血 [1]</name>
       <Desc>JIAXUE</Desc>
       <picPath>1</picPath>
+      <CategoryType>CATEGORY_TYEP_ALL</CategoryType>
       <itemType>ITEMBAG_TYPE_MATERIAL</itemType>
     </XmlBagItem>
   </bagItemList>
