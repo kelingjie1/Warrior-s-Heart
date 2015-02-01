@@ -28,6 +28,7 @@ public class UpdateResourcePage : BasePage
     UILabel ResourceProgressLabel;
     UIProgressBar ResourceProgressBar;
     FileStream resourceStream;
+    FileStream configStream;
 
     int downloadPhase;
     void Awake()
@@ -37,7 +38,7 @@ public class UpdateResourcePage : BasePage
         ResourceProgressLabel = gameObject.FindChild("ResourceProgressLabel").GetComponent<UILabel>();
         ResourceProgressBar = gameObject.FindChild("ResourceProgressBar").GetComponent<UIProgressBar>();
     }
-    public override void PageWillAppear()
+    public override void PageDidAppear()
     {
         base.PageWillAppear();
         NetworkManager.Instance.RegisterHandler((int)MessageType.kMsgUpdateAppRsp, UpdateAppRspHandler);
@@ -67,10 +68,8 @@ public class UpdateResourcePage : BasePage
             // download resource files
             if (!string.IsNullOrEmpty(rsp.resource_url))
             {
-                string download_path = Global.DownloadPath + "Resources.zip";
-                Debug.Log("save_path:" + download_path);
                 HTTPRequest request = new HTTPRequest(new Uri(rsp.resource_url), ResourceDownloadFinish);
-                resourceStream = File.OpenWrite(Global.DownloadPath + "Resources.zip");
+                resourceStream = File.OpenWrite(Global.TempPath + "Resources.zip");
                 request.SetRangeHeader((int)resourceStream.Length);
                 request.OnProgress = ResourceDownloadProgress;
                 request.UseStreaming = true;
@@ -86,9 +85,13 @@ public class UpdateResourcePage : BasePage
             // download config files
             if (!string.IsNullOrEmpty(rsp.config_url))
             {
-                string download_path = Global.DownloadPath + "Config.zip";
-                Debug.Log("save_path:" + download_path);
-                DownloadTool.StartDownload(download_path, rsp.config_url, OnConfigDownloadCallback);
+                HTTPRequest request = new HTTPRequest(new Uri(rsp.config_url), ConfigDownloadFinish);
+                configStream = File.OpenWrite(Global.TempPath + "Config.zip");
+                request.SetRangeHeader((int)configStream.Length);
+                request.OnProgress = ConfigDownloadProgress;
+                request.UseStreaming = true;
+                request.StreamFragmentSize = 1024 * 100;
+                HTTPManager.SendRequest(request);
                 
             }	
             else
@@ -103,92 +106,69 @@ public class UpdateResourcePage : BasePage
     }
     void ResourceDownloadProgress(HTTPRequest request, int downloaded, int length)
     {
-        ResourceProgressLabel.text = downloaded + "/" + length;
+        ResourceProgressLabel.text = downloaded / 1000 + "K/" + length / 1000 + "K";
         ResourceProgressBar.value = downloaded / (float)length;
     }
     void ResourceDownloadFinish(HTTPRequest req, HTTPResponse resp)
     {
+        if (resp == null)
+        {
+            return;
+        }
+
         List<byte[]> list = resp.GetStreamedFragments();
         if (list != null)
         {
-            foreach (byte[] data in list)
+            if (list.Count != 1 || list[0].Length != 1)
             {
-                resourceStream.Write(data,0,data.Length);
+                foreach (byte[] data in list)
+                {
+                    resourceStream.Write(data, 0, data.Length);
+                }
             }
-            
         }
         if (resp.IsStreamingFinished)
         {
-            Debug.Log("success");
             resourceStream.Close();
-            Util.Unzip(Global.DownloadPath + "Resources.zip");
-            File.Delete(Global.DownloadPath + "Resources.zip");
+            Util.Unzip(Global.TempPath + "Resources.zip", Global.DownloadPath);
             EventManager.Instance.Invoke(DownloadFinish);
         }
         
     }
-    void OnConfigDownloadCallback(DownloadTool download)
+
+    void ConfigDownloadProgress(HTTPRequest request, int downloaded, int length)
     {
-        // Downloading
-        EventManager.Instance.Invoke(() => UpdateConfig(download.Percent));
-        if (download.IsDone)
+        ConfigProgressLabel.text = downloaded / 1000 + "K/" + length / 1000 + "K";
+        ConfigProgressBar.value = downloaded / (float)length;
+    }
+
+    void ConfigDownloadFinish(HTTPRequest req, HTTPResponse resp)
+    {
+        if (resp == null)
         {
-            // success
-            if (null == download.Error)
-            {
-                Util.Unzip(download.SaveFileName);
-                File.Delete(download.SaveFileName);
-                EventManager.Instance.Invoke(DownloadFinish);
+            return;
+        }
 
-            }
-            else // Failed
+        List<byte[]> list = resp.GetStreamedFragments();
+        if (list != null)
+        {
+            if (list.Count != 1 || list[0].Length != 1)
             {
-                Debug.Log("下载失败");
-                // Delete
-                if (File.Exists(download.SaveFileName))
+                foreach (byte[] data in list)
                 {
-                    File.Delete(download.SaveFileName);
+                    configStream.Write(data, 0, data.Length);
                 }
-
-                Debug.LogError(download.Error);
             }
         }
-    }
-    void OnResourceDownloadCallback(DownloadTool download)
-    {
-        // Downloading
-        EventManager.Instance.Invoke(() => UpdateResource(download.Percent));
-        if (download.IsDone)
+        if (resp.IsStreamingFinished)
         {
-            // success
-            if (null == download.Error)
-            {
-                Util.Unzip(download.SaveFileName);
-                File.Delete(download.SaveFileName);
-                EventManager.Instance.Invoke(DownloadFinish);
-            }
-            else // Failed
-            {
-                Debug.Log("下载失败");
-                if (File.Exists(download.SaveFileName))
-                {
-                    File.Delete(download.SaveFileName);
-                }
-
-                Debug.LogError(download.Error);
-            }
+            configStream.Close();
+            Util.Unzip(Global.TempPath + "Config.zip", Global.DownloadPath);
+            EventManager.Instance.Invoke(DownloadFinish);
         }
+
     }
-    void UpdateConfig(float progress)
-    {
-        ConfigProgressLabel.text = (int)(progress * 100) + "%";
-        ConfigProgressBar.value = progress;
-    }
-    void UpdateResource(float progress)
-    {
-        ResourceProgressLabel.text = (int)(progress * 100) + "%";
-        ResourceProgressBar.value = progress;
-    }
+    
     public override void PageWillDisappear()
     {
         base.PageWillDisappear();

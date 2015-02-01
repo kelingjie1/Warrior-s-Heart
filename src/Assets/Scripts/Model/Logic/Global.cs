@@ -19,6 +19,9 @@ public class Global
     public static string UserDataPath;
 
 
+    public static string TempPath;
+
+
     public static Font Arial;
 
 
@@ -73,7 +76,7 @@ public class Global
 
 
         UserDataPath = StorageDataPath + "UserData/";
-
+        TempPath = Application.temporaryCachePath + "/";
 
         DOTween.Init();
         
